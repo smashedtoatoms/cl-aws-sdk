@@ -1,11 +1,11 @@
-(defpackage #:aws-sdk/credentials/ec2role
+(defpackage #:aws-sdk-cl/credentials/ec2role
   (:use #:cl)
-  (:import-from #:aws-sdk/credentials/base
+  (:import-from #:aws-sdk-cl/credentials/base
                 #:make-credentials
                 #:provider
                 #:retrieve
                 #:provider-expiration)
-  (:import-from #:aws-sdk/ec2metadata
+  (:import-from #:aws-sdk-cl/ec2metadata
                 #:ec2metadata)
   (:import-from #:trivial-timeout
                 #:timeout-error)
@@ -13,7 +13,7 @@
   (:import-from #:yason)
   (:import-from #:local-time)
   (:export #:ec2role-provider))
-(in-package #:aws-sdk/credentials/ec2role)
+(in-package #:aws-sdk-cl/credentials/ec2role)
 
 (defclass ec2role-provider (provider)
   ())
@@ -23,13 +23,13 @@
       (let ((role (ppcre:scan-to-strings "^.+?(?=(?:[\\r\\n]|$))"
                                          (ec2metadata "/iam/security-credentials/"))))
         (when role
-          (let ((res (yason:parse
-                      (ec2metadata (format nil "/iam/security-credentials/~A" role)))))
-            (setf (provider-expiration provider)
-                  (local-time:parse-timestring (gethash "Expiration" res)))
-            (make-credentials
-             :access-key-id (gethash "AccessKeyId" res)
-             :secret-access-key (gethash "SecretAccessKey" res)
-             :session-token (gethash "Token" res)
-             :provider-name "ec2role-provider"))))
+              (let ((res (yason:parse
+                          (ec2metadata (format nil "/iam/security-credentials/~A" role)))))
+                (setf (provider-expiration provider)
+                      (local-time:parse-timestring (gethash "Expiration" res)))
+                (make-credentials
+                 :access-key-id (gethash "AccessKeyId" res)
+                 :secret-access-key (gethash "SecretAccessKey" res)
+                 :session-token (gethash "Token" res)
+                 :provider-name "ec2role-provider"))))
     ((or usocket:socket-error timeout-error) () nil)))

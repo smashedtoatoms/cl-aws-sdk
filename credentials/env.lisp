@@ -1,14 +1,14 @@
-(defpackage #:aws-sdk/credentials/env
+(defpackage #:aws-sdk-cl/credentials/env
   (:use #:cl)
-  (:import-from #:aws-sdk/credentials/base
+  (:import-from #:aws-sdk-cl/credentials/base
                 #:make-credentials
                 #:provider
                 #:retrieve
                 #:expiredp)
-  (:import-from #:aws-sdk/utils
+  (:import-from #:aws-sdk-cl/utils
                 #:getenv)
   (:export #:env-provider))
-(in-package #:aws-sdk/credentials/env)
+(in-package #:aws-sdk-cl/credentials/env)
 
 (defclass env-provider (provider)
   ((retrievedp :initform nil)))
@@ -21,12 +21,12 @@
                                (getenv "AWS_SECRET_KEY"))))
     (when (and access-key-id
                secret-access-key)
-      (setf (slot-value provider 'retrievedp) t)
-      (make-credentials
-       :access-key-id access-key-id
-       :secret-access-key secret-access-key
-       :session-token (getenv "AWS_SESSION_TOKEN")
-       :provider-name "env-provider"))))
+          (setf (slot-value provider 'retrievedp) t)
+          (make-credentials
+           :access-key-id access-key-id
+           :secret-access-key secret-access-key
+           :session-token (getenv "AWS_SESSION_TOKEN")
+           :provider-name "env-provider"))))
 
 (defmethod expiredp ((provider env-provider))
   (not (slot-value provider 'retrievedp)))

@@ -13,13 +13,13 @@ fixed I am likely going to make more changes, so consider this Alpha.
 ## Usage
 
 AWS-SDK provides interfaces for each AWS services as individual systems under
-"aws-sdk/services/*".
+"aws-sdk-cl/services/*".
 
 __Here's an example to send an SMS via Amazon Simple Notification Service:__
 
 ```lisp
-(asdf:load-system :aws-sdk)
-(asdf:load-system :aws-sdk/services/sns)
+(asdf:load-system :aws-sdk-cl)
+(asdf:load-system :aws-sdk-cl/services/sns)
 
 (setf aws:*session* (aws:make-session))
 
@@ -29,8 +29,8 @@ __Here's an example to send an SMS via Amazon Simple Notification Service:__
 __Here's an example of listing your s3 buckets:__
 
 ```lisp
-(asdf:load-system :aws-sdk)
-(asdf:load-system :aws-sdk/services/s3)
+(asdf:load-system :aws-sdk-cl)
+(asdf:load-system :aws-sdk-cl/services/s3)
 
 (setf aws:*session* (aws:make-session))
 
@@ -86,8 +86,8 @@ following in the terminal:
 ```sh
 clpm bundle install
 clpm bundle exec -- sbcl \
-  --eval '(asdf:load-system :aws-sdk/generator)' \
-  --eval '(uiop:symbol-call :aws-sdk/generator :generate-all-services)' \
+  --eval '(asdf:load-system :aws-sdk-cl/generator)' \
+  --eval '(uiop:symbol-call :aws-sdk-cl/generator :generate-all-services)' \
   --quit
 ```
 

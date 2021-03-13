@@ -3,4 +3,4 @@
 
 (:source "quicklisp" :url "https://quicklisp.common-lisp-project-index.org/" :type :ql-clpi)
 
-(:asd "aws-sdk.asd")
+(:asd "aws-sdk-cl.asd")

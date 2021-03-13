@@ -1,11 +1,11 @@
-(defpackage #:aws-sdk/session
+(defpackage #:aws-sdk-cl/session
   (:use #:cl)
-  (:import-from #:aws-sdk/credentials
+  (:import-from #:aws-sdk-cl/credentials
                 #:credentials)
   (:export #:session
            #:session-credentials
            #:session-region))
-(in-package #:aws-sdk/session)
+(in-package #:aws-sdk-cl/session)
 
 (defvar *session* nil)
 

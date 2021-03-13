@@ -1,11 +1,11 @@
-(uiop:define-package #:aws-sdk
-  (:nicknames #:aws-sdk/main #:aws)
+(uiop:define-package #:aws-sdk-cl
+  (:nicknames #:aws-sdk-cl/main #:aws)
   (:use #:cl)
-  (:use-reexport #:aws-sdk/session
-                 #:aws-sdk/make-session
-                 #:aws-sdk/credentials
-                 #:aws-sdk/api)
-  (:import-from #:aws-sdk/utils/config
+  (:use-reexport #:aws-sdk-cl/session
+                 #:aws-sdk-cl/make-session
+                 #:aws-sdk-cl/credentials
+                 #:aws-sdk-cl/api)
+  (:import-from #:aws-sdk-cl/utils/config
                 #:*aws-profile*)
   (:export #:*aws-profile*))
-(in-package #:aws-sdk)
+(in-package #:aws-sdk-cl)

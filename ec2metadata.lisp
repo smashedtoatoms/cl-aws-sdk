@@ -1,4 +1,4 @@
-(defpackage #:aws-sdk/ec2metadata
+(defpackage #:aws-sdk-cl/ec2metadata
   (:use #:cl)
   (:import-from #:dexador)
   (:import-from #:trivial-timeout
@@ -6,12 +6,12 @@
                 #:timeout-error)
   (:export #:ec2metadata
            #:ec2-region))
-(in-package #:aws-sdk/ec2metadata)
+(in-package #:aws-sdk-cl/ec2metadata)
 
 (defun ec2metadata (path)
   (with-timeout (5)
-    (dex:get (format nil "http://169.254.169.254/latest/meta-data~A"
-                     (or path "/")))))
+                (dex:get (format nil "http://169.254.169.254/latest/meta-data~A"
+                                 (or path "/")))))
 
 (defun ec2-region ()
   (handler-case

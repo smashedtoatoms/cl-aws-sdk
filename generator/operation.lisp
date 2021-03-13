@@ -1,19 +1,19 @@
-(defpackage #:aws-sdk/generator/operation
+(defpackage #:aws-sdk-cl/generator/operation
   (:use #:cl
-        #:aws-sdk/utils)
-  (:import-from #:aws-sdk/generator/shape
+        #:aws-sdk-cl/utils)
+  (:import-from #:aws-sdk-cl/generator/shape
                 #:shape-to-params)
-  (:import-from #:aws-sdk/api
+  (:import-from #:aws-sdk-cl/api
                 #:aws-request)
   (:import-from #:assoc-utils
                 #:aget)
   (:import-from #:xmls)
   (:export #:compile-operation))
-(in-package #:aws-sdk/generator/operation)
+(in-package #:aws-sdk-cl/generator/operation)
 
 (defun %xmls-to-alist (xmls)
   (unless (consp xmls)
-    (return-from %xmls-to-alist xmls))
+          (return-from %xmls-to-alist xmls))
 
   (destructuring-bind ((name &rest ignore) attrs &rest contents) xmls
     (declare (ignore ignore attrs))
@@ -24,13 +24,12 @@
 
 (defun parse-response (response response-name wrapper-name)
   (when response-name
-    (let* ((output (xmls-to-alist (xmls:parse-to-list response)))
-           (output ;; Unwrap the root element
-             (cdr (first output))))
-      (if wrapper-name
-          (values (aget output wrapper-name)
-                  (aget output "ResponseMetadata"))
-          output))))
+        (let* ((output (xmls-to-alist (xmls:parse-to-list response)))
+               (output (cdr (first output))))
+          (if wrapper-name
+              (values (aget output wrapper-name)
+                      (aget output "ResponseMetadata"))
+              output))))
 
 (defun compile-operation (service name version options params)
   (let ((output (gethash "output" options)))

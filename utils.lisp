@@ -1,4 +1,4 @@
-(defpackage #:aws-sdk/utils
+(defpackage #:aws-sdk-cl/utils
   (:use #:cl)
   (:import-from #:ironclad
                 #:byte-array-to-hex-string
@@ -7,7 +7,7 @@
   (:import-from #:kebab
                 #:to-lisp-case)
   (:export #:lispify))
-(in-package #:aws-sdk/utils)
+(in-package #:aws-sdk-cl/utils)
 
 (defun lispify (value &optional (package *package*))
   (intern (string-upcase (kebab:to-lisp-case value)) package))
@@ -16,7 +16,7 @@
   (let ((value (uiop:getenv var)))
     (when (and (stringp value)
                (string/= value ""))
-      value)))
+          value)))
 
 (defun sha-256 (str)
   (ironclad:byte-array-to-hex-string

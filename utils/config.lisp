@@ -1,6 +1,6 @@
-(defpackage #:aws-sdk/utils/config
+(defpackage #:aws-sdk-cl/utils/config
   (:use #:cl)
-  (:import-from #:aws-sdk/utils
+  (:import-from #:aws-sdk-cl/utils
                 #:getenv)
   (:import-from #:parser.ini
                 #:*include-empty-sections?*
@@ -8,7 +8,7 @@
   (:export #:parse-file
            #:read-from-file
            #:*aws-profile*))
-(in-package #:aws-sdk/utils/config)
+(in-package #:aws-sdk-cl/utils/config)
 
 (defvar *aws-profile* (or (getenv "AWS_PROFILE") "default"))
 
@@ -30,7 +30,7 @@
     (when (and (gethash filename *cached-ini*)
                (<= (file-write-date filename)
                    (car (gethash filename *cached-ini*))))
-      (return-from parse-file (cdr (gethash filename *cached-ini*))))
+          (return-from parse-file (cdr (gethash filename *cached-ini*))))
     (let ((data (%parse-file file)))
       (setf (gethash filename *cached-ini*)
             (cons (file-write-date file) data))
@@ -38,11 +38,10 @@
 
 (defun read-from-file (file &key (profile *aws-profile*) allow-no-profile)
   (let* ((data (parse-file file))
-         (section
-           (or (assoc profile data :test 'equal)
-               ;; Fallback to 'profile <name>'
-               (assoc (format nil "profile ~A" profile) data :test 'equal))))
+         (section (or (assoc profile data :test 'equal)
+                      ;; Fallback to 'profile <name>'
+                      (assoc (format nil "profile ~A" profile) data :test 'equal))))
     (when (and (null section)
                (not allow-no-profile))
-      (error "Profile '~A' doesn't exist in '~A'." profile file))
+          (error "Profile '~A' doesn't exist in '~A'." profile file))
     (cdr section)))
