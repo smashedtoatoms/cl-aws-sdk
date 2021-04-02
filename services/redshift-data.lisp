@@ -6,6 +6,24 @@
   (:import-from #:aws-sdk-cl/generator/operation)
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/redshift-data)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (active-statements-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'active-statements-exceeded-exception
+                    'make-active-statements-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          active-statements-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype blob ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
@@ -401,6 +419,30 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'table-name))))))
 (common-lisp:progn
+ (common-lisp:defstruct (execute-statement-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null))
+   (statement-id-type (common-lisp:error ":statement-id is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'execute-statement-exception
+                    'make-execute-statement-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          execute-statement-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "StatementId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'statement-id))))))
+(common-lisp:progn
  (common-lisp:defstruct (execute-statement-input (:copier common-lisp:nil))
    (cluster-identifier-type
     (common-lisp:error ":cluster-identifier is required") :type
@@ -629,6 +671,23 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'total-num-rows))))))
 (common-lisp:deftype integer () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-exception
+                    'make-internal-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-databases-request (:copier common-lisp:nil))
    (cluster-identifier-type
@@ -961,6 +1020,31 @@
 (common-lisp:deftype long () 'common-lisp:integer)
 (common-lisp:deftype page-size () 'common-lisp:integer)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null))
+   (resource-id-type (common-lisp:error ":resource-id is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-id))))))
+(common-lisp:progn
  (common-lisp:deftype schema-list () '(trivial-types:proper-list string))
  (common-lisp:defun |make-schema-list|
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
@@ -1075,6 +1159,22 @@
                                                    'type))))))
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:deftype uuid () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype |bool| () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:defun cancel-statement

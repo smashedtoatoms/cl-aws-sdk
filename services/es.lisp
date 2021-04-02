@@ -47,6 +47,15 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'cross-cluster-search-connection))))))
 (common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (access-policies-status (:copier common-lisp:nil))
    (options-type (common-lisp:error ":options is required") :type
     (common-lisp:or policy-document common-lisp:null))
@@ -517,6 +526,19 @@
                                                    'pending-deletion))))))
 (common-lisp:deftype auto-tune-type () 'common-lisp:string)
 (common-lisp:deftype backend-role () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (base-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'base-exception 'make-base-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape base-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -646,6 +668,15 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'target-versions))))))
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append)))
 (common-lisp:deftype connection-alias () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -1634,6 +1665,17 @@
      (aws-sdk-cl/generator/shape:shape-to-params
       (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
                               'reserved-elasticsearch-instances))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disabled-operation-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'disabled-operation-exception
+                    'make-disabled-operation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          disabled-operation-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (dissociate-package-request (:copier common-lisp:nil))
    (package-idtype (common-lisp:error ":package-id is required") :type
@@ -2840,6 +2882,35 @@
 (common-lisp:deftype instance-role () 'common-lisp:string)
 (common-lisp:deftype integer () 'common-lisp:integer)
 (common-lisp:deftype integer-class () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'internal-exception 'make-internal-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-pagination-token-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-pagination-token-exception
+                    'make-invalid-pagination-token-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-pagination-token-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-type-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-type-exception 'make-invalid-type-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-type-exception))
+   (common-lisp:append)))
 (common-lisp:deftype issue () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype issues () '(trivial-types:proper-list issue))
@@ -2850,6 +2921,15 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype kms-key-id () 'common-lisp:string)
 (common-lisp:deftype last-updated () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:deftype limit-name () 'common-lisp:string)
 (common-lisp:deftype limit-value () 'common-lisp:string)
 (common-lisp:progn
@@ -3918,6 +3998,28 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype reserved-elasticsearch-instance-payment-option ()
   'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-already-exists-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-already-exists-exception
+                    'make-resource-already-exists-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-already-exists-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:deftype role-arn () 'common-lisp:string)
 (common-lisp:deftype rollback-on-disable () 'common-lisp:string)
 (common-lisp:deftype s3bucket-name () 'common-lisp:string)
@@ -4744,6 +4846,15 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'security-group-ids))))))
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:deftype value-string-list ()
    '(trivial-types:proper-list non-empty-string))

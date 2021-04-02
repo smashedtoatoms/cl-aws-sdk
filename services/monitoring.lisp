@@ -181,6 +181,7 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list anomaly-detector))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype aws-query-error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype batch-failures ()
    '(trivial-types:proper-list partial-failure))
@@ -296,6 +297,17 @@
                            (trivial-types:proper-list composite-alarm))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (concurrent-modification-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'concurrent-modification-exception
+                    'make-concurrent-modification-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          concurrent-modification-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype counts () '(trivial-types:proper-list datapoint-value))
  (common-lisp:defun |make-counts|
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
@@ -345,6 +357,32 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'size))))))
+(common-lisp:deftype dashboard-error-message () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (dashboard-invalid-input-error (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or dashboard-error-message common-lisp:null))
+   (dashboard-validation-messages-type common-lisp:nil :type
+    (common-lisp:or dashboard-validation-messages common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dashboard-invalid-input-error
+                    'make-dashboard-invalid-input-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          dashboard-invalid-input-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "dashboardValidationMessages"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dashboard-validation-messages))))))
 (common-lisp:deftype dashboard-name () 'common-lisp:string)
 (common-lisp:deftype dashboard-name-prefix () 'common-lisp:string)
 (common-lisp:progn
@@ -355,6 +393,23 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list dashboard-name))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (dashboard-not-found-error (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or dashboard-error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dashboard-not-found-error
+                    'make-dashboard-not-found-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          dashboard-not-found-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (dashboard-validation-message (:copier common-lisp:nil))
@@ -600,6 +655,34 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'failures))))))
+(common-lisp:progn
+ (common-lisp:defstruct (delete-metric-stream-input (:copier common-lisp:nil))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or metric-stream-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-metric-stream-input
+                    'make-delete-metric-stream-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-metric-stream-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-metric-stream-output (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'delete-metric-stream-output
+                    'make-delete-metric-stream-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-metric-stream-output))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-alarm-history-input (:copier common-lisp:nil))
@@ -1153,6 +1236,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'failures))))))
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:deftype evaluate-low-sample-count-percentile ()
   'common-lisp:string)
 (common-lisp:deftype evaluation-periods () 'common-lisp:integer)
@@ -1169,6 +1253,7 @@
 (common-lisp:deftype failure-code () 'common-lisp:string)
 (common-lisp:deftype failure-description () 'common-lisp:string)
 (common-lisp:deftype failure-resource () 'common-lisp:string)
+(common-lisp:deftype fault-description () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (get-dashboard-input (:copier common-lisp:nil))
    (dashboard-name-type (common-lisp:error ":dashboard-name is required") :type
@@ -1518,6 +1603,101 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'datapoints))))))
 (common-lisp:progn
+ (common-lisp:defstruct (get-metric-stream-input (:copier common-lisp:nil))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or metric-stream-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-metric-stream-input 'make-get-metric-stream-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-metric-stream-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (get-metric-stream-output (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (name-type common-lisp:nil :type
+    (common-lisp:or metric-stream-name common-lisp:null))
+   (include-filters-type common-lisp:nil :type
+    (common-lisp:or metric-stream-filters common-lisp:null))
+   (exclude-filters-type common-lisp:nil :type
+    (common-lisp:or metric-stream-filters common-lisp:null))
+   (firehose-arn-type common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (role-arn-type common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (state-type common-lisp:nil :type
+    (common-lisp:or metric-stream-state common-lisp:null))
+   (creation-date-type common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (last-update-date-type common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (output-format-type common-lisp:nil :type
+    (common-lisp:or metric-stream-output-format common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-metric-stream-output 'make-get-metric-stream-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-metric-stream-output))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "IncludeFilters"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'include-filters)))
+    (aws-sdk-cl/generator/shape::to-query-params "ExcludeFilters"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'exclude-filters)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirehoseArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firehose-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "RoleArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'role-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "State"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'state)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationDate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-date)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastUpdateDate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-update-date)))
+    (aws-sdk-cl/generator/shape::to-query-params "OutputFormat"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'output-format))))))
+(common-lisp:progn
  (common-lisp:defstruct
      (get-metric-widget-image-input (:copier common-lisp:nil))
    (metric-widget-type (common-lisp:error ":metric-widget is required") :type
@@ -1804,6 +1984,90 @@
                            (trivial-types:proper-list insight-rule))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (internal-service-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or fault-description common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-service-fault 'make-internal-service-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-service-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-format-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-format-fault 'make-invalid-format-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-format-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-next-token (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-next-token 'make-invalid-next-token))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-next-token))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-parameter-combination-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or aws-query-error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-parameter-combination-exception
+                    'make-invalid-parameter-combination-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-parameter-combination-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-parameter-value-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or aws-query-error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-parameter-value-exception
+                    'make-invalid-parameter-value-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-parameter-value-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (label-options (:copier common-lisp:nil))
    (timezone-type common-lisp:nil :type
     (common-lisp:or get-metric-data-label-timezone common-lisp:null)))
@@ -1817,6 +2081,31 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'timezone))))))
 (common-lisp:deftype last-modified () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-fault 'make-limit-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-dashboards-input (:copier common-lisp:nil))
    (dashboard-name-prefix-type common-lisp:nil :type
@@ -1863,6 +2152,55 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct (list-metric-streams-input (:copier common-lisp:nil))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or list-metric-streams-max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-metric-streams-input
+                    'make-list-metric-streams-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-metric-streams-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results))))))
+(common-lisp:deftype list-metric-streams-max-results () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (list-metric-streams-output (:copier common-lisp:nil))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (entries-type common-lisp:nil :type
+    (common-lisp:or metric-stream-entries common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-metric-streams-output
+                    'make-list-metric-streams-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-metric-streams-output))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "Entries"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'entries))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-metrics-input (:copier common-lisp:nil))
    (namespace-type common-lisp:nil :type
@@ -2455,6 +2793,107 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'unit))))))
+(common-lisp:progn
+ (common-lisp:deftype metric-stream-entries ()
+   '(trivial-types:proper-list metric-stream-entry))
+ (common-lisp:defun |make-metric-stream-entries|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list metric-stream-entry))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (metric-stream-entry (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (creation-date-type common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (last-update-date-type common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (name-type common-lisp:nil :type
+    (common-lisp:or metric-stream-name common-lisp:null))
+   (firehose-arn-type common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (state-type common-lisp:nil :type
+    (common-lisp:or metric-stream-state common-lisp:null))
+   (output-format-type common-lisp:nil :type
+    (common-lisp:or metric-stream-output-format common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'metric-stream-entry 'make-metric-stream-entry))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          metric-stream-entry))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationDate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-date)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastUpdateDate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-update-date)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirehoseArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firehose-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "State"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'state)))
+    (aws-sdk-cl/generator/shape::to-query-params "OutputFormat"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'output-format))))))
+(common-lisp:progn
+ (common-lisp:defstruct (metric-stream-filter (:copier common-lisp:nil))
+   (namespace-type common-lisp:nil :type
+    (common-lisp:or namespace common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'metric-stream-filter 'make-metric-stream-filter))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          metric-stream-filter))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Namespace"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'namespace))))))
+(common-lisp:progn
+ (common-lisp:deftype metric-stream-filters ()
+   '(trivial-types:proper-list metric-stream-filter))
+ (common-lisp:defun |make-metric-stream-filters|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list metric-stream-filter))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype metric-stream-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype metric-stream-names ()
+   '(trivial-types:proper-list metric-stream-name))
+ (common-lisp:defun |make-metric-stream-names|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list metric-stream-name))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype metric-stream-output-format () 'common-lisp:string)
+(common-lisp:deftype metric-stream-state () 'common-lisp:string)
 (common-lisp:deftype metric-widget () 'common-lisp:string)
 (common-lisp:deftype metric-widget-image ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
@@ -2465,6 +2904,24 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list metric))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (missing-required-parameter-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or aws-query-error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'missing-required-parameter-exception
+                    'make-missing-required-parameter-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          missing-required-parameter-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype namespace () 'common-lisp:string)
 (common-lisp:deftype next-token () 'common-lisp:string)
 (common-lisp:deftype output-format () 'common-lisp:string)
@@ -2897,6 +3354,80 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'metric-data))))))
 (common-lisp:progn
+ (common-lisp:defstruct (put-metric-stream-input (:copier common-lisp:nil))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or metric-stream-name common-lisp:null))
+   (include-filters-type common-lisp:nil :type
+    (common-lisp:or metric-stream-filters common-lisp:null))
+   (exclude-filters-type common-lisp:nil :type
+    (common-lisp:or metric-stream-filters common-lisp:null))
+   (firehose-arn-type (common-lisp:error ":firehose-arn is required") :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (role-arn-type (common-lisp:error ":role-arn is required") :type
+    (common-lisp:or amazon-resource-name common-lisp:null))
+   (output-format-type (common-lisp:error ":output-format is required") :type
+    (common-lisp:or metric-stream-output-format common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-metric-stream-input 'make-put-metric-stream-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          put-metric-stream-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "IncludeFilters"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'include-filters)))
+    (aws-sdk-cl/generator/shape::to-query-params "ExcludeFilters"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'exclude-filters)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirehoseArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firehose-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "RoleArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'role-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "OutputFormat"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'output-format)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (put-metric-stream-output (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-metric-stream-output 'make-put-metric-stream-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          put-metric-stream-output))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn))))))
+(common-lisp:progn
  (common-lisp:defstruct (range (:copier common-lisp:nil))
    (start-time-type (common-lisp:error ":start-time is required") :type
     (common-lisp:or timestamp common-lisp:null))
@@ -2917,6 +3448,7 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'end-time))))))
 (common-lisp:deftype recently-active () 'common-lisp:string)
+(common-lisp:deftype resource-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype resource-list ()
    '(trivial-types:proper-list resource-name))
@@ -2926,6 +3458,48 @@
                            (trivial-types:proper-list resource-name))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype resource-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (resource-not-found (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found 'make-resource-not-found))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (resource-type-type common-lisp:nil :type
+    (common-lisp:or resource-type common-lisp:null))
+   (resource-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-id))))))
+(common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:deftype return-data () 'common-lisp:boolean)
 (common-lisp:deftype scan-by () 'common-lisp:string)
 (common-lisp:progn
@@ -2967,6 +3541,34 @@
                                                    'state-reason-data))))))
 (common-lisp:deftype size () 'common-lisp:integer)
 (common-lisp:deftype standard-unit () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (start-metric-streams-input (:copier common-lisp:nil))
+   (names-type (common-lisp:error ":names is required") :type
+    (common-lisp:or metric-stream-names common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-metric-streams-input
+                    'make-start-metric-streams-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          start-metric-streams-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Names"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'names))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-metric-streams-output (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'start-metric-streams-output
+                    'make-start-metric-streams-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          start-metric-streams-output))
+   (common-lisp:append)))
 (common-lisp:deftype stat () 'common-lisp:string)
 (common-lisp:deftype state-reason () 'common-lisp:string)
 (common-lisp:deftype state-reason-data () 'common-lisp:string)
@@ -3014,6 +3616,33 @@
                            (trivial-types:proper-list statistic))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype status-code () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (stop-metric-streams-input (:copier common-lisp:nil))
+   (names-type (common-lisp:error ":names is required") :type
+    (common-lisp:or metric-stream-names common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'stop-metric-streams-input
+                    'make-stop-metric-streams-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          stop-metric-streams-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Names"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'names))))))
+(common-lisp:progn
+ (common-lisp:defstruct (stop-metric-streams-output (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'stop-metric-streams-output
+                    'make-stop-metric-streams-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          stop-metric-streams-output))
+   (common-lisp:append)))
 (common-lisp:deftype storage-resolution () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct (tag (:copier common-lisp:nil))
@@ -3205,6 +3834,24 @@
                                     aws-sdk-cl/generator/operation::input)))
       "DeleteInsightRulesOutput" "DeleteInsightRulesResult")))
  (common-lisp:export 'delete-insight-rules))
+(common-lisp:progn
+ (common-lisp:defun delete-metric-stream
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key name)
+   (common-lisp:declare (common-lisp:ignorable name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-delete-metric-stream-input
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "monitoring" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteMetricStream")
+                                     ("Version" ,@"2010-08-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteMetricStreamOutput" "DeleteMetricStreamResult")))
+ (common-lisp:export 'delete-metric-stream))
 (common-lisp:progn
  (common-lisp:defun describe-alarm-history
                     (
@@ -3464,6 +4111,24 @@
       "GetMetricStatisticsOutput" "GetMetricStatisticsResult")))
  (common-lisp:export 'get-metric-statistics))
 (common-lisp:progn
+ (common-lisp:defun get-metric-stream
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key name)
+   (common-lisp:declare (common-lisp:ignorable name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-get-metric-stream-input
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "monitoring" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"GetMetricStream")
+                                     ("Version" ,@"2010-08-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetMetricStreamOutput" "GetMetricStreamResult")))
+ (common-lisp:export 'get-metric-stream))
+(common-lisp:progn
  (common-lisp:defun get-metric-widget-image
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -3500,6 +4165,24 @@
                                     aws-sdk-cl/generator/operation::input)))
       "ListDashboardsOutput" "ListDashboardsResult")))
  (common-lisp:export 'list-dashboards))
+(common-lisp:progn
+ (common-lisp:defun list-metric-streams
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:declare (common-lisp:ignorable next-token max-results))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-list-metric-streams-input
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "monitoring" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListMetricStreams")
+                                     ("Version" ,@"2010-08-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListMetricStreamsOutput" "ListMetricStreamsResult")))
+ (common-lisp:export 'list-metric-streams))
 (common-lisp:progn
  (common-lisp:defun list-metrics
                     (
@@ -3669,6 +4352,27 @@
       common-lisp:nil common-lisp:nil)))
  (common-lisp:export 'put-metric-data))
 (common-lisp:progn
+ (common-lisp:defun put-metric-stream
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key name include-filters exclude-filters
+                     firehose-arn role-arn output-format tags)
+   (common-lisp:declare
+    (common-lisp:ignorable name include-filters exclude-filters firehose-arn
+     role-arn output-format tags))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-put-metric-stream-input
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "monitoring" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"PutMetricStream")
+                                     ("Version" ,@"2010-08-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "PutMetricStreamOutput" "PutMetricStreamResult")))
+ (common-lisp:export 'put-metric-stream))
+(common-lisp:progn
  (common-lisp:defun set-alarm-state
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -3689,6 +4393,42 @@
                                     aws-sdk-cl/generator/operation::input)))
       common-lisp:nil common-lisp:nil)))
  (common-lisp:export 'set-alarm-state))
+(common-lisp:progn
+ (common-lisp:defun start-metric-streams
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key names)
+   (common-lisp:declare (common-lisp:ignorable names))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-start-metric-streams-input
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "monitoring" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"StartMetricStreams")
+                                     ("Version" ,@"2010-08-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "StartMetricStreamsOutput" "StartMetricStreamsResult")))
+ (common-lisp:export 'start-metric-streams))
+(common-lisp:progn
+ (common-lisp:defun stop-metric-streams
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key names)
+   (common-lisp:declare (common-lisp:ignorable names))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-stop-metric-streams-input
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "monitoring" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"StopMetricStreams")
+                                     ("Version" ,@"2010-08-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "StopMetricStreamsOutput" "StopMetricStreamsResult")))
+ (common-lisp:export 'stop-metric-streams))
 (common-lisp:progn
  (common-lisp:defun tag-resource
                     (

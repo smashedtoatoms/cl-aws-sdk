@@ -6,9 +6,74 @@
   (:import-from #:aws-sdk-cl/generator/operation)
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/ec2-instance-connect)
+(common-lisp:progn
+ (common-lisp:defstruct (auth-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'auth-exception 'make-auth-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape auth-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype availability-zone () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (ec2instance-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'ec2instance-not-found-exception
+                    'make-ec2instance-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          ec2instance-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (ec2instance-type-invalid-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'ec2instance-type-invalid-exception
+                    'make-ec2instance-type-invalid-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          ec2instance-type-invalid-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype instance-id () 'common-lisp:string)
 (common-lisp:deftype instance-osuser () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-args-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-args-exception 'make-invalid-args-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-args-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype request-id () 'common-lisp:string)
 (common-lisp:deftype sshpublic-key () 'common-lisp:string)
 (common-lisp:progn
@@ -73,7 +138,151 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'success))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (send-serial-console-sshpublic-key-request (:copier common-lisp:nil))
+   (instance-id-type (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (serial-port-type common-lisp:nil :type
+    (common-lisp:or serial-port common-lisp:null))
+   (sshpublic-key-type (common-lisp:error ":sshpublic-key is required") :type
+    (common-lisp:or sshpublic-key common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'send-serial-console-sshpublic-key-request
+                    'make-send-serial-console-sshpublic-key-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          send-serial-console-sshpublic-key-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InstanceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'instance-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "SerialPort"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'serial-port)))
+    (aws-sdk-cl/generator/shape::to-query-params "SSHPublicKey"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'sshpublic-key))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (send-serial-console-sshpublic-key-response (:copier common-lisp:nil))
+   (request-id-type common-lisp:nil :type
+    (common-lisp:or request-id common-lisp:null))
+   (success-type common-lisp:nil :type
+    (common-lisp:or success common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'send-serial-console-sshpublic-key-response
+                    'make-send-serial-console-sshpublic-key-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          send-serial-console-sshpublic-key-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "RequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Success"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'success))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (serial-console-access-disabled-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'serial-console-access-disabled-exception
+                    'make-serial-console-access-disabled-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          serial-console-access-disabled-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (serial-console-session-limit-exceeded-exception
+      (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'serial-console-session-limit-exceeded-exception
+                    'make-serial-console-session-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          serial-console-session-limit-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (serial-console-session-unavailable-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'serial-console-session-unavailable-exception
+                    'make-serial-console-session-unavailable-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          serial-console-session-unavailable-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype serial-port () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (service-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-exception 'make-service-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape service-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:deftype success () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct (throttling-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'make-throttling-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          throttling-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defun send-sshpublic-key
                     (
@@ -96,3 +305,25 @@
                                     aws-sdk-cl/generator/operation::input)))
       "SendSSHPublicKeyResponse" common-lisp:nil)))
  (common-lisp:export 'send-sshpublic-key))
+(common-lisp:progn
+ (common-lisp:defun send-serial-console-sshpublic-key
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key instance-id serial-port sshpublic-key)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id serial-port sshpublic-key))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-send-serial-console-sshpublic-key-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "ec2-instance-connect" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"SendSerialConsoleSSHPublicKey")
+                                     ("Version" ,@"2018-04-02"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "SendSerialConsoleSSHPublicKeyResponse" common-lisp:nil)))
+ (common-lisp:export 'send-serial-console-sshpublic-key))

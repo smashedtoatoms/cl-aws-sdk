@@ -67,6 +67,26 @@
                            (trivial-types:proper-list queue-attribute-name))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (batch-entry-ids-not-distinct (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'batch-entry-ids-not-distinct
+                    'make-batch-entry-ids-not-distinct))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          batch-entry-ids-not-distinct))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (batch-request-too-long (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'batch-request-too-long 'make-batch-request-too-long))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          batch-request-too-long))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (batch-result-error-entry (:copier common-lisp:nil))
    (id-type (common-lisp:error ":id is required") :type
     (common-lisp:or string common-lisp:null))
@@ -471,6 +491,15 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'queue-url))))))
 (common-lisp:progn
+ (common-lisp:defstruct (empty-batch-request (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'empty-batch-request 'make-empty-batch-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          empty-batch-request))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct
      (get-queue-attributes-request (:copier common-lisp:nil))
    (queue-url-type (common-lisp:error ":queue-url is required") :type
@@ -552,6 +581,40 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'queue-url))))))
 (common-lisp:deftype integer () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-attribute-name (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-attribute-name 'make-invalid-attribute-name))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-attribute-name))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-batch-entry-id (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-batch-entry-id 'make-invalid-batch-entry-id))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-batch-entry-id))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-id-format (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-id-format 'make-invalid-id-format))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape invalid-id-format))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-message-contents (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-message-contents 'make-invalid-message-contents))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-message-contents))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-dead-letter-source-queues-request (:copier common-lisp:nil))
@@ -819,6 +882,15 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list message))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (message-not-inflight (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'message-not-inflight 'make-message-not-inflight))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          message-not-inflight))
+   (common-lisp:append)))
 (common-lisp:defstruct
     (message-system-attribute-map
      (:constructor |make-message-system-attribute-map|
@@ -875,6 +947,21 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'data-type))))))
 (common-lisp:progn
+ (common-lisp:defstruct (over-limit (:copier common-lisp:nil)))
+ (common-lisp:export (common-lisp:list 'over-limit 'make-over-limit))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape over-limit))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (purge-queue-in-progress (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'purge-queue-in-progress 'make-purge-queue-in-progress))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          purge-queue-in-progress))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (purge-queue-request (:copier common-lisp:nil))
    (queue-url-type (common-lisp:error ":queue-url is required") :type
     (common-lisp:or string common-lisp:null)))
@@ -898,12 +985,47 @@
   aws-sdk-cl/generator/shape::value)
 (common-lisp:deftype queue-attribute-name () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (queue-deleted-recently (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'queue-deleted-recently 'make-queue-deleted-recently))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          queue-deleted-recently))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (queue-does-not-exist (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'queue-does-not-exist 'make-queue-does-not-exist))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          queue-does-not-exist))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (queue-name-exists (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'queue-name-exists 'make-queue-name-exists))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape queue-name-exists))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype queue-url-list () '(trivial-types:proper-list string))
  (common-lisp:defun |make-queue-url-list|
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list string))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (receipt-handle-is-invalid (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'receipt-handle-is-invalid
+                    'make-receipt-handle-is-invalid))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          receipt-handle-is-invalid))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (receive-message-request (:copier common-lisp:nil))
    (queue-url-type (common-lisp:error ":queue-url is required") :type
@@ -1354,6 +1476,26 @@
                                                    'tags))))))
 (common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:deftype token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (too-many-entries-in-batch-request (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-entries-in-batch-request
+                    'make-too-many-entries-in-batch-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-entries-in-batch-request))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (unsupported-operation (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'unsupported-operation 'make-unsupported-operation))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unsupported-operation))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (untag-queue-request (:copier common-lisp:nil))
    (queue-url-type (common-lisp:error ":queue-url is required") :type

@@ -344,6 +344,26 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'creation-date))))))
 (common-lisp:deftype bucket-accelerate-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (bucket-already-exists (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'bucket-already-exists 'make-bucket-already-exists))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bucket-already-exists))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bucket-already-owned-by-you (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'bucket-already-owned-by-you
+                    'make-bucket-already-owned-by-you))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bucket-already-owned-by-you))
+   (common-lisp:append)))
 (common-lisp:deftype bucket-canned-acl () 'common-lisp:string)
 (common-lisp:deftype bucket-key-enabled () 'common-lisp:boolean)
 (common-lisp:progn
@@ -1269,8 +1289,7 @@
 (common-lisp:deftype copy-source-if-unmodified-since () 'common-lisp:string)
 (common-lisp:deftype copy-source-range () 'common-lisp:string)
 (common-lisp:deftype copy-source-ssecustomer-algorithm () 'common-lisp:string)
-(common-lisp:deftype copy-source-ssecustomer-key ()
-  '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
+(common-lisp:deftype copy-source-ssecustomer-key () 'common-lisp:string)
 (common-lisp:deftype copy-source-ssecustomer-key-md5 () 'common-lisp:string)
 (common-lisp:deftype copy-source-version-id () 'common-lisp:string)
 (common-lisp:progn
@@ -2587,6 +2606,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'message))))))
+(common-lisp:deftype error-code () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (error-document (:copier common-lisp:nil))
    (key-type (common-lisp:error ":key is required") :type
@@ -2600,6 +2620,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'key))))))
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype errors () '(trivial-types:proper-list error))
  (common-lisp:defun |make-errors|
@@ -4157,6 +4178,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'expected-bucket-owner))))))
+(common-lisp:deftype get-object-response-status-code () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct (get-object-retention-output (:copier common-lisp:nil))
    (retention-type common-lisp:nil :type
@@ -5007,6 +5029,29 @@
                                                    'and))))))
 (common-lisp:deftype intelligent-tiering-id () 'common-lisp:string)
 (common-lisp:deftype intelligent-tiering-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-object-state (:copier common-lisp:nil))
+   (storage-class-type common-lisp:nil :type
+    (common-lisp:or storage-class common-lisp:null))
+   (access-tier-type common-lisp:nil :type
+    (common-lisp:or intelligent-tiering-access-tier common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-object-state 'make-invalid-object-state))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-object-state))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "StorageClass"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'storage-class)))
+    (aws-sdk-cl/generator/shape::to-query-params "AccessTier"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-tier))))))
 (common-lisp:progn
  (common-lisp:defstruct (inventory-configuration (:copier common-lisp:nil))
    (destination-type (common-lisp:error ":destination is required") :type
@@ -6786,6 +6831,24 @@
 (common-lisp:deftype next-upload-id-marker () 'common-lisp:string)
 (common-lisp:deftype next-version-id-marker () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (no-such-bucket (:copier common-lisp:nil)))
+ (common-lisp:export (common-lisp:list 'no-such-bucket 'make-no-such-bucket))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape no-such-bucket))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (no-such-key (:copier common-lisp:nil)))
+ (common-lisp:export (common-lisp:list 'no-such-key 'make-no-such-key))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape no-such-key))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (no-such-upload (:copier common-lisp:nil)))
+ (common-lisp:export (common-lisp:list 'no-such-upload 'make-no-such-upload))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape no-such-upload))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct
      (noncurrent-version-expiration (:copier common-lisp:nil))
    (noncurrent-days-type common-lisp:nil :type
@@ -6964,6 +7027,17 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'owner))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (object-already-in-active-tier-error (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'object-already-in-active-tier-error
+                    'make-object-already-in-active-tier-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          object-already-in-active-tier-error))
+   (common-lisp:append)))
 (common-lisp:deftype object-canned-acl () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (object-identifier (:copier common-lisp:nil))
@@ -7086,6 +7160,17 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'default-retention))))))
 (common-lisp:deftype object-lock-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (object-not-in-active-tier-error (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'object-not-in-active-tier-error
+                    'make-object-not-in-active-tier-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          object-not-in-active-tier-error))
+   (common-lisp:append)))
 (common-lisp:deftype object-ownership () 'common-lisp:string)
 (common-lisp:deftype object-storage-class () 'common-lisp:string)
 (common-lisp:progn
@@ -9403,6 +9488,8 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'enabled))))))
+(common-lisp:deftype request-route () 'common-lisp:string)
+(common-lisp:deftype request-token () 'common-lisp:string)
 (common-lisp:deftype response-cache-control () 'common-lisp:string)
 (common-lisp:deftype response-content-disposition () 'common-lisp:string)
 (common-lisp:deftype response-content-encoding () 'common-lisp:string)
@@ -9712,8 +9799,7 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'storage-class))))))
 (common-lisp:deftype ssecustomer-algorithm () 'common-lisp:string)
-(common-lisp:deftype ssecustomer-key ()
-  '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
+(common-lisp:deftype ssecustomer-key () 'common-lisp:string)
 (common-lisp:deftype ssecustomer-key-md5 () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (ssekms (:copier common-lisp:nil))
@@ -10811,6 +10897,267 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'routing-rules))))))
 (common-lisp:deftype website-redirect-location () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (write-get-object-response-request (:copier common-lisp:nil))
+   (request-route-type (common-lisp:error ":request-route is required") :type
+    (common-lisp:or request-route common-lisp:null))
+   (request-token-type (common-lisp:error ":request-token is required") :type
+    (common-lisp:or request-token common-lisp:null))
+   (body-type common-lisp:nil :type (common-lisp:or body common-lisp:null))
+   (status-code-type common-lisp:nil :type
+    (common-lisp:or get-object-response-status-code common-lisp:null))
+   (error-code-type common-lisp:nil :type
+    (common-lisp:or error-code common-lisp:null))
+   (error-message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null))
+   (accept-ranges-type common-lisp:nil :type
+    (common-lisp:or accept-ranges common-lisp:null))
+   (cache-control-type common-lisp:nil :type
+    (common-lisp:or cache-control common-lisp:null))
+   (content-disposition-type common-lisp:nil :type
+    (common-lisp:or content-disposition common-lisp:null))
+   (content-encoding-type common-lisp:nil :type
+    (common-lisp:or content-encoding common-lisp:null))
+   (content-language-type common-lisp:nil :type
+    (common-lisp:or content-language common-lisp:null))
+   (content-length-type common-lisp:nil :type
+    (common-lisp:or content-length common-lisp:null))
+   (content-range-type common-lisp:nil :type
+    (common-lisp:or content-range common-lisp:null))
+   (content-type-type common-lisp:nil :type
+    (common-lisp:or content-type common-lisp:null))
+   (delete-marker-type common-lisp:nil :type
+    (common-lisp:or delete-marker common-lisp:null))
+   (etag-type common-lisp:nil :type (common-lisp:or etag common-lisp:null))
+   (expires-type common-lisp:nil :type
+    (common-lisp:or expires common-lisp:null))
+   (expiration-type common-lisp:nil :type
+    (common-lisp:or expiration common-lisp:null))
+   (last-modified-type common-lisp:nil :type
+    (common-lisp:or last-modified common-lisp:null))
+   (missing-meta-type common-lisp:nil :type
+    (common-lisp:or missing-meta common-lisp:null))
+   (metadata-type common-lisp:nil :type
+    (common-lisp:or metadata common-lisp:null))
+   (object-lock-mode-type common-lisp:nil :type
+    (common-lisp:or object-lock-mode common-lisp:null))
+   (object-lock-legal-hold-status-type common-lisp:nil :type
+    (common-lisp:or object-lock-legal-hold-status common-lisp:null))
+   (object-lock-retain-until-date-type common-lisp:nil :type
+    (common-lisp:or object-lock-retain-until-date common-lisp:null))
+   (parts-count-type common-lisp:nil :type
+    (common-lisp:or parts-count common-lisp:null))
+   (replication-status-type common-lisp:nil :type
+    (common-lisp:or replication-status common-lisp:null))
+   (request-charged-type common-lisp:nil :type
+    (common-lisp:or request-charged common-lisp:null))
+   (restore-type common-lisp:nil :type
+    (common-lisp:or restore common-lisp:null))
+   (server-side-encryption-type common-lisp:nil :type
+    (common-lisp:or server-side-encryption common-lisp:null))
+   (ssecustomer-algorithm-type common-lisp:nil :type
+    (common-lisp:or ssecustomer-algorithm common-lisp:null))
+   (ssekmskey-id-type common-lisp:nil :type
+    (common-lisp:or ssekmskey-id common-lisp:null))
+   (ssecustomer-key-md5type common-lisp:nil :type
+    (common-lisp:or ssecustomer-key-md5 common-lisp:null))
+   (storage-class-type common-lisp:nil :type
+    (common-lisp:or storage-class common-lisp:null))
+   (tag-count-type common-lisp:nil :type
+    (common-lisp:or tag-count common-lisp:null))
+   (version-id-type common-lisp:nil :type
+    (common-lisp:or object-version-id common-lisp:null))
+   (bucket-key-enabled-type common-lisp:nil :type
+    (common-lisp:or bucket-key-enabled common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'write-get-object-response-request
+                    'make-write-get-object-response-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          write-get-object-response-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "RequestRoute"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-route)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "Body"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'body)))
+    (aws-sdk-cl/generator/shape::to-query-params "StatusCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "ErrorCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "ErrorMessage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-message)))
+    (aws-sdk-cl/generator/shape::to-query-params "AcceptRanges"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'accept-ranges)))
+    (aws-sdk-cl/generator/shape::to-query-params "CacheControl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cache-control)))
+    (aws-sdk-cl/generator/shape::to-query-params "ContentDisposition"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'content-disposition)))
+    (aws-sdk-cl/generator/shape::to-query-params "ContentEncoding"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'content-encoding)))
+    (aws-sdk-cl/generator/shape::to-query-params "ContentLanguage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'content-language)))
+    (aws-sdk-cl/generator/shape::to-query-params "ContentLength"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'content-length)))
+    (aws-sdk-cl/generator/shape::to-query-params "ContentRange"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'content-range)))
+    (aws-sdk-cl/generator/shape::to-query-params "ContentType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'content-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeleteMarker"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'delete-marker)))
+    (aws-sdk-cl/generator/shape::to-query-params "ETag"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'etag)))
+    (aws-sdk-cl/generator/shape::to-query-params "Expires"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'expires)))
+    (aws-sdk-cl/generator/shape::to-query-params "Expiration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'expiration)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModified"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified)))
+    (aws-sdk-cl/generator/shape::to-query-params "MissingMeta"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'missing-meta)))
+    (aws-sdk-cl/generator/shape::to-query-params "Metadata"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'metadata)))
+    (aws-sdk-cl/generator/shape::to-query-params "ObjectLockMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object-lock-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "ObjectLockLegalHoldStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object-lock-legal-hold-status)))
+    (aws-sdk-cl/generator/shape::to-query-params "ObjectLockRetainUntilDate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object-lock-retain-until-date)))
+    (aws-sdk-cl/generator/shape::to-query-params "PartsCount"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'parts-count)))
+    (aws-sdk-cl/generator/shape::to-query-params "ReplicationStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'replication-status)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestCharged"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-charged)))
+    (aws-sdk-cl/generator/shape::to-query-params "Restore"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'restore)))
+    (aws-sdk-cl/generator/shape::to-query-params "ServerSideEncryption"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'server-side-encryption)))
+    (aws-sdk-cl/generator/shape::to-query-params "SSECustomerAlgorithm"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ssecustomer-algorithm)))
+    (aws-sdk-cl/generator/shape::to-query-params "SSEKMSKeyId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ssekmskey-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "SSECustomerKeyMD5"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ssecustomer-key-md5)))
+    (aws-sdk-cl/generator/shape::to-query-params "StorageClass"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'storage-class)))
+    (aws-sdk-cl/generator/shape::to-query-params "TagCount"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tag-count)))
+    (aws-sdk-cl/generator/shape::to-query-params "VersionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'version-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BucketKeyEnabled"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'bucket-key-enabled))))))
 (common-lisp:deftype years () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defun abort-multipart-upload
@@ -12828,3 +13175,42 @@
                                     aws-sdk-cl/generator/operation::input)))
       "UploadPartCopyOutput" common-lisp:nil)))
  (common-lisp:export 'upload-part-copy))
+(common-lisp:progn
+ (common-lisp:defun write-get-object-response
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key request-route request-token body
+                     status-code error-code error-message accept-ranges
+                     cache-control content-disposition content-encoding
+                     content-language content-length content-range content-type
+                     delete-marker etag expires expiration last-modified
+                     missing-meta metadata object-lock-mode
+                     object-lock-legal-hold-status
+                     object-lock-retain-until-date parts-count
+                     replication-status request-charged restore
+                     server-side-encryption ssecustomer-algorithm ssekmskey-id
+                     ssecustomer-key-md5 storage-class tag-count version-id
+                     bucket-key-enabled)
+   (common-lisp:declare
+    (common-lisp:ignorable request-route request-token body status-code
+     error-code error-message accept-ranges cache-control content-disposition
+     content-encoding content-language content-length content-range
+     content-type delete-marker etag expires expiration last-modified
+     missing-meta metadata object-lock-mode object-lock-legal-hold-status
+     object-lock-retain-until-date parts-count replication-status
+     request-charged restore server-side-encryption ssecustomer-algorithm
+     ssekmskey-id ssecustomer-key-md5 storage-class tag-count version-id
+     bucket-key-enabled))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-write-get-object-response-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"WriteGetObjectResponse")
+                                     ("Version" ,@"2006-03-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      common-lisp:nil common-lisp:nil)))
+ (common-lisp:export 'write-get-object-response))

@@ -1,120 +1,192 @@
 {
-  "version": "2.0",
-  "metadata": {
-    "apiVersion": "2018-04-02",
-    "endpointPrefix": "ec2-instance-connect",
-    "jsonVersion": "1.1",
-    "protocol": "json",
-    "serviceAbbreviation": "EC2 Instance Connect",
-    "serviceFullName": "AWS EC2 Instance Connect",
-    "serviceId": "EC2 Instance Connect",
-    "signatureVersion": "v4",
-    "targetPrefix": "AWSEC2InstanceConnectService",
-    "uid": "ec2-instance-connect-2018-04-02"
+  "version":"2.0",
+  "metadata":{
+    "apiVersion":"2018-04-02",
+    "endpointPrefix":"ec2-instance-connect",
+    "jsonVersion":"1.1",
+    "protocol":"json",
+    "serviceAbbreviation":"EC2 Instance Connect",
+    "serviceFullName":"AWS EC2 Instance Connect",
+    "serviceId":"EC2 Instance Connect",
+    "signatureVersion":"v4",
+    "targetPrefix":"AWSEC2InstanceConnectService",
+    "uid":"ec2-instance-connect-2018-04-02"
   },
-  "operations": {
-    "SendSSHPublicKey": {
-      "name": "SendSSHPublicKey",
-      "http": {
-        "method": "POST",
-        "requestUri": "/"
+  "operations":{
+    "SendSSHPublicKey":{
+      "name":"SendSSHPublicKey",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
       },
-      "input": {
-        "shape": "SendSSHPublicKeyRequest"
+      "input":{"shape":"SendSSHPublicKeyRequest"},
+      "output":{"shape":"SendSSHPublicKeyResponse"},
+      "errors":[
+        {"shape":"AuthException"},
+        {"shape":"InvalidArgsException"},
+        {"shape":"ServiceException"},
+        {"shape":"ThrottlingException"},
+        {"shape":"EC2InstanceNotFoundException"}
+      ]
+    },
+    "SendSerialConsoleSSHPublicKey":{
+      "name":"SendSerialConsoleSSHPublicKey",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
       },
-      "output": {
-        "shape": "SendSSHPublicKeyResponse"
-      },
-      "errors": [
-        {
-          "shape": "AuthException"
-        },
-        {
-          "shape": "InvalidArgsException"
-        },
-        {
-          "shape": "ServiceException"
-        },
-        {
-          "shape": "ThrottlingException"
-        },
-        {
-          "shape": "EC2InstanceNotFoundException"
-        }
-      ],
-      "documentation": "<p>Pushes an SSH public key to a particular OS user on a given EC2 instance for 60 seconds.</p>"
+      "input":{"shape":"SendSerialConsoleSSHPublicKeyRequest"},
+      "output":{"shape":"SendSerialConsoleSSHPublicKeyResponse"},
+      "errors":[
+        {"shape":"AuthException"},
+        {"shape":"SerialConsoleAccessDisabledException"},
+        {"shape":"InvalidArgsException"},
+        {"shape":"ServiceException"},
+        {"shape":"ThrottlingException"},
+        {"shape":"EC2InstanceNotFoundException"},
+        {"shape":"EC2InstanceTypeInvalidException"},
+        {"shape":"SerialConsoleSessionLimitExceededException"},
+        {"shape":"SerialConsoleSessionUnavailableException"}
+      ]
     }
   },
-  "shapes": {
-    "AvailabilityZone": {
-      "type": "string",
-      "max": 32,
-      "min": 6,
-      "pattern": "^(\\w+-){2,3}\\d+\\w+$"
+  "shapes":{
+    "AuthException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"String"}
+      },
+      "exception":true
     },
-    "InstanceId": {
-      "type": "string",
-      "max": 32,
-      "min": 10,
-      "pattern": "^i-[a-f0-9]+$"
+    "AvailabilityZone":{
+      "type":"string",
+      "max":32,
+      "min":6,
+      "pattern":"^(\\w+-){2,3}\\d+\\w+$"
     },
-    "InstanceOSUser": {
-      "type": "string",
-      "max": 32,
-      "min": 1,
-      "pattern": "^[A-Za-z_][A-Za-z0-9\\@\\._-]{0,30}[A-Za-z0-9\\$_-]?$"
+    "EC2InstanceNotFoundException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"String"}
+      },
+      "exception":true
     },
-    "RequestId": {
-      "type": "string"
+    "EC2InstanceTypeInvalidException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"String"}
+      },
+      "exception":true
     },
-    "SSHPublicKey": {
-      "type": "string",
-      "max": 4096,
-      "min": 256
+    "InstanceId":{
+      "type":"string",
+      "max":32,
+      "min":10,
+      "pattern":"^i-[a-f0-9]+$"
     },
-    "SendSSHPublicKeyRequest": {
-      "type": "structure",
-      "required": [
+    "InstanceOSUser":{
+      "type":"string",
+      "max":32,
+      "min":1,
+      "pattern":"^[A-Za-z_][A-Za-z0-9\\@\\._-]{0,30}[A-Za-z0-9\\$_-]?$"
+    },
+    "InvalidArgsException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"String"}
+      },
+      "exception":true
+    },
+    "RequestId":{"type":"string"},
+    "SSHPublicKey":{
+      "type":"string",
+      "max":4096,
+      "min":256
+    },
+    "SendSSHPublicKeyRequest":{
+      "type":"structure",
+      "required":[
         "InstanceId",
         "InstanceOSUser",
         "SSHPublicKey",
         "AvailabilityZone"
       ],
-      "members": {
-        "InstanceId": {
-          "shape": "InstanceId",
-          "documentation": "<p>The EC2 instance you wish to publish the SSH key to.</p>"
-        },
-        "InstanceOSUser": {
-          "shape": "InstanceOSUser",
-          "documentation": "<p>The OS user on the EC2 instance whom the key may be used to authenticate as.</p>"
-        },
-        "SSHPublicKey": {
-          "shape": "SSHPublicKey",
-          "documentation": "<p>The public key to be published to the instance. To use it after publication you must have the matching private key.</p>"
-        },
-        "AvailabilityZone": {
-          "shape": "AvailabilityZone",
-          "documentation": "<p>The availability zone the EC2 instance was launched in.</p>"
-        }
+      "members":{
+        "InstanceId":{"shape":"InstanceId"},
+        "InstanceOSUser":{"shape":"InstanceOSUser"},
+        "SSHPublicKey":{"shape":"SSHPublicKey"},
+        "AvailabilityZone":{"shape":"AvailabilityZone"}
       }
     },
-    "SendSSHPublicKeyResponse": {
-      "type": "structure",
-      "members": {
-        "RequestId": {
-          "shape": "RequestId",
-          "documentation": "<p>The request ID as logged by EC2 Connect. Please provide this when contacting AWS Support.</p>"
-        },
-        "Success": {
-          "shape": "Success",
-          "documentation": "<p>Indicates request success.</p>"
-        }
+    "SendSSHPublicKeyResponse":{
+      "type":"structure",
+      "members":{
+        "RequestId":{"shape":"RequestId"},
+        "Success":{"shape":"Success"}
       }
     },
-    "Success": {
-      "type": "boolean"
+    "SendSerialConsoleSSHPublicKeyRequest":{
+      "type":"structure",
+      "required":[
+        "InstanceId",
+        "SSHPublicKey"
+      ],
+      "members":{
+        "InstanceId":{"shape":"InstanceId"},
+        "SerialPort":{"shape":"SerialPort"},
+        "SSHPublicKey":{"shape":"SSHPublicKey"}
+      }
+    },
+    "SendSerialConsoleSSHPublicKeyResponse":{
+      "type":"structure",
+      "members":{
+        "RequestId":{"shape":"RequestId"},
+        "Success":{"shape":"Success"}
+      }
+    },
+    "SerialConsoleAccessDisabledException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"String"}
+      },
+      "exception":true
+    },
+    "SerialConsoleSessionLimitExceededException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"String"}
+      },
+      "exception":true
+    },
+    "SerialConsoleSessionUnavailableException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"String"}
+      },
+      "exception":true,
+      "fault":true
+    },
+    "SerialPort":{
+      "type":"integer",
+      "max":0,
+      "min":0
+    },
+    "ServiceException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"String"}
+      },
+      "exception":true,
+      "fault":true
+    },
+    "String":{"type":"string"},
+    "Success":{"type":"boolean"},
+    "ThrottlingException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"String"}
+      },
+      "exception":true
     }
-  },
-  "documentation": "<p>AWS EC2 Connect Service is a service that enables system administrators to publish temporary SSH keys to their EC2 instances in order to establish connections to their instances without leaving a permanent authentication option.</p>"
+  }
 }

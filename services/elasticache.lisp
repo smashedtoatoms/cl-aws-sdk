@@ -6,6 +6,17 @@
   (:import-from #:aws-sdk-cl/generator/operation)
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/elasticache)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (apicall-rate-for-customer-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'apicall-rate-for-customer-exceeded-fault
+                    'make-apicall-rate-for-customer-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          apicall-rate-for-customer-exceeded-fault))
+   (common-lisp:append)))
 (common-lisp:deftype azmode () 'common-lisp:string)
 (common-lisp:deftype access-string () 'common-lisp:string)
 (common-lisp:progn
@@ -84,6 +95,28 @@
 (common-lisp:deftype authentication-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (authorization-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'authorization-already-exists-fault
+                    'make-authorization-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          authorization-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (authorization-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'authorization-not-found-fault
+                    'make-authorization-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          authorization-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
      (authorize-cache-security-group-ingress-message (:copier common-lisp:nil))
    (cache-security-group-name-type
     (common-lisp:error ":cache-security-group-name is required") :type
@@ -157,6 +190,7 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list string))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype aws-query-error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (batch-apply-update-action-message (:copier common-lisp:nil))
@@ -426,6 +460,17 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'arn))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (cache-cluster-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-cluster-already-exists-fault
+                    'make-cache-cluster-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-cluster-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype cache-cluster-id-list ()
    '(trivial-types:proper-list string))
  (common-lisp:defun |make-cache-cluster-id-list|
@@ -463,6 +508,17 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'cache-clusters))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cache-cluster-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-cluster-not-found-fault
+                    'make-cache-cluster-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-cluster-not-found-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (cache-engine-version (:copier common-lisp:nil))
    (engine-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
@@ -850,6 +906,17 @@
                                                    'arn))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (cache-parameter-group-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-parameter-group-already-exists-fault
+                    'make-cache-parameter-group-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-parameter-group-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
      (cache-parameter-group-details (:copier common-lisp:nil))
    (marker-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (parameters-type common-lisp:nil :type
@@ -906,6 +973,28 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'cache-parameter-group-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cache-parameter-group-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-parameter-group-not-found-fault
+                    'make-cache-parameter-group-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-parameter-group-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cache-parameter-group-quota-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-parameter-group-quota-exceeded-fault
+                    'make-cache-parameter-group-quota-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-parameter-group-quota-exceeded-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (cache-parameter-group-status (:copier common-lisp:nil))
@@ -1007,6 +1096,17 @@
                                                    'arn))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (cache-security-group-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-security-group-already-exists-fault
+                    'make-cache-security-group-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-security-group-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
      (cache-security-group-membership (:copier common-lisp:nil))
    (cache-security-group-name-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
@@ -1072,6 +1172,28 @@
                            (trivial-types:proper-list string))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (cache-security-group-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-security-group-not-found-fault
+                    'make-cache-security-group-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-security-group-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cache-security-group-quota-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-security-group-quota-exceeded-fault
+                    'make-cache-security-group-quota-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-security-group-quota-exceeded-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype cache-security-groups ()
    '(trivial-types:proper-list cache-security-group))
  (common-lisp:defun |make-cache-security-groups|
@@ -1122,6 +1244,27 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'arn))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (cache-subnet-group-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-subnet-group-already-exists-fault
+                    'make-cache-subnet-group-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-subnet-group-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (cache-subnet-group-in-use (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-subnet-group-in-use
+                    'make-cache-subnet-group-in-use))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-subnet-group-in-use))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (cache-subnet-group-message (:copier common-lisp:nil))
    (marker-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (cache-subnet-groups-type common-lisp:nil :type
@@ -1145,6 +1288,28 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'cache-subnet-groups))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (cache-subnet-group-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-subnet-group-not-found-fault
+                    'make-cache-subnet-group-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-subnet-group-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cache-subnet-group-quota-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-subnet-group-quota-exceeded-fault
+                    'make-cache-subnet-group-quota-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-subnet-group-quota-exceeded-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype cache-subnet-groups ()
    '(trivial-types:proper-list cache-subnet-group))
  (common-lisp:defun |make-cache-subnet-groups|
@@ -1152,6 +1317,17 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list cache-subnet-group))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cache-subnet-quota-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cache-subnet-quota-exceeded-fault
+                    'make-cache-subnet-quota-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cache-subnet-quota-exceeded-fault))
+   (common-lisp:append)))
 (common-lisp:deftype change-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype cluster-id-list () '(trivial-types:proper-list string))
@@ -1160,6 +1336,17 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list string))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cluster-quota-for-customer-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cluster-quota-for-customer-exceeded-fault
+                    'make-cluster-quota-for-customer-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cluster-quota-for-customer-exceeded-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (complete-migration-message (:copier common-lisp:nil))
    (replication-group-id-type
@@ -2249,6 +2436,26 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'replication-group))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (default-user-associated-to-user-group-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'default-user-associated-to-user-group-fault
+                    'make-default-user-associated-to-user-group-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          default-user-associated-to-user-group-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (default-user-required (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'default-user-required 'make-default-user-required))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          default-user-required))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (delete-cache-cluster-message (:copier common-lisp:nil))
@@ -3450,6 +3657,16 @@
                                                    'global-replication-group))))))
 (common-lisp:deftype double () 'common-lisp:double-float)
 (common-lisp:progn
+ (common-lisp:defstruct (duplicate-user-name-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'duplicate-user-name-fault
+                    'make-duplicate-user-name-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          duplicate-user-name-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (ec2security-group (:copier common-lisp:nil))
    (status-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
    (ec2security-group-name-type common-lisp:nil :type
@@ -3821,6 +4038,17 @@
                                                    'arn))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (global-replication-group-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'global-replication-group-already-exists-fault
+                    'make-global-replication-group-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          global-replication-group-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
      (global-replication-group-info (:copier common-lisp:nil))
    (global-replication-group-id-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
@@ -3907,6 +4135,17 @@
                            (trivial-types:proper-list
                             global-replication-group-member))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (global-replication-group-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'global-replication-group-not-found-fault
+                    'make-global-replication-group-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          global-replication-group-not-found-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (increase-node-groups-in-global-replication-group-message
@@ -4025,8 +4264,174 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'replication-group))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (insufficient-cache-cluster-capacity-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'insufficient-cache-cluster-capacity-fault
+                    'make-insufficient-cache-cluster-capacity-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          insufficient-cache-cluster-capacity-fault))
+   (common-lisp:append)))
 (common-lisp:deftype integer () 'common-lisp:integer)
 (common-lisp:deftype integer-optional () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-arnfault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-arnfault 'make-invalid-arnfault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape invalid-arnfault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-cache-cluster-state-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-cache-cluster-state-fault
+                    'make-invalid-cache-cluster-state-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-cache-cluster-state-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-cache-parameter-group-state-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-cache-parameter-group-state-fault
+                    'make-invalid-cache-parameter-group-state-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-cache-parameter-group-state-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-cache-security-group-state-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-cache-security-group-state-fault
+                    'make-invalid-cache-security-group-state-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-cache-security-group-state-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-global-replication-group-state-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-global-replication-group-state-fault
+                    'make-invalid-global-replication-group-state-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-global-replication-group-state-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-kmskey-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-kmskey-fault 'make-invalid-kmskey-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-kmskey-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-parameter-combination-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or aws-query-error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-parameter-combination-exception
+                    'make-invalid-parameter-combination-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-parameter-combination-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-parameter-value-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or aws-query-error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-parameter-value-exception
+                    'make-invalid-parameter-value-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-parameter-value-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-replication-group-state-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-replication-group-state-fault
+                    'make-invalid-replication-group-state-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-replication-group-state-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-snapshot-state-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-snapshot-state-fault
+                    'make-invalid-snapshot-state-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-snapshot-state-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-subnet (:copier common-lisp:nil)))
+ (common-lisp:export (common-lisp:list 'invalid-subnet 'make-invalid-subnet))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape invalid-subnet))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-user-group-state-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-user-group-state-fault
+                    'make-invalid-user-group-state-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-user-group-state-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-user-state-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-user-state-fault 'make-invalid-user-state-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-user-state-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-vpcnetwork-state-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-vpcnetwork-state-fault
+                    'make-invalid-vpcnetwork-state-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-vpcnetwork-state-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:deftype key-list () '(trivial-types:proper-list string))
  (common-lisp:defun |make-key-list|
@@ -4743,6 +5148,15 @@
                                                    'no-password-required))))))
 (common-lisp:deftype multi-azstatus () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (no-operation-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-operation-fault 'make-no-operation-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-operation-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (node-group (:copier common-lisp:nil))
    (node-group-id-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
@@ -5003,6 +5417,16 @@
                             node-group-member-update-status))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (node-group-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'node-group-not-found-fault
+                    'make-node-group-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          node-group-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (node-group-update-status (:copier common-lisp:nil))
    (node-group-id-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
@@ -5035,6 +5459,18 @@
                             node-group-update-status))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (node-groups-per-replication-group-quota-exceeded-fault
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'node-groups-per-replication-group-quota-exceeded-fault
+                    'make-node-groups-per-replication-group-quota-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          node-groups-per-replication-group-quota-exceeded-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype node-groups-to-remove-list ()
    '(trivial-types:proper-list allowed-node-group-id))
  (common-lisp:defun |make-node-groups-to-remove-list|
@@ -5050,6 +5486,28 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list allowed-node-group-id))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (node-quota-for-cluster-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'node-quota-for-cluster-exceeded-fault
+                    'make-node-quota-for-cluster-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          node-quota-for-cluster-exceeded-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (node-quota-for-customer-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'node-quota-for-customer-exceeded-fault
+                    'make-node-quota-for-customer-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          node-quota-for-customer-exceeded-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (node-snapshot (:copier common-lisp:nil))
    (cache-cluster-id-type common-lisp:nil :type
@@ -5794,6 +6252,29 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'user-group-ids))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (replication-group-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'replication-group-already-exists-fault
+                    'make-replication-group-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          replication-group-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (replication-group-already-under-migration-fault
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'replication-group-already-under-migration-fault
+                    'make-replication-group-already-under-migration-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          replication-group-already-under-migration-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype replication-group-id-list ()
    '(trivial-types:proper-list string))
  (common-lisp:defun |make-replication-group-id-list|
@@ -5832,6 +6313,28 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'replication-groups))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (replication-group-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'replication-group-not-found-fault
+                    'make-replication-group-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          replication-group-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (replication-group-not-under-migration-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'replication-group-not-under-migration-fault
+                    'make-replication-group-not-under-migration-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          replication-group-not-under-migration-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:deftype replication-group-outpost-arn-list ()
    '(trivial-types:proper-list string))
@@ -5986,6 +6489,17 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'reservation-arn))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (reserved-cache-node-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'reserved-cache-node-already-exists-fault
+                    'make-reserved-cache-node-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          reserved-cache-node-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype reserved-cache-node-list ()
    '(trivial-types:proper-list reserved-cache-node))
  (common-lisp:defun |make-reserved-cache-node-list|
@@ -6016,6 +6530,28 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'reserved-cache-nodes))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (reserved-cache-node-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'reserved-cache-node-not-found-fault
+                    'make-reserved-cache-node-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          reserved-cache-node-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (reserved-cache-node-quota-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'reserved-cache-node-quota-exceeded-fault
+                    'make-reserved-cache-node-quota-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          reserved-cache-node-quota-exceeded-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (reserved-cache-nodes-offering (:copier common-lisp:nil))
@@ -6116,6 +6652,17 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'reserved-cache-nodes-offerings))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (reserved-cache-nodes-offering-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'reserved-cache-nodes-offering-not-found-fault
+                    'make-reserved-cache-nodes-offering-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          reserved-cache-nodes-offering-not-found-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (reset-cache-parameter-group-message (:copier common-lisp:nil))
@@ -6290,6 +6837,17 @@
                             security-group-membership))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (service-linked-role-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'service-linked-role-not-found-fault
+                    'make-service-linked-role-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-linked-role-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (service-update (:copier common-lisp:nil))
    (service-update-name-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
@@ -6386,6 +6944,17 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list service-update))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (service-update-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'service-update-not-found-fault
+                    'make-service-update-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-update-not-found-fault))
+   (common-lisp:append)))
 (common-lisp:deftype service-update-severity () 'common-lisp:string)
 (common-lisp:deftype service-update-status () 'common-lisp:string)
 (common-lisp:progn
@@ -6626,6 +7195,17 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'arn))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (snapshot-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'snapshot-already-exists-fault
+                    'make-snapshot-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          snapshot-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype snapshot-arns-list ()
    '(trivial-types:proper-list string))
  (common-lisp:defun |make-snapshot-arns-list|
@@ -6634,12 +7214,43 @@
                            (trivial-types:proper-list string))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (snapshot-feature-not-supported-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'snapshot-feature-not-supported-fault
+                    'make-snapshot-feature-not-supported-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          snapshot-feature-not-supported-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype snapshot-list () '(trivial-types:proper-list snapshot))
  (common-lisp:defun |make-snapshot-list|
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list snapshot))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (snapshot-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'snapshot-not-found-fault 'make-snapshot-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          snapshot-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (snapshot-quota-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'snapshot-quota-exceeded-fault
+                    'make-snapshot-quota-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          snapshot-quota-exceeded-fault))
+   (common-lisp:append)))
 (common-lisp:deftype source-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (start-migration-message (:copier common-lisp:nil))
@@ -6719,12 +7330,27 @@
                            (trivial-types:proper-list string))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (subnet-in-use (:copier common-lisp:nil)))
+ (common-lisp:export (common-lisp:list 'subnet-in-use 'make-subnet-in-use))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape subnet-in-use))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype subnet-list () '(trivial-types:proper-list subnet))
  (common-lisp:defun |make-subnet-list|
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list subnet))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (subnet-not-allowed-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'subnet-not-allowed-fault 'make-subnet-not-allowed-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          subnet-not-allowed-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (subnet-outpost (:copier common-lisp:nil))
    (subnet-outpost-arn-type common-lisp:nil :type
@@ -6779,6 +7405,26 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tag-list))))))
 (common-lisp:progn
+ (common-lisp:defstruct (tag-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'tag-not-found-fault 'make-tag-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          tag-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tag-quota-per-resource-exceeded (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'tag-quota-per-resource-exceeded
+                    'make-tag-quota-per-resource-exceeded))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          tag-quota-per-resource-exceeded))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (test-failover-message (:copier common-lisp:nil))
    (replication-group-id-type
     (common-lisp:error ":replication-group-id is required") :type
@@ -6802,6 +7448,17 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'node-group-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (test-failover-not-available-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'test-failover-not-available-fault
+                    'make-test-failover-not-available-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          test-failover-not-available-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (test-failover-result (:copier common-lisp:nil))
    (replication-group-type common-lisp:nil :type
@@ -7151,6 +7808,16 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'arn))))))
 (common-lisp:progn
+ (common-lisp:defstruct (user-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'user-already-exists-fault
+                    'make-user-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          user-already-exists-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (user-group (:copier common-lisp:nil))
    (user-group-id-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
@@ -7203,6 +7870,17 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (user-group-already-exists-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'user-group-already-exists-fault
+                    'make-user-group-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          user-group-already-exists-fault))
+   (common-lisp:append)))
 (common-lisp:deftype user-group-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype user-group-id-list ()
@@ -7229,6 +7907,16 @@
                            (trivial-types:proper-list user-group))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (user-group-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'user-group-not-found-fault
+                    'make-user-group-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          user-group-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (user-group-pending-changes (:copier common-lisp:nil))
    (user-ids-to-remove-type common-lisp:nil :type
     (common-lisp:or user-id-list common-lisp:null))
@@ -7252,6 +7940,17 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'user-ids-to-add))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (user-group-quota-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'user-group-quota-exceeded-fault
+                    'make-user-group-quota-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          user-group-quota-exceeded-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (user-groups-update-status (:copier common-lisp:nil))
    (user-group-ids-to-add-type common-lisp:nil :type
@@ -7300,6 +7999,25 @@
                            (trivial-types:proper-list user))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype user-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (user-not-found-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'user-not-found-fault 'make-user-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          user-not-found-fault))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (user-quota-exceeded-fault (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'user-quota-exceeded-fault
+                    'make-user-quota-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          user-quota-exceeded-fault))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defun add-tags-to-resource
                     (

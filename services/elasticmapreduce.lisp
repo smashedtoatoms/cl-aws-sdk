@@ -1821,6 +1821,8 @@
      (aws-sdk-cl/generator/shape:shape-to-params
       (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
                               'additional-slave-security-groups))))))
+(common-lisp:deftype error-code () 'common-lisp:string)
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (execution-engine-config (:copier common-lisp:nil))
    (id-type (common-lisp:error ":id is required") :type
@@ -3220,6 +3222,56 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype integer () 'common-lisp:integer)
 (common-lisp:progn
+ (common-lisp:defstruct (internal-server-error (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-error 'make-internal-server-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-error))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-exception
+                    'make-internal-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-request-exception (:copier common-lisp:nil))
+   (error-code-type common-lisp:nil :type
+    (common-lisp:or error-code common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-request-exception
+                    'make-invalid-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ErrorCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (job-flow-detail (:copier common-lisp:nil))
    (job-flow-id-type (common-lisp:error ":job-flow-id is required") :type
     (common-lisp:or xml-string-max-len256 common-lisp:null))
@@ -4571,7 +4623,9 @@
                     common-lisp:null))
    (capacity-reservation-preference-type common-lisp:nil :type
     (common-lisp:or on-demand-capacity-reservation-preference
-                    common-lisp:null)))
+                    common-lisp:null))
+   (capacity-reservation-resource-group-arn-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len256 common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'on-demand-capacity-reservation-options
                     'make-on-demand-capacity-reservation-options))
@@ -4589,7 +4643,12 @@
      "CapacityReservationPreference"
      (aws-sdk-cl/generator/shape:shape-to-params
       (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
-                              'capacity-reservation-preference))))))
+                              'capacity-reservation-preference)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "CapacityReservationResourceGroupArn"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'capacity-reservation-resource-group-arn))))))
 (common-lisp:deftype on-demand-capacity-reservation-preference ()
   'common-lisp:string)
 (common-lisp:deftype on-demand-capacity-reservation-usage-strategy ()

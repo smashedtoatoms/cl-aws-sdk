@@ -2865,6 +2865,17 @@
    (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
+     (duplicate-resource-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'duplicate-resource-exception
+                    'make-duplicate-resource-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          duplicate-resource-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
      (enable-awsorganizations-access-input (:copier common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'enable-awsorganizations-access-input
@@ -3303,6 +3314,26 @@
                                                    'record-detail))))))
 (common-lisp:deftype instruction-type () 'common-lisp:string)
 (common-lisp:deftype instruction-value () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-parameters-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-parameters-exception
+                    'make-invalid-parameters-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-parameters-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-state-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-state-exception 'make-invalid-state-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-state-exception))
+   (common-lisp:append)))
 (common-lisp:deftype last-request-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (launch-path (:copier common-lisp:nil))
@@ -3373,6 +3404,15 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list launch-path))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-accepted-portfolio-shares-input (:copier common-lisp:nil))
@@ -4598,6 +4638,17 @@
                            (trivial-types:proper-list notification-arn))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype nullable-boolean () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (operation-not-supported-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'operation-not-supported-exception
+                    'make-operation-not-supported-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          operation-not-supported-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (organization-node (:copier common-lisp:nil))
    (type-type common-lisp:nil :type
@@ -6513,6 +6564,27 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype resource-id () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (resource-in-use-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-in-use-exception
+                    'make-resource-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-in-use-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (resource-target-definition (:copier common-lisp:nil))
    (attribute-type common-lisp:nil :type
     (common-lisp:or resource-attribute common-lisp:null))
@@ -7232,6 +7304,17 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype tag-option-id () 'common-lisp:string)
 (common-lisp:deftype tag-option-key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (tag-option-not-migrated-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'tag-option-not-migrated-exception
+                    'make-tag-option-not-migrated-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          tag-option-not-migrated-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:deftype tag-option-summaries ()
    '(trivial-types:proper-list tag-option-summary))

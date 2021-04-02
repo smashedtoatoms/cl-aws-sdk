@@ -13,6 +13,20 @@
 (common-lisp:deftype header () 'common-lisp:string)
 (common-lisp:deftype inference-id () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (internal-failure (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-failure 'make-internal-failure))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape internal-failure))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (invoke-endpoint-input (:copier common-lisp:nil))
    (endpoint-name-type (common-lisp:error ":endpoint-name is required") :type
     (common-lisp:or endpoint-name common-lisp:null))
@@ -120,9 +134,76 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'custom-attributes))))))
+(common-lisp:deftype log-stream-arn () 'common-lisp:string)
+(common-lisp:deftype message () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (model-error (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null))
+   (original-status-code-type common-lisp:nil :type
+    (common-lisp:or status-code common-lisp:null))
+   (original-message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null))
+   (log-stream-arn-type common-lisp:nil :type
+    (common-lisp:or log-stream-arn common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'model-error 'make-model-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape model-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "OriginalStatusCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'original-status-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "OriginalMessage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'original-message)))
+    (aws-sdk-cl/generator/shape::to-query-params "LogStreamArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'log-stream-arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct (service-unavailable (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-unavailable 'make-service-unavailable))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-unavailable))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype status-code () 'common-lisp:integer)
 (common-lisp:deftype target-container-hostname-header () 'common-lisp:string)
 (common-lisp:deftype target-model-header () 'common-lisp:string)
 (common-lisp:deftype target-variant-header () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (validation-error (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-error 'make-validation-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape validation-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defun invoke-endpoint
                     (

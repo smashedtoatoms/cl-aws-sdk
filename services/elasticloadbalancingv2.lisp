@@ -7,6 +7,17 @@
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/elasticloadbalancingv2)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (alpnpolicy-not-supported-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'alpnpolicy-not-supported-exception
+                    'make-alpnpolicy-not-supported-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          alpnpolicy-not-supported-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (action (:copier common-lisp:nil))
    (type-type (common-lisp:error ":type is required") :type
     (common-lisp:or action-type-enum common-lisp:null))
@@ -147,6 +158,17 @@
                         ((aws-sdk-cl/generator/shape::shape add-tags-output))
    (common-lisp:append)))
 (common-lisp:deftype allocation-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (allocation-id-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'allocation-id-not-found-exception
+                    'make-allocation-id-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          allocation-id-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:deftype alpn-policy-name ()
    '(trivial-types:proper-list alpn-policy-value))
@@ -431,6 +453,17 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'load-balancer-addresses))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (availability-zone-not-supported-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'availability-zone-not-supported-exception
+                    'make-availability-zone-not-supported-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          availability-zone-not-supported-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype availability-zones ()
    '(trivial-types:proper-list availability-zone))
  (common-lisp:defun |make-availability-zones|
@@ -468,6 +501,17 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list certificate))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (certificate-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'certificate-not-found-exception
+                    'make-certificate-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          certificate-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (cipher (:copier common-lisp:nil))
    (name-type common-lisp:nil :type
@@ -1560,6 +1604,50 @@
 (common-lisp:deftype description () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (duplicate-listener-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'duplicate-listener-exception
+                    'make-duplicate-listener-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          duplicate-listener-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (duplicate-load-balancer-name-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'duplicate-load-balancer-name-exception
+                    'make-duplicate-load-balancer-name-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          duplicate-load-balancer-name-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (duplicate-tag-keys-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'duplicate-tag-keys-exception
+                    'make-duplicate-tag-keys-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          duplicate-tag-keys-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (duplicate-target-group-name-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'duplicate-target-group-name-exception
+                    'make-duplicate-target-group-name-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          duplicate-target-group-name-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
      (fixed-response-action-config (:copier common-lisp:nil))
    (message-body-type common-lisp:nil :type
     (common-lisp:or fixed-response-action-message common-lisp:null))
@@ -1624,6 +1712,17 @@
 (common-lisp:deftype health-check-timeout-seconds () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
+     (health-unavailable-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'health-unavailable-exception
+                    'make-health-unavailable-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          health-unavailable-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
      (host-header-condition-config (:copier common-lisp:nil))
    (values-type common-lisp:nil :type
     (common-lisp:or list-of-string common-lisp:null)))
@@ -1686,6 +1785,77 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'values))))))
 (common-lisp:deftype ipv6address () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (incompatible-protocols-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'incompatible-protocols-exception
+                    'make-incompatible-protocols-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          incompatible-protocols-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-configuration-request-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-configuration-request-exception
+                    'make-invalid-configuration-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-configuration-request-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-load-balancer-action-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-load-balancer-action-exception
+                    'make-invalid-load-balancer-action-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-load-balancer-action-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-scheme-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-scheme-exception 'make-invalid-scheme-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-scheme-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-security-group-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-security-group-exception
+                    'make-invalid-security-group-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-security-group-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-subnet-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-subnet-exception 'make-invalid-subnet-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-subnet-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-target-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-target-exception 'make-invalid-target-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-target-exception))
+   (common-lisp:append)))
 (common-lisp:deftype ip-address () 'common-lisp:string)
 (common-lisp:deftype ip-address-type () 'common-lisp:string)
 (common-lisp:deftype is-default () 'common-lisp:boolean)
@@ -1792,6 +1962,17 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list listener-arn))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (listener-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'listener-not-found-exception
+                    'make-listener-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          listener-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:deftype listeners () '(trivial-types:proper-list listener))
  (common-lisp:defun |make-listeners|
@@ -1991,6 +2172,17 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list load-balancer-name))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (load-balancer-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'load-balancer-not-found-exception
+                    'make-load-balancer-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          load-balancer-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:deftype load-balancer-scheme-enum () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (load-balancer-state (:copier common-lisp:nil))
@@ -2347,6 +2539,17 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'target-groups))))))
 (common-lisp:deftype name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (operation-not-permitted-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'operation-not-permitted-exception
+                    'make-operation-not-permitted-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          operation-not-permitted-exception))
+   (common-lisp:append)))
 (common-lisp:deftype outpost-id () 'common-lisp:string)
 (common-lisp:deftype page-size () 'common-lisp:integer)
 (common-lisp:deftype path () 'common-lisp:string)
@@ -2369,6 +2572,16 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'values))))))
 (common-lisp:deftype port () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (priority-in-use-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'priority-in-use-exception
+                    'make-priority-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          priority-in-use-exception))
+   (common-lisp:append)))
 (common-lisp:deftype private-ipv4address () 'common-lisp:string)
 (common-lisp:deftype protocol-enum () 'common-lisp:string)
 (common-lisp:deftype protocol-version () 'common-lisp:string)
@@ -2588,6 +2801,16 @@
                            (trivial-types:proper-list resource-arn))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (resource-in-use-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-in-use-exception
+                    'make-resource-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-in-use-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (rule (:copier common-lisp:nil))
    (rule-arn-type common-lisp:nil :type
     (common-lisp:or rule-arn common-lisp:null))
@@ -2706,6 +2929,15 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list rule-condition))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (rule-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'rule-not-found-exception 'make-rule-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          rule-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:deftype rule-priority () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:deftype rule-priority-list ()
@@ -2745,6 +2977,17 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list rule))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (sslpolicy-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'sslpolicy-not-found-exception
+                    'make-sslpolicy-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          sslpolicy-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:deftype security-group-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype security-groups ()
@@ -3043,6 +3286,16 @@
                            (trivial-types:proper-list subnet-mapping))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (subnet-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'subnet-not-found-exception
+                    'make-subnet-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          subnet-not-found-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype subnets () '(trivial-types:proper-list subnet-id))
  (common-lisp:defun |make-subnets|
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
@@ -3283,6 +3536,17 @@
                            (trivial-types:proper-list target-group-arn))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (target-group-association-limit-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'target-group-association-limit-exception
+                    'make-target-group-association-limit-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          target-group-association-limit-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (target-group-attribute (:copier common-lisp:nil))
    (key-type common-lisp:nil :type
     (common-lisp:or target-group-attribute-key common-lisp:null))
@@ -3332,6 +3596,17 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list target-group-name))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (target-group-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'target-group-not-found-exception
+                    'make-target-group-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          target-group-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (target-group-stickiness-config (:copier common-lisp:nil))
@@ -3464,6 +3739,123 @@
 (common-lisp:deftype target-health-state-enum () 'common-lisp:string)
 (common-lisp:deftype target-id () 'common-lisp:string)
 (common-lisp:deftype target-type-enum () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (too-many-actions-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-actions-exception
+                    'make-too-many-actions-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-actions-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (too-many-certificates-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-certificates-exception
+                    'make-too-many-certificates-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-certificates-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (too-many-listeners-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-listeners-exception
+                    'make-too-many-listeners-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-listeners-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (too-many-load-balancers-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-load-balancers-exception
+                    'make-too-many-load-balancers-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-load-balancers-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (too-many-registrations-for-target-id-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-registrations-for-target-id-exception
+                    'make-too-many-registrations-for-target-id-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-registrations-for-target-id-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (too-many-rules-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-rules-exception 'make-too-many-rules-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-rules-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (too-many-tags-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-tags-exception 'make-too-many-tags-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-tags-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (too-many-target-groups-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-target-groups-exception
+                    'make-too-many-target-groups-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-target-groups-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (too-many-targets-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-targets-exception
+                    'make-too-many-targets-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-targets-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (too-many-unique-target-groups-per-load-balancer-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-unique-target-groups-per-load-balancer-exception
+                    'make-too-many-unique-target-groups-per-load-balancer-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-unique-target-groups-per-load-balancer-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (unsupported-protocol-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'unsupported-protocol-exception
+                    'make-unsupported-protocol-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unsupported-protocol-exception))
+   (common-lisp:append)))
 (common-lisp:deftype vpc-id () 'common-lisp:string)
 (common-lisp:deftype zone-name () 'common-lisp:string)
 (common-lisp:progn

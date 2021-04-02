@@ -7,6 +7,24 @@
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/mediaconnect)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (add-flow-outputs420exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'add-flow-outputs420exception
+                    'make-add-flow-outputs420exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          add-flow-outputs420exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (add-flow-outputs-request (:copier common-lisp:nil))
    (flow-arn-type (common-lisp:error ":flow-arn is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -162,6 +180,8 @@
     (common-lisp:or encryption common-lisp:null))
    (max-latency-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
+   (min-latency-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
    (name-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (port-type common-lisp:nil :type
@@ -208,6 +228,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'max-latency)))
+    (aws-sdk-cl/generator/shape::to-query-params "MinLatency"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'min-latency)))
     (aws-sdk-cl/generator/shape::to-query-params "Name"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -244,6 +269,38 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'vpc-interface-attachment))))))
 (common-lisp:deftype algorithm () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-flow420exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-flow420exception 'make-create-flow420exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-flow420exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (create-flow-request (:copier common-lisp:nil))
    (availability-zone-type common-lisp:nil :type
@@ -474,7 +531,7 @@
 (common-lisp:deftype duration-units () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (encryption (:copier common-lisp:nil))
-   (algorithm-type (common-lisp:error ":algorithm is required") :type
+   (algorithm-type common-lisp:nil :type
     (common-lisp:or algorithm common-lisp:null))
    (constant-initialization-vector-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
@@ -707,6 +764,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'vpc-interfaces))))))
 (common-lisp:progn
+ (common-lisp:defstruct (forbidden-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'forbidden-exception 'make-forbidden-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          forbidden-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (grant-entitlement-request (:copier common-lisp:nil))
    (data-transfer-subscriber-fee-percent-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
@@ -760,6 +833,24 @@
                                                    'subscribers))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (grant-flow-entitlements420exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'grant-flow-entitlements420exception
+                    'make-grant-flow-entitlements420exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          grant-flow-entitlements420exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (grant-flow-entitlements-request (:copier common-lisp:nil))
    (entitlements-type (common-lisp:error ":entitlements is required") :type
     (common-lisp:or |__listOfGrantEntitlementRequest| common-lisp:null))
@@ -808,6 +899,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'flow-arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (internal-server-error-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-error-exception
+                    'make-internal-server-error-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-error-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype key-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (list-entitlements-request (:copier common-lisp:nil))
@@ -1125,6 +1234,22 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'errors))))))
+(common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (offering (:copier common-lisp:nil))
    (currency-code-type (common-lisp:error ":currency-code is required") :type
@@ -1601,6 +1726,19 @@
                                                    'resource-type))))))
 (common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (response-error (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'response-error 'make-response-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape response-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct
      (revoke-flow-entitlement-request (:copier common-lisp:nil))
    (entitlement-arn-type (common-lisp:error ":entitlement-arn is required")
@@ -1651,6 +1789,24 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'flow-arn))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (service-unavailable-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-unavailable-exception
+                    'make-service-unavailable-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-unavailable-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (set-source-request (:copier common-lisp:nil))
    (decryption-type common-lisp:nil :type
     (common-lisp:or encryption common-lisp:null))
@@ -1663,6 +1819,8 @@
    (max-bitrate-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
    (max-latency-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (min-latency-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
    (name-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
@@ -1711,6 +1869,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'max-latency)))
+    (aws-sdk-cl/generator/shape::to-query-params "MinLatency"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'min-latency)))
     (aws-sdk-cl/generator/shape::to-query-params "Name"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1922,12 +2085,31 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tags))))))
 (common-lisp:progn
+ (common-lisp:defstruct (too-many-requests-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-requests-exception
+                    'make-too-many-requests-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-requests-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (transport (:copier common-lisp:nil))
    (cidr-allow-list-type common-lisp:nil :type
     (common-lisp:or |__listOf__string| common-lisp:null))
    (max-bitrate-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
    (max-latency-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (min-latency-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
    (protocol-type (common-lisp:error ":protocol is required") :type
     (common-lisp:or protocol common-lisp:null))
@@ -1956,6 +2138,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'max-latency)))
+    (aws-sdk-cl/generator/shape::to-query-params "MinLatency"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'min-latency)))
     (aws-sdk-cl/generator/shape::to-query-params "Protocol"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2183,6 +2370,8 @@
     (common-lisp:or |__string| common-lisp:null))
    (max-latency-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
+   (min-latency-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
    (output-arn-type (common-lisp:error ":output-arn is required") :type
     (common-lisp:or |__string| common-lisp:null))
    (port-type common-lisp:nil :type
@@ -2235,6 +2424,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'max-latency)))
+    (aws-sdk-cl/generator/shape::to-query-params "MinLatency"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'min-latency)))
     (aws-sdk-cl/generator/shape::to-query-params "OutputArn"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2348,6 +2542,8 @@
     (common-lisp:or |__integer| common-lisp:null))
    (max-latency-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
+   (min-latency-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
    (protocol-type common-lisp:nil :type
     (common-lisp:or protocol common-lisp:null))
    (source-arn-type (common-lisp:error ":source-arn is required") :type
@@ -2401,6 +2597,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'max-latency)))
+    (aws-sdk-cl/generator/shape::to-query-params "MinLatency"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'min-latency)))
     (aws-sdk-cl/generator/shape::to-query-params "Protocol"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2547,6 +2748,8 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'subnet-id))))))
+(common-lisp:deftype |__boolean| () 'common-lisp:boolean)
+(common-lisp:deftype |__double| () 'common-lisp:double-float)
 (common-lisp:deftype |__integer| () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:deftype |__listOfAddOutputRequest| ()
@@ -2644,6 +2847,14 @@
                            (trivial-types:proper-list vpc-interface-request))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:deftype |__listOf__integer| ()
+   '(trivial-types:proper-list |__integer|))
+ (common-lisp:defun |make-__listof__integer|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list |__integer|))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
  (common-lisp:deftype |__listOf__string| ()
    '(trivial-types:proper-list |__string|))
  (common-lisp:defun |make-__listof__string|
@@ -2651,6 +2862,7 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list |__string|))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype |__long| () 'common-lisp:integer)
 (common-lisp:defstruct
     (|__mapOf__string|
      (:constructor |make-__mapof__string|
@@ -2658,6 +2870,8 @@
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
 (common-lisp:deftype |__string| () 'common-lisp:string)
+(common-lisp:deftype |__timestampIso8601| () 'common-lisp:string)
+(common-lisp:deftype |__timestampUnix| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defun add-flow-outputs
                     (
@@ -3129,13 +3343,13 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key cidr-allow-list description destination
-                     encryption flow-arn max-latency output-arn port protocol
-                     remote-id smoothing-latency stream-id
+                     encryption flow-arn max-latency min-latency output-arn
+                     port protocol remote-id smoothing-latency stream-id
                      vpc-interface-attachment)
    (common-lisp:declare
     (common-lisp:ignorable cidr-allow-list description destination encryption
-     flow-arn max-latency output-arn port protocol remote-id smoothing-latency
-     stream-id vpc-interface-attachment))
+     flow-arn max-latency min-latency output-arn port protocol remote-id
+     smoothing-latency stream-id vpc-interface-attachment))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-update-flow-output-request
                                          aws-sdk-cl/generator/operation::args)))
@@ -3153,12 +3367,13 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key decryption description entitlement-arn
-                     flow-arn ingest-port max-bitrate max-latency protocol
-                     source-arn stream-id vpc-interface-name whitelist-cidr)
+                     flow-arn ingest-port max-bitrate max-latency min-latency
+                     protocol source-arn stream-id vpc-interface-name
+                     whitelist-cidr)
    (common-lisp:declare
     (common-lisp:ignorable decryption description entitlement-arn flow-arn
-     ingest-port max-bitrate max-latency protocol source-arn stream-id
-     vpc-interface-name whitelist-cidr))
+     ingest-port max-bitrate max-latency min-latency protocol source-arn
+     stream-id vpc-interface-name whitelist-cidr))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-update-flow-source-request
                                          aws-sdk-cl/generator/operation::args)))

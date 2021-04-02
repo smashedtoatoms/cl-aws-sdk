@@ -105,6 +105,54 @@
                             aggregate-compliance-by-config-rule))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (aggregate-compliance-by-conformance-pack (:copier common-lisp:nil))
+   (conformance-pack-name-type common-lisp:nil :type
+    (common-lisp:or conformance-pack-name common-lisp:null))
+   (compliance-type common-lisp:nil :type
+    (common-lisp:or aggregate-conformance-pack-compliance common-lisp:null))
+   (account-id-type common-lisp:nil :type
+    (common-lisp:or account-id common-lisp:null))
+   (aws-region-type common-lisp:nil :type
+    (common-lisp:or aws-region common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'aggregate-compliance-by-conformance-pack
+                    'make-aggregate-compliance-by-conformance-pack))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          aggregate-compliance-by-conformance-pack))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ConformancePackName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'conformance-pack-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Compliance"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'compliance)))
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "AwsRegion"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'aws-region))))))
+(common-lisp:progn
+ (common-lisp:deftype aggregate-compliance-by-conformance-pack-list ()
+   '(trivial-types:proper-list aggregate-compliance-by-conformance-pack))
+ (common-lisp:defun |make-aggregate-compliance-by-conformance-pack-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            aggregate-compliance-by-conformance-pack))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct (aggregate-compliance-count (:copier common-lisp:nil))
    (group-name-type common-lisp:nil :type
     (common-lisp:or string-with-char-limit256 common-lisp:null))
@@ -136,6 +184,172 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list
                             aggregate-compliance-count))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (aggregate-conformance-pack-compliance (:copier common-lisp:nil))
+   (compliance-type-type common-lisp:nil :type
+    (common-lisp:or conformance-pack-compliance-type common-lisp:null))
+   (compliant-rule-count-type common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (non-compliant-rule-count-type common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (total-rule-count-type common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'aggregate-conformance-pack-compliance
+                    'make-aggregate-conformance-pack-compliance))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          aggregate-conformance-pack-compliance))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ComplianceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'compliance-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "CompliantRuleCount"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'compliant-rule-count)))
+    (aws-sdk-cl/generator/shape::to-query-params "NonCompliantRuleCount"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'non-compliant-rule-count)))
+    (aws-sdk-cl/generator/shape::to-query-params "TotalRuleCount"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'total-rule-count))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (aggregate-conformance-pack-compliance-count (:copier common-lisp:nil))
+   (compliant-conformance-pack-count-type common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (non-compliant-conformance-pack-count-type common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'aggregate-conformance-pack-compliance-count
+                    'make-aggregate-conformance-pack-compliance-count))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          aggregate-conformance-pack-compliance-count))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params
+     "CompliantConformancePackCount"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'compliant-conformance-pack-count)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "NonCompliantConformancePackCount"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'non-compliant-conformance-pack-count))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (aggregate-conformance-pack-compliance-filters (:copier common-lisp:nil))
+   (conformance-pack-name-type common-lisp:nil :type
+    (common-lisp:or conformance-pack-name common-lisp:null))
+   (compliance-type-type common-lisp:nil :type
+    (common-lisp:or conformance-pack-compliance-type common-lisp:null))
+   (account-id-type common-lisp:nil :type
+    (common-lisp:or account-id common-lisp:null))
+   (aws-region-type common-lisp:nil :type
+    (common-lisp:or aws-region common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'aggregate-conformance-pack-compliance-filters
+                    'make-aggregate-conformance-pack-compliance-filters))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          aggregate-conformance-pack-compliance-filters))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ConformancePackName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'conformance-pack-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ComplianceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'compliance-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "AwsRegion"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'aws-region))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (aggregate-conformance-pack-compliance-summary (:copier common-lisp:nil))
+   (compliance-summary-type common-lisp:nil :type
+    (common-lisp:or aggregate-conformance-pack-compliance-count
+                    common-lisp:null))
+   (group-name-type common-lisp:nil :type
+    (common-lisp:or string-with-char-limit256 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'aggregate-conformance-pack-compliance-summary
+                    'make-aggregate-conformance-pack-compliance-summary))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          aggregate-conformance-pack-compliance-summary))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ComplianceSummary"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'compliance-summary)))
+    (aws-sdk-cl/generator/shape::to-query-params "GroupName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'group-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (aggregate-conformance-pack-compliance-summary-filters
+      (:copier common-lisp:nil))
+   (account-id-type common-lisp:nil :type
+    (common-lisp:or account-id common-lisp:null))
+   (aws-region-type common-lisp:nil :type
+    (common-lisp:or aws-region common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'aggregate-conformance-pack-compliance-summary-filters
+                    'make-aggregate-conformance-pack-compliance-summary-filters))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          aggregate-conformance-pack-compliance-summary-filters))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "AwsRegion"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'aws-region))))))
+(common-lisp:deftype aggregate-conformance-pack-compliance-summary-group-key ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype aggregate-conformance-pack-compliance-summary-list ()
+   '(trivial-types:proper-list aggregate-conformance-pack-compliance-summary))
+ (common-lisp:defun |make-aggregate-conformance-pack-compliance-summary-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            aggregate-conformance-pack-compliance-summary))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct (aggregate-evaluation-result (:copier common-lisp:nil))
@@ -1821,7 +2035,9 @@
    (config-rule-name-type common-lisp:nil :type
     (common-lisp:or config-rule-name common-lisp:null))
    (compliance-type-type common-lisp:nil :type
-    (common-lisp:or conformance-pack-compliance-type common-lisp:null)))
+    (common-lisp:or conformance-pack-compliance-type common-lisp:null))
+   (controls-type common-lisp:nil :type
+    (common-lisp:or controls-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'conformance-pack-rule-compliance
                     'make-conformance-pack-rule-compliance))
@@ -1839,7 +2055,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'compliance-type))))))
+                                                   'compliance-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "Controls"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'controls))))))
 (common-lisp:progn
  (common-lisp:deftype conformance-pack-rule-compliance-list ()
    '(trivial-types:proper-list conformance-pack-rule-compliance))
@@ -1941,6 +2162,27 @@
                             conformance-pack-status-detail))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype conformance-pack-status-reason () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (conformance-pack-template-validation-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'conformance-pack-template-validation-exception
+                    'make-conformance-pack-template-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conformance-pack-template-validation-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:deftype controls-list ()
+   '(trivial-types:proper-list string-with-char-limit128))
+ (common-lisp:defun |make-controls-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            string-with-char-limit128))
+   aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype cosmos-page-limit () 'common-lisp:integer)
 (common-lisp:deftype date () 'common-lisp:string)
 (common-lisp:progn
@@ -2520,6 +2762,75 @@
      (aws-sdk-cl/generator/shape:shape-to-params
       (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
                               'aggregate-compliance-by-config-rules)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-aggregate-compliance-by-conformance-packs-request
+      (:copier common-lisp:nil))
+   (configuration-aggregator-name-type
+    (common-lisp:error ":configuration-aggregator-name is required") :type
+    (common-lisp:or configuration-aggregator-name common-lisp:null))
+   (filters-type common-lisp:nil :type
+    (common-lisp:or aggregate-conformance-pack-compliance-filters
+                    common-lisp:null))
+   (limit-type common-lisp:nil :type (common-lisp:or limit common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-aggregate-compliance-by-conformance-packs-request
+                    'make-describe-aggregate-compliance-by-conformance-packs-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-aggregate-compliance-by-conformance-packs-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ConfigurationAggregatorName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'configuration-aggregator-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Filters"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'filters)))
+    (aws-sdk-cl/generator/shape::to-query-params "Limit"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'limit)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-aggregate-compliance-by-conformance-packs-response
+      (:copier common-lisp:nil))
+   (aggregate-compliance-by-conformance-packs-type common-lisp:nil :type
+    (common-lisp:or aggregate-compliance-by-conformance-pack-list
+                    common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list
+   'describe-aggregate-compliance-by-conformance-packs-response
+   'make-describe-aggregate-compliance-by-conformance-packs-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-aggregate-compliance-by-conformance-packs-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params
+     "AggregateComplianceByConformancePacks"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'aggregate-compliance-by-conformance-packs)))
     (aws-sdk-cl/generator/shape::to-query-params "NextToken"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -3778,6 +4089,7 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype earlier-time () 'common-lisp:string)
 (common-lisp:deftype emptiable-string-with-char-limit256 () 'common-lisp:string)
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (evaluation (:copier common-lisp:nil))
    (compliance-resource-type-type
@@ -4300,6 +4612,89 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'aggregate-compliance-counts)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-aggregate-conformance-pack-compliance-summary-request
+      (:copier common-lisp:nil))
+   (configuration-aggregator-name-type
+    (common-lisp:error ":configuration-aggregator-name is required") :type
+    (common-lisp:or configuration-aggregator-name common-lisp:null))
+   (filters-type common-lisp:nil :type
+    (common-lisp:or aggregate-conformance-pack-compliance-summary-filters
+                    common-lisp:null))
+   (group-by-key-type common-lisp:nil :type
+    (common-lisp:or aggregate-conformance-pack-compliance-summary-group-key
+                    common-lisp:null))
+   (limit-type common-lisp:nil :type (common-lisp:or limit common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-aggregate-conformance-pack-compliance-summary-request
+                    'make-get-aggregate-conformance-pack-compliance-summary-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-aggregate-conformance-pack-compliance-summary-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ConfigurationAggregatorName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'configuration-aggregator-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Filters"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'filters)))
+    (aws-sdk-cl/generator/shape::to-query-params "GroupByKey"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'group-by-key)))
+    (aws-sdk-cl/generator/shape::to-query-params "Limit"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'limit)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-aggregate-conformance-pack-compliance-summary-response
+      (:copier common-lisp:nil))
+   (aggregate-conformance-pack-compliance-summaries-type common-lisp:nil :type
+    (common-lisp:or aggregate-conformance-pack-compliance-summary-list
+                    common-lisp:null))
+   (group-by-key-type common-lisp:nil :type
+    (common-lisp:or string-with-char-limit256 common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-aggregate-conformance-pack-compliance-summary-response
+                    'make-get-aggregate-conformance-pack-compliance-summary-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-aggregate-conformance-pack-compliance-summary-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params
+     "AggregateConformancePackComplianceSummaries"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'aggregate-conformance-pack-compliance-summaries)))
+    (aws-sdk-cl/generator/shape::to-query-params "GroupByKey"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'group-by-key)))
     (aws-sdk-cl/generator/shape::to-query-params "NextToken"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -5110,9 +5505,190 @@
                            (trivial-types:proper-list grouped-resource-count))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype include-global-resource-types () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (insufficient-delivery-policy-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'insufficient-delivery-policy-exception
+                    'make-insufficient-delivery-policy-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          insufficient-delivery-policy-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (insufficient-permissions-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'insufficient-permissions-exception
+                    'make-insufficient-permissions-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          insufficient-permissions-exception))
+   (common-lisp:append)))
 (common-lisp:deftype integer () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-configuration-recorder-name-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-configuration-recorder-name-exception
+                    'make-invalid-configuration-recorder-name-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-configuration-recorder-name-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-delivery-channel-name-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-delivery-channel-name-exception
+                    'make-invalid-delivery-channel-name-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-delivery-channel-name-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-expression-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-expression-exception
+                    'make-invalid-expression-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-expression-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-limit-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-limit-exception 'make-invalid-limit-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-limit-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-next-token-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-next-token-exception
+                    'make-invalid-next-token-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-next-token-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-parameter-value-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-parameter-value-exception
+                    'make-invalid-parameter-value-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-parameter-value-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-recording-group-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-recording-group-exception
+                    'make-invalid-recording-group-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-recording-group-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-result-token-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-result-token-exception
+                    'make-invalid-result-token-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-result-token-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-role-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-role-exception 'make-invalid-role-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-role-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-s3key-prefix-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-s3key-prefix-exception
+                    'make-invalid-s3key-prefix-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-s3key-prefix-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-s3kms-key-arn-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-s3kms-key-arn-exception
+                    'make-invalid-s3kms-key-arn-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-s3kms-key-arn-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-snstopic-arnexception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-snstopic-arnexception
+                    'make-invalid-snstopic-arnexception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-snstopic-arnexception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-time-range-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-time-range-exception
+                    'make-invalid-time-range-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-time-range-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (last-delivery-channel-delete-failed-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'last-delivery-channel-delete-failed-exception
+                    'make-last-delivery-channel-delete-failed-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          last-delivery-channel-delete-failed-exception))
+   (common-lisp:append)))
 (common-lisp:deftype later-time () 'common-lisp:string)
 (common-lisp:deftype limit () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-aggregate-discovered-resources-request (:copier common-lisp:nil))
@@ -5366,6 +5942,101 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
 (common-lisp:deftype long () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (max-active-resources-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'max-active-resources-exceeded-exception
+                    'make-max-active-resources-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          max-active-resources-exceeded-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (max-number-of-config-rules-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'max-number-of-config-rules-exceeded-exception
+                    'make-max-number-of-config-rules-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          max-number-of-config-rules-exceeded-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (max-number-of-configuration-recorders-exceeded-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'max-number-of-configuration-recorders-exceeded-exception
+                    'make-max-number-of-configuration-recorders-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          max-number-of-configuration-recorders-exceeded-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (max-number-of-conformance-packs-exceeded-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'max-number-of-conformance-packs-exceeded-exception
+                    'make-max-number-of-conformance-packs-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          max-number-of-conformance-packs-exceeded-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (max-number-of-delivery-channels-exceeded-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'max-number-of-delivery-channels-exceeded-exception
+                    'make-max-number-of-delivery-channels-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          max-number-of-delivery-channels-exceeded-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (max-number-of-organization-config-rules-exceeded-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'max-number-of-organization-config-rules-exceeded-exception
+                    'make-max-number-of-organization-config-rules-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          max-number-of-organization-config-rules-exceeded-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (max-number-of-organization-conformance-packs-exceeded-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list
+   'max-number-of-organization-conformance-packs-exceeded-exception
+   'make-max-number-of-organization-conformance-packs-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          max-number-of-organization-conformance-packs-exceeded-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (max-number-of-retention-configurations-exceeded-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'max-number-of-retention-configurations-exceeded-exception
+                    'make-max-number-of-retention-configurations-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          max-number-of-retention-configurations-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:deftype maximum-execution-frequency () 'common-lisp:string)
 (common-lisp:deftype member-account-rule-status () 'common-lisp:string)
 (common-lisp:progn
@@ -5423,7 +6094,194 @@
 (common-lisp:deftype message-type () 'common-lisp:string)
 (common-lisp:deftype name () 'common-lisp:string)
 (common-lisp:deftype next-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-available-configuration-recorder-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-available-configuration-recorder-exception
+                    'make-no-available-configuration-recorder-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-available-configuration-recorder-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-available-delivery-channel-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-available-delivery-channel-exception
+                    'make-no-available-delivery-channel-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-available-delivery-channel-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-available-organization-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-available-organization-exception
+                    'make-no-available-organization-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-available-organization-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-running-configuration-recorder-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-running-configuration-recorder-exception
+                    'make-no-running-configuration-recorder-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-running-configuration-recorder-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (no-such-bucket-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-bucket-exception 'make-no-such-bucket-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-bucket-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-config-rule-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-config-rule-exception
+                    'make-no-such-config-rule-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-config-rule-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-config-rule-in-conformance-pack-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-config-rule-in-conformance-pack-exception
+                    'make-no-such-config-rule-in-conformance-pack-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-config-rule-in-conformance-pack-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-configuration-aggregator-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-configuration-aggregator-exception
+                    'make-no-such-configuration-aggregator-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-configuration-aggregator-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-configuration-recorder-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-configuration-recorder-exception
+                    'make-no-such-configuration-recorder-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-configuration-recorder-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-conformance-pack-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-conformance-pack-exception
+                    'make-no-such-conformance-pack-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-conformance-pack-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-delivery-channel-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-delivery-channel-exception
+                    'make-no-such-delivery-channel-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-delivery-channel-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-organization-config-rule-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-organization-config-rule-exception
+                    'make-no-such-organization-config-rule-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-organization-config-rule-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-organization-conformance-pack-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-organization-conformance-pack-exception
+                    'make-no-such-organization-conformance-pack-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-organization-conformance-pack-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-remediation-configuration-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-remediation-configuration-exception
+                    'make-no-such-remediation-configuration-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-remediation-configuration-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-remediation-exception-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-remediation-exception-exception
+                    'make-no-such-remediation-exception-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-remediation-exception-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-retention-configuration-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-retention-configuration-exception
+                    'make-no-such-retention-configuration-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-retention-configuration-exception))
+   (common-lisp:append)))
 (common-lisp:deftype ordering-timestamp () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (organization-access-denied-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'organization-access-denied-exception
+                    'make-organization-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          organization-access-denied-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (organization-aggregation-source (:copier common-lisp:nil))
@@ -5456,6 +6314,18 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'all-aws-regions))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (organization-all-features-not-enabled-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'organization-all-features-not-enabled-exception
+                    'make-organization-all-features-not-enabled-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          organization-all-features-not-enabled-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (organization-config-rule (:copier common-lisp:nil))
    (organization-config-rule-name-type
@@ -5796,6 +6666,19 @@
                             organization-conformance-pack-status))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (organization-conformance-pack-template-validation-exception
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list
+   'organization-conformance-pack-template-validation-exception
+   'make-organization-conformance-pack-template-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          organization-conformance-pack-template-validation-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype organization-conformance-packs ()
    '(trivial-types:proper-list organization-conformance-pack))
  (common-lisp:defun |make-organization-conformance-packs|
@@ -5977,6 +6860,17 @@
                                                    'status))))))
 (common-lisp:deftype organization-resource-status () 'common-lisp:string)
 (common-lisp:deftype organization-rule-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (oversized-configuration-item-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'oversized-configuration-item-exception
+                    'make-oversized-configuration-item-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          oversized-configuration-item-exception))
+   (common-lisp:append)))
 (common-lisp:deftype owner () 'common-lisp:string)
 (common-lisp:deftype page-size-limit () 'common-lisp:integer)
 (common-lisp:deftype parameter-name () 'common-lisp:string)
@@ -7106,6 +8000,17 @@
                             remediation-execution-step))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (remediation-in-progress-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'remediation-in-progress-exception
+                    'make-remediation-in-progress-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          remediation-in-progress-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (remediation-parameter-value (:copier common-lisp:nil))
    (resource-value-type common-lisp:nil :type
     (common-lisp:or resource-value common-lisp:null))
@@ -7136,6 +8041,24 @@
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
 (common-lisp:deftype remediation-target-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-concurrent-modification-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-concurrent-modification-exception
+                    'make-resource-concurrent-modification-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-concurrent-modification-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (resource-count (:copier common-lisp:nil))
    (resource-type-type common-lisp:nil :type
@@ -7295,6 +8218,16 @@
                             aggregate-resource-identifier))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (resource-in-use-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-in-use-exception
+                    'make-resource-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-in-use-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (resource-key (:copier common-lisp:nil))
    (resource-type-type (common-lisp:error ":resourcetype is required") :type
     (common-lisp:or resource-type common-lisp:null))
@@ -7323,6 +8256,28 @@
                            (trivial-types:proper-list resource-key))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype resource-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-discovered-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-discovered-exception
+                    'make-resource-not-discovered-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-discovered-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype resource-type-list ()
@@ -8013,6 +8968,15 @@
 (common-lisp:deftype template-body () 'common-lisp:string)
 (common-lisp:deftype template-s3uri () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (too-many-tags-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-tags-exception 'make-too-many-tags-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-tags-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype unprocessed-resource-identifier-list ()
    '(trivial-types:proper-list aggregate-resource-identifier))
  (common-lisp:defun |make-unprocessed-resource-identifier-list|
@@ -8044,6 +9008,15 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tag-keys))))))
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append)))
 (common-lisp:deftype value () 'common-lisp:string)
 (common-lisp:deftype version () 'common-lisp:string)
 (common-lisp:progn
@@ -8420,6 +9393,30 @@
                                     aws-sdk-cl/generator/operation::input)))
       "DescribeAggregateComplianceByConfigRulesResponse" common-lisp:nil)))
  (common-lisp:export 'describe-aggregate-compliance-by-config-rules))
+(common-lisp:progn
+ (common-lisp:defun describe-aggregate-compliance-by-conformance-packs
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key configuration-aggregator-name filters
+                     limit next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable configuration-aggregator-name filters limit
+     next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-aggregate-compliance-by-conformance-packs-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "config" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"DescribeAggregateComplianceByConformancePacks")
+                                     ("Version" ,@"2014-11-12"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DescribeAggregateComplianceByConformancePacksResponse"
+      common-lisp:nil)))
+ (common-lisp:export 'describe-aggregate-compliance-by-conformance-packs))
 (common-lisp:progn
  (common-lisp:defun describe-aggregation-authorizations
                     (
@@ -8953,6 +9950,29 @@
                                     aws-sdk-cl/generator/operation::input)))
       "GetAggregateConfigRuleComplianceSummaryResponse" common-lisp:nil)))
  (common-lisp:export 'get-aggregate-config-rule-compliance-summary))
+(common-lisp:progn
+ (common-lisp:defun get-aggregate-conformance-pack-compliance-summary
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key configuration-aggregator-name filters
+                     group-by-key limit next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable configuration-aggregator-name filters group-by-key
+     limit next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-aggregate-conformance-pack-compliance-summary-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "config" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"GetAggregateConformancePackComplianceSummary")
+                                     ("Version" ,@"2014-11-12"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetAggregateConformancePackComplianceSummaryResponse" common-lisp:nil)))
+ (common-lisp:export 'get-aggregate-conformance-pack-compliance-summary))
 (common-lisp:progn
  (common-lisp:defun get-aggregate-discovered-resource-counts
                     (

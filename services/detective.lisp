@@ -61,6 +61,37 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-graph-request (:copier common-lisp:nil))
+   (tags-type common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-graph-request 'make-create-graph-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-graph-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
  (common-lisp:defstruct (create-graph-response (:copier common-lisp:nil))
    (graph-arn-type common-lisp:nil :type
     (common-lisp:or graph-arn common-lisp:null)))
@@ -218,6 +249,7 @@
                                                    'graph-arn))))))
 (common-lisp:deftype email-address () 'common-lisp:string)
 (common-lisp:deftype email-message () 'common-lisp:string)
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (get-members-request (:copier common-lisp:nil))
    (graph-arn-type (common-lisp:error ":graph-arn is required") :type
@@ -291,6 +323,23 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list graph))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-exception
+                    'make-internal-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-graphs-request (:copier common-lisp:nil))
    (next-token-type common-lisp:nil :type
@@ -438,6 +487,41 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (list-tags-for-resource-request (:copier common-lisp:nil))
+   (resource-arn-type (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or graph-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tags-for-resource-request
+                    'make-list-tags-for-resource-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-tags-for-resource-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-tags-for-resource-response (:copier common-lisp:nil))
+   (tags-type common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-tags-for-resource-response
+                    'make-list-tags-for-resource-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-tags-for-resource-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
  (common-lisp:defstruct (member-detail (:copier common-lisp:nil))
    (account-id-type common-lisp:nil :type
     (common-lisp:or account-id common-lisp:null))
@@ -552,6 +636,42 @@
                                                    'graph-arn))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (service-quota-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-quota-exceeded-exception
+                    'make-service-quota-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-quota-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (start-monitoring-member-request (:copier common-lisp:nil))
    (graph-arn-type (common-lisp:error ":graph-arn is required") :type
     (common-lisp:or graph-arn common-lisp:null))
@@ -575,6 +695,53 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'account-id))))))
+(common-lisp:deftype tag-key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype tag-key-list () '(trivial-types:proper-list tag-key))
+ (common-lisp:defun |make-tag-key-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list tag-key))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:defstruct
+    (tag-map
+     (:constructor |make-tag-map|
+      (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
+  aws-sdk-cl/generator/shape::key
+  aws-sdk-cl/generator/shape::value)
+(common-lisp:progn
+ (common-lisp:defstruct (tag-resource-request (:copier common-lisp:nil))
+   (resource-arn-type (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or graph-arn common-lisp:null))
+   (tags-type (common-lisp:error ":tags is required") :type
+    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          tag-resource-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (tag-resource-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          tag-resource-response))
+   (common-lisp:append)))
+(common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (unprocessed-account (:copier common-lisp:nil))
@@ -609,6 +776,54 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype unprocessed-reason () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (untag-resource-request (:copier common-lisp:nil))
+   (resource-arn-type (common-lisp:error ":resource-arn is required") :type
+    (common-lisp:or graph-arn common-lisp:null))
+   (tag-keys-type (common-lisp:error ":tag-keys is required") :type
+    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          untag-resource-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "TagKeys"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tag-keys))))))
+(common-lisp:progn
+ (common-lisp:defstruct (untag-resource-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          untag-resource-response))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defun accept-invitation
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -627,12 +842,22 @@
       common-lisp:nil common-lisp:nil)))
  (common-lisp:export 'accept-invitation))
 (common-lisp:progn
- (common-lisp:defun create-graph ()
-   (aws-sdk-cl/generator/operation::parse-response
-    (aws-sdk-cl/api:aws-request :service "detective" :method :post :params
-                                `(("Action" ,@"CreateGraph")
-                                  ("Version" ,@"2018-10-26")))
-    "CreateGraphResponse" common-lisp:nil))
+ (common-lisp:defun create-graph
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key tags)
+   (common-lisp:declare (common-lisp:ignorable tags))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-create-graph-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "detective" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateGraph")
+                                     ("Version" ,@"2018-10-26"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateGraphResponse" common-lisp:nil)))
  (common-lisp:export 'create-graph))
 (common-lisp:progn
  (common-lisp:defun create-members
@@ -783,6 +1008,24 @@
       "ListMembersResponse" common-lisp:nil)))
  (common-lisp:export 'list-members))
 (common-lisp:progn
+ (common-lisp:defun list-tags-for-resource
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:declare (common-lisp:ignorable resource-arn))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-list-tags-for-resource-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "detective" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListTagsForResource")
+                                     ("Version" ,@"2018-10-26"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListTagsForResourceResponse" common-lisp:nil)))
+ (common-lisp:export 'list-tags-for-resource))
+(common-lisp:progn
  (common-lisp:defun reject-invitation
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -818,3 +1061,39 @@
                                     aws-sdk-cl/generator/operation::input)))
       common-lisp:nil common-lisp:nil)))
  (common-lisp:export 'start-monitoring-member))
+(common-lisp:progn
+ (common-lisp:defun tag-resource
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key resource-arn tags)
+   (common-lisp:declare (common-lisp:ignorable resource-arn tags))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-tag-resource-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "detective" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"TagResource")
+                                     ("Version" ,@"2018-10-26"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "TagResourceResponse" common-lisp:nil)))
+ (common-lisp:export 'tag-resource))
+(common-lisp:progn
+ (common-lisp:defun untag-resource
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key resource-arn tag-keys)
+   (common-lisp:declare (common-lisp:ignorable resource-arn tag-keys))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-untag-resource-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "detective" :method :delete :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"UntagResource")
+                                     ("Version" ,@"2018-10-26"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "UntagResourceResponse" common-lisp:nil)))
+ (common-lisp:export 'untag-resource))

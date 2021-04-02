@@ -1,226 +1,157 @@
 {
-  "version": "2.0",
-  "metadata": {
-    "apiVersion": "2020-09-23",
-    "endpointPrefix": "edge.sagemaker",
-    "jsonVersion": "1.1",
-    "protocol": "rest-json",
-    "serviceFullName": "Amazon Sagemaker Edge Manager",
-    "serviceId": "Sagemaker Edge",
-    "signatureVersion": "v4",
-    "signingName": "sagemaker",
-    "uid": "sagemaker-edge-2020-09-23"
+  "version":"2.0",
+  "metadata":{
+    "apiVersion":"2020-09-23",
+    "endpointPrefix":"edge.sagemaker",
+    "jsonVersion":"1.1",
+    "protocol":"rest-json",
+    "serviceFullName":"Amazon Sagemaker Edge Manager",
+    "serviceId":"Sagemaker Edge",
+    "signatureVersion":"v4",
+    "signingName":"sagemaker",
+    "uid":"sagemaker-edge-2020-09-23"
   },
-  "operations": {
-    "GetDeviceRegistration": {
-      "name": "GetDeviceRegistration",
-      "http": {
-        "method": "POST",
-        "requestUri": "/GetDeviceRegistration"
+  "operations":{
+    "GetDeviceRegistration":{
+      "name":"GetDeviceRegistration",
+      "http":{
+        "method":"POST",
+        "requestUri":"/GetDeviceRegistration"
       },
-      "input": {
-        "shape": "GetDeviceRegistrationRequest"
-      },
-      "output": {
-        "shape": "GetDeviceRegistrationResult"
-      },
-      "errors": [
-        {
-          "shape": "InternalServiceException"
-        }
-      ],
-      "documentation": "<p>Use to check if a device is registered with SageMaker Edge Manager.</p>"
+      "input":{"shape":"GetDeviceRegistrationRequest"},
+      "output":{"shape":"GetDeviceRegistrationResult"},
+      "errors":[
+        {"shape":"InternalServiceException"}
+      ]
     },
-    "SendHeartbeat": {
-      "name": "SendHeartbeat",
-      "http": {
-        "method": "POST",
-        "requestUri": "/SendHeartbeat"
+    "SendHeartbeat":{
+      "name":"SendHeartbeat",
+      "http":{
+        "method":"POST",
+        "requestUri":"/SendHeartbeat"
       },
-      "input": {
-        "shape": "SendHeartbeatRequest"
-      },
-      "errors": [
-        {
-          "shape": "InternalServiceException"
-        }
-      ],
-      "documentation": "<p>Use to get the current status of devices registered on SageMaker Edge Manager.</p>"
+      "input":{"shape":"SendHeartbeatRequest"},
+      "errors":[
+        {"shape":"InternalServiceException"}
+      ]
     }
   },
-  "shapes": {
-    "CacheTTLSeconds": {
-      "type": "string",
-      "max": 1000,
-      "min": 1
+  "shapes":{
+    "CacheTTLSeconds":{
+      "type":"string",
+      "max":1000,
+      "min":1
     },
-    "DeviceFleetName": {
-      "type": "string",
-      "max": 63,
-      "min": 1,
-      "pattern": "^[a-zA-Z0-9](-*_*[a-zA-Z0-9])*$"
+    "DeviceFleetName":{
+      "type":"string",
+      "max":63,
+      "min":1,
+      "pattern":"^[a-zA-Z0-9](-*_*[a-zA-Z0-9])*$"
     },
-    "DeviceName": {
-      "type": "string",
-      "max": 63,
-      "min": 1,
-      "pattern": "^[a-zA-Z0-9](-*_*[a-zA-Z0-9])*$"
+    "DeviceName":{
+      "type":"string",
+      "max":63,
+      "min":1,
+      "pattern":"^[a-zA-Z0-9](-*_*[a-zA-Z0-9])*$"
     },
-    "DeviceRegistration": {
-      "type": "string",
-      "max": 1000,
-      "min": 1
+    "DeviceRegistration":{
+      "type":"string",
+      "max":1000,
+      "min":1
     },
-    "Dimension": {
-      "type": "string",
-      "max": 1000,
-      "min": 1,
-      "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9\\/])*$"
+    "Dimension":{
+      "type":"string",
+      "max":1000,
+      "min":1,
+      "pattern":"^[a-zA-Z0-9](-*[a-zA-Z0-9\\/])*$"
     },
-    "EdgeMetric": {
-      "type": "structure",
-      "members": {
-        "Dimension": {
-          "shape": "Dimension",
-          "documentation": "<p>The dimension of metrics published.</p>"
-        },
-        "MetricName": {
-          "shape": "Metric",
-          "documentation": "<p>Returns the name of the metric.</p>"
-        },
-        "Value": {
-          "shape": "Value",
-          "documentation": "<p>Returns the value of the metric.</p>"
-        },
-        "Timestamp": {
-          "shape": "Timestamp",
-          "documentation": "<p>Timestamp of when the metric was requested.</p>"
-        }
-      },
-      "documentation": "<p>Information required for edge device metrics.</p>"
-    },
-    "EdgeMetrics": {
-      "type": "list",
-      "member": {
-        "shape": "EdgeMetric"
+    "EdgeMetric":{
+      "type":"structure",
+      "members":{
+        "Dimension":{"shape":"Dimension"},
+        "MetricName":{"shape":"Metric"},
+        "Value":{"shape":"Value"},
+        "Timestamp":{"shape":"Timestamp"}
       }
     },
-    "GetDeviceRegistrationRequest": {
-      "type": "structure",
-      "required": [
+    "EdgeMetrics":{
+      "type":"list",
+      "member":{"shape":"EdgeMetric"}
+    },
+    "ErrorMessage":{"type":"string"},
+    "GetDeviceRegistrationRequest":{
+      "type":"structure",
+      "required":[
         "DeviceName",
         "DeviceFleetName"
       ],
-      "members": {
-        "DeviceName": {
-          "shape": "DeviceName",
-          "documentation": "<p>The unique name of the device you want to get the registration status from.</p>"
-        },
-        "DeviceFleetName": {
-          "shape": "DeviceFleetName",
-          "documentation": "<p>The name of the fleet that the device belongs to.</p>"
-        }
+      "members":{
+        "DeviceName":{"shape":"DeviceName"},
+        "DeviceFleetName":{"shape":"DeviceFleetName"}
       }
     },
-    "GetDeviceRegistrationResult": {
-      "type": "structure",
-      "members": {
-        "DeviceRegistration": {
-          "shape": "DeviceRegistration",
-          "documentation": "<p>Describes if the device is currently registered with SageMaker Edge Manager.</p>"
-        },
-        "CacheTTL": {
-          "shape": "CacheTTLSeconds",
-          "documentation": "<p>The amount of time, in seconds, that the registration status is stored on the device’s cache before it is refreshed.</p>"
-        }
+    "GetDeviceRegistrationResult":{
+      "type":"structure",
+      "members":{
+        "DeviceRegistration":{"shape":"DeviceRegistration"},
+        "CacheTTL":{"shape":"CacheTTLSeconds"}
       }
     },
-    "Metric": {
-      "type": "string",
-      "max": 100,
-      "min": 4,
-      "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"
-    },
-    "Model": {
-      "type": "structure",
-      "members": {
-        "ModelName": {
-          "shape": "ModelName",
-          "documentation": "<p>The name of the model.</p>"
-        },
-        "ModelVersion": {
-          "shape": "Version",
-          "documentation": "<p>The version of the model.</p>"
-        },
-        "LatestSampleTime": {
-          "shape": "Timestamp",
-          "documentation": "<p>The timestamp of the last data sample taken.</p>"
-        },
-        "LatestInference": {
-          "shape": "Timestamp",
-          "documentation": "<p>The timestamp of the last inference that was made.</p>"
-        },
-        "ModelMetrics": {
-          "shape": "EdgeMetrics",
-          "documentation": "<p>Information required for model metrics.</p>"
-        }
+    "InternalServiceException":{
+      "type":"structure",
+      "members":{
+        "Message":{"shape":"ErrorMessage"}
       },
-      "documentation": "<p>Information about a model deployed on an edge device that is registered with SageMaker Edge Manager.</p>"
+      "exception":true
     },
-    "ModelName": {
-      "type": "string",
-      "max": 255,
-      "min": 4,
-      "pattern": "^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"
+    "Metric":{
+      "type":"string",
+      "max":100,
+      "min":4,
+      "pattern":"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"
     },
-    "Models": {
-      "type": "list",
-      "member": {
-        "shape": "Model"
+    "Model":{
+      "type":"structure",
+      "members":{
+        "ModelName":{"shape":"ModelName"},
+        "ModelVersion":{"shape":"Version"},
+        "LatestSampleTime":{"shape":"Timestamp"},
+        "LatestInference":{"shape":"Timestamp"},
+        "ModelMetrics":{"shape":"EdgeMetrics"}
       }
     },
-    "SendHeartbeatRequest": {
-      "type": "structure",
-      "required": [
+    "ModelName":{
+      "type":"string",
+      "max":255,
+      "min":4,
+      "pattern":"^[a-zA-Z0-9](-*[a-zA-Z0-9])*$"
+    },
+    "Models":{
+      "type":"list",
+      "member":{"shape":"Model"}
+    },
+    "SendHeartbeatRequest":{
+      "type":"structure",
+      "required":[
         "AgentVersion",
         "DeviceName",
         "DeviceFleetName"
       ],
-      "members": {
-        "AgentMetrics": {
-          "shape": "EdgeMetrics",
-          "documentation": "<p>For internal use. Returns a list of SageMaker Edge Manager agent operating metrics.</p>"
-        },
-        "Models": {
-          "shape": "Models",
-          "documentation": "<p>Returns a list of models deployed on the the device.</p>"
-        },
-        "AgentVersion": {
-          "shape": "Version",
-          "documentation": "<p>Returns the version of the agent.</p>"
-        },
-        "DeviceName": {
-          "shape": "DeviceName",
-          "documentation": "<p>The unique name of the device.</p>"
-        },
-        "DeviceFleetName": {
-          "shape": "DeviceFleetName",
-          "documentation": "<p>The name of the fleet that the device belongs to.</p>"
-        }
+      "members":{
+        "AgentMetrics":{"shape":"EdgeMetrics"},
+        "Models":{"shape":"Models"},
+        "AgentVersion":{"shape":"Version"},
+        "DeviceName":{"shape":"DeviceName"},
+        "DeviceFleetName":{"shape":"DeviceFleetName"}
       }
     },
-    "Timestamp": {
-      "type": "timestamp"
-    },
-    "Value": {
-      "type": "double"
-    },
-    "Version": {
-      "type": "string",
-      "max": 64,
-      "min": 1,
-      "pattern": "[a-zA-Z0-9\\ \\_\\.]+"
+    "Timestamp":{"type":"timestamp"},
+    "Value":{"type":"double"},
+    "Version":{
+      "type":"string",
+      "max":64,
+      "min":1,
+      "pattern":"[a-zA-Z0-9\\ \\_\\.]+"
     }
-  },
-  "documentation": "<p>SageMaker Edge Manager dataplane service for communicating with active agents.</p>"
+  }
 }

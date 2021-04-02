@@ -345,6 +345,68 @@
                                                    'parent-connection-id))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (associate-mac-sec-key-request (:copier common-lisp:nil))
+   (connection-id-type (common-lisp:error ":connectionid is required") :type
+    (common-lisp:or connection-id common-lisp:null))
+   (secret-arntype common-lisp:nil :type
+    (common-lisp:or secret-arn common-lisp:null))
+   (ckn-type common-lisp:nil :type (common-lisp:or ckn common-lisp:null))
+   (cak-type common-lisp:nil :type (common-lisp:or cak common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associate-mac-sec-key-request
+                    'make-associate-mac-sec-key-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          associate-mac-sec-key-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "connectionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connection-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "secretARN"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'secret-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ckn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ckn)))
+    (aws-sdk-cl/generator/shape::to-query-params "cak"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cak))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (associate-mac-sec-key-response (:copier common-lisp:nil))
+   (connection-id-type common-lisp:nil :type
+    (common-lisp:or connection-id common-lisp:null))
+   (mac-sec-keys-type common-lisp:nil :type
+    (common-lisp:or mac-sec-key-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associate-mac-sec-key-response
+                    'make-associate-mac-sec-key-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          associate-mac-sec-key-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "connectionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connection-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "macSecKeys"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mac-sec-keys))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (associate-virtual-interface-request (:copier common-lisp:nil))
    (virtual-interface-id-type
     (common-lisp:error ":virtualinterfaceid is required") :type
@@ -407,6 +469,14 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'region))))))
 (common-lisp:deftype associated-gateway-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype available-mac-sec-port-speeds ()
+   '(trivial-types:proper-list port-speed))
+ (common-lisp:defun |make-available-mac-sec-port-speeds|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list port-speed))
+   aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype available-port-speeds ()
    '(trivial-types:proper-list port-speed))
@@ -507,6 +577,8 @@
 (common-lisp:deftype bandwidth () 'common-lisp:string)
 (common-lisp:deftype boolean-flag () 'common-lisp:boolean)
 (common-lisp:deftype cidr () 'common-lisp:string)
+(common-lisp:deftype cak () 'common-lisp:string)
+(common-lisp:deftype ckn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (confirm-connection-request (:copier common-lisp:nil))
    (connection-id-type (common-lisp:error ":connectionid is required") :type
@@ -705,7 +777,15 @@
     (common-lisp:or has-logical-redundancy common-lisp:null))
    (tags-type common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
    (provider-name-type common-lisp:nil :type
-    (common-lisp:or provider-name common-lisp:null)))
+    (common-lisp:or provider-name common-lisp:null))
+   (mac-sec-capable-type common-lisp:nil :type
+    (common-lisp:or mac-sec-capable common-lisp:null))
+   (port-encryption-status-type common-lisp:nil :type
+    (common-lisp:or port-encryption-status common-lisp:null))
+   (encryption-mode-type common-lisp:nil :type
+    (common-lisp:or encryption-mode common-lisp:null))
+   (mac-sec-keys-type common-lisp:nil :type
+    (common-lisp:or mac-sec-key-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'connection 'make-connection))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape connection))
@@ -794,7 +874,27 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'provider-name))))))
+                                                   'provider-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "macSecCapable"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mac-sec-capable)))
+    (aws-sdk-cl/generator/shape::to-query-params "portEncryptionStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'port-encryption-status)))
+    (aws-sdk-cl/generator/shape::to-query-params "encryptionMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'encryption-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "macSecKeys"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mac-sec-keys))))))
 (common-lisp:deftype connection-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype connection-list ()
@@ -870,7 +970,9 @@
    (lag-id-type common-lisp:nil :type (common-lisp:or lag-id common-lisp:null))
    (tags-type common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
    (provider-name-type common-lisp:nil :type
-    (common-lisp:or provider-name common-lisp:null)))
+    (common-lisp:or provider-name common-lisp:null))
+   (request-macsec-type common-lisp:nil :type
+    (common-lisp:or request-macsec common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-connection-request
                     'make-create-connection-request))
@@ -908,7 +1010,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'provider-name))))))
+                                                   'provider-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "requestMACSec"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-macsec))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-direct-connect-gateway-association-proposal-request
@@ -1150,7 +1257,9 @@
    (child-connection-tags-type common-lisp:nil :type
     (common-lisp:or tag-list common-lisp:null))
    (provider-name-type common-lisp:nil :type
-    (common-lisp:or provider-name common-lisp:null)))
+    (common-lisp:or provider-name common-lisp:null))
+   (request-macsec-type common-lisp:nil :type
+    (common-lisp:or request-macsec common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-lag-request 'make-create-lag-request))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -1197,7 +1306,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'provider-name))))))
+                                                   'provider-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "requestMACSec"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-macsec))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-private-virtual-interface-request (:copier common-lisp:nil))
@@ -2135,6 +2249,24 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'virtual-interface-id))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (direct-connect-client-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'direct-connect-client-exception
+                    'make-direct-connect-client-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          direct-connect-client-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (direct-connect-gateway (:copier common-lisp:nil))
    (direct-connect-gateway-id-type common-lisp:nil :type
     (common-lisp:or direct-connect-gateway-id common-lisp:null))
@@ -2440,6 +2572,24 @@
 (common-lisp:deftype direct-connect-gateway-state () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (direct-connect-server-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'direct-connect-server-exception
+                    'make-direct-connect-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          direct-connect-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (disassociate-connection-from-lag-request (:copier common-lisp:nil))
    (connection-id-type (common-lisp:error ":connectionid is required") :type
     (common-lisp:or connection-id common-lisp:null))
@@ -2463,7 +2613,70 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'lag-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disassociate-mac-sec-key-request (:copier common-lisp:nil))
+   (connection-id-type (common-lisp:error ":connectionid is required") :type
+    (common-lisp:or connection-id common-lisp:null))
+   (secret-arntype (common-lisp:error ":secretarn is required") :type
+    (common-lisp:or secret-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disassociate-mac-sec-key-request
+                    'make-disassociate-mac-sec-key-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          disassociate-mac-sec-key-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "connectionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connection-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "secretARN"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'secret-arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disassociate-mac-sec-key-response (:copier common-lisp:nil))
+   (connection-id-type common-lisp:nil :type
+    (common-lisp:or connection-id common-lisp:null))
+   (mac-sec-keys-type common-lisp:nil :type
+    (common-lisp:or mac-sec-key-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disassociate-mac-sec-key-response
+                    'make-disassociate-mac-sec-key-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          disassociate-mac-sec-key-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "connectionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connection-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "macSecKeys"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mac-sec-keys))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (duplicate-tag-keys-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'duplicate-tag-keys-exception
+                    'make-duplicate-tag-keys-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          duplicate-tag-keys-exception))
+   (common-lisp:append)))
+(common-lisp:deftype encryption-mode () 'common-lisp:string)
 (common-lisp:deftype end-time () 'common-lisp:string)
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:deftype failure-test-history-status () 'common-lisp:string)
 (common-lisp:deftype gateway-id-to-associate () 'common-lisp:string)
 (common-lisp:deftype gateway-identifier () 'common-lisp:string)
@@ -2627,7 +2840,13 @@
     (common-lisp:or has-logical-redundancy common-lisp:null))
    (tags-type common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
    (provider-name-type common-lisp:nil :type
-    (common-lisp:or provider-name common-lisp:null)))
+    (common-lisp:or provider-name common-lisp:null))
+   (mac-sec-capable-type common-lisp:nil :type
+    (common-lisp:or mac-sec-capable common-lisp:null))
+   (encryption-mode-type common-lisp:nil :type
+    (common-lisp:or encryption-mode common-lisp:null))
+   (mac-sec-keys-type common-lisp:nil :type
+    (common-lisp:or mac-sec-key-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'lag 'make-lag))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape lag))
@@ -2716,7 +2935,22 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'provider-name))))))
+                                                   'provider-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "macSecCapable"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mac-sec-capable)))
+    (aws-sdk-cl/generator/shape::to-query-params "encryptionMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'encryption-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "macSecKeys"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mac-sec-keys))))))
 (common-lisp:deftype lag-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype lag-list () '(trivial-types:proper-list lag))
@@ -2852,7 +3086,9 @@
    (available-port-speeds-type common-lisp:nil :type
     (common-lisp:or available-port-speeds common-lisp:null))
    (available-providers-type common-lisp:nil :type
-    (common-lisp:or provider-list common-lisp:null)))
+    (common-lisp:or provider-list common-lisp:null))
+   (available-mac-sec-port-speeds-type common-lisp:nil :type
+    (common-lisp:or available-mac-sec-port-speeds common-lisp:null)))
  (common-lisp:export (common-lisp:list 'location 'make-location))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape location))
@@ -2881,7 +3117,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'available-providers))))))
+                                                   'available-providers)))
+    (aws-sdk-cl/generator/shape::to-query-params "availableMacSecPortSpeeds"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'available-mac-sec-port-speeds))))))
 (common-lisp:deftype location-code () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype location-list () '(trivial-types:proper-list location))
@@ -2906,6 +3147,47 @@
                                                    'locations))))))
 (common-lisp:deftype long-asn () 'common-lisp:integer)
 (common-lisp:deftype mtu () 'common-lisp:integer)
+(common-lisp:deftype mac-sec-capable () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct (mac-sec-key (:copier common-lisp:nil))
+   (secret-arntype common-lisp:nil :type
+    (common-lisp:or secret-arn common-lisp:null))
+   (ckn-type common-lisp:nil :type (common-lisp:or ckn common-lisp:null))
+   (state-type common-lisp:nil :type (common-lisp:or state common-lisp:null))
+   (start-on-type common-lisp:nil :type
+    (common-lisp:or start-on-date common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'mac-sec-key 'make-mac-sec-key))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape mac-sec-key))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "secretARN"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'secret-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ckn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ckn)))
+    (aws-sdk-cl/generator/shape::to-query-params "state"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'state)))
+    (aws-sdk-cl/generator/shape::to-query-params "startOn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'start-on))))))
+(common-lisp:progn
+ (common-lisp:deftype mac-sec-key-list ()
+   '(trivial-types:proper-list mac-sec-key))
+ (common-lisp:defun |make-mac-sec-key-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list mac-sec-key))
+   aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype max-result-set-size () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct (new-bgppeer (:copier common-lisp:nil))
@@ -3411,6 +3693,7 @@
 (common-lisp:deftype owner-account () 'common-lisp:string)
 (common-lisp:deftype pagination-token () 'common-lisp:string)
 (common-lisp:deftype partner-name () 'common-lisp:string)
+(common-lisp:deftype port-encryption-status () 'common-lisp:string)
 (common-lisp:deftype port-speed () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype provider-list ()
@@ -3422,6 +3705,7 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype provider-name () 'common-lisp:string)
 (common-lisp:deftype region () 'common-lisp:string)
+(common-lisp:deftype request-macsec () 'common-lisp:boolean)
 (common-lisp:deftype resource-arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype resource-arn-list ()
@@ -3483,6 +3767,7 @@
                            (trivial-types:proper-list route-filter-prefix))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype router-config () 'common-lisp:string)
+(common-lisp:deftype secret-arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (start-bgp-failover-test-request (:copier common-lisp:nil))
@@ -3534,7 +3819,9 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'virtual-interface-test))))))
+(common-lisp:deftype start-on-date () 'common-lisp:string)
 (common-lisp:deftype start-time () 'common-lisp:string)
+(common-lisp:deftype state () 'common-lisp:string)
 (common-lisp:deftype state-change-error () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3644,6 +3931,15 @@
 (common-lisp:deftype test-duration () 'common-lisp:integer)
 (common-lisp:deftype test-id () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (too-many-tags-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-tags-exception 'make-too-many-tags-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-tags-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (untag-resource-request (:copier common-lisp:nil))
    (resource-arn-type (common-lisp:error ":resourcearn is required") :type
     (common-lisp:or resource-arn common-lisp:null))
@@ -3675,6 +3971,37 @@
                          (aws-sdk-cl/generator/shape::shape
                           untag-resource-response))
    (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (update-connection-request (:copier common-lisp:nil))
+   (connection-id-type (common-lisp:error ":connectionid is required") :type
+    (common-lisp:or connection-id common-lisp:null))
+   (connection-name-type common-lisp:nil :type
+    (common-lisp:or connection-name common-lisp:null))
+   (encryption-mode-type common-lisp:nil :type
+    (common-lisp:or encryption-mode common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-connection-request
+                    'make-update-connection-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-connection-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "connectionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connection-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "connectionName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connection-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "encryptionMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'encryption-mode))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-direct-connect-gateway-association-request
@@ -3734,7 +4061,9 @@
    (lag-name-type common-lisp:nil :type
     (common-lisp:or lag-name common-lisp:null))
    (minimum-links-type common-lisp:nil :type
-    (common-lisp:or count common-lisp:null)))
+    (common-lisp:or count common-lisp:null))
+   (encryption-mode-type common-lisp:nil :type
+    (common-lisp:or encryption-mode common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-lag-request 'make-update-lag-request))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -3756,7 +4085,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'minimum-links))))))
+                                                   'minimum-links)))
+    (aws-sdk-cl/generator/shape::to-query-params "encryptionMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'encryption-mode))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-virtual-interface-attributes-request (:copier common-lisp:nil))
@@ -4291,6 +4625,26 @@
       "Connection" common-lisp:nil)))
  (common-lisp:export 'associate-hosted-connection))
 (common-lisp:progn
+ (common-lisp:defun associate-mac-sec-key
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key connection-id secret-arn ckn cak)
+   (common-lisp:declare
+    (common-lisp:ignorable connection-id secret-arn ckn cak))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-associate-mac-sec-key-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "directconnect" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"AssociateMacSecKey")
+                                     ("Version" ,@"2012-10-25"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "AssociateMacSecKeyResponse" common-lisp:nil)))
+ (common-lisp:export 'associate-mac-sec-key))
+(common-lisp:progn
  (common-lisp:defun associate-virtual-interface
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -4423,10 +4777,10 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key location bandwidth connection-name lag-id
-                     tags provider-name)
+                     tags provider-name request-macsec)
    (common-lisp:declare
     (common-lisp:ignorable location bandwidth connection-name lag-id tags
-     provider-name))
+     provider-name request-macsec))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-connection-request
                                          aws-sdk-cl/generator/operation::args)))
@@ -4543,10 +4897,11 @@
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key number-of-connections location
                      connections-bandwidth lag-name connection-id tags
-                     child-connection-tags provider-name)
+                     child-connection-tags provider-name request-macsec)
    (common-lisp:declare
     (common-lisp:ignorable number-of-connections location connections-bandwidth
-     lag-name connection-id tags child-connection-tags provider-name))
+     lag-name connection-id tags child-connection-tags provider-name
+     request-macsec))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-lag-request
                                          aws-sdk-cl/generator/operation::args)))
@@ -5129,6 +5484,25 @@
       "Connection" common-lisp:nil)))
  (common-lisp:export 'disassociate-connection-from-lag))
 (common-lisp:progn
+ (common-lisp:defun disassociate-mac-sec-key
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key connection-id secret-arn)
+   (common-lisp:declare (common-lisp:ignorable connection-id secret-arn))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-disassociate-mac-sec-key-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "directconnect" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DisassociateMacSecKey")
+                                     ("Version" ,@"2012-10-25"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DisassociateMacSecKeyResponse" common-lisp:nil)))
+ (common-lisp:export 'disassociate-mac-sec-key))
+(common-lisp:progn
  (common-lisp:defun list-virtual-interface-test-history
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -5232,6 +5606,27 @@
       "UntagResourceResponse" common-lisp:nil)))
  (common-lisp:export 'untag-resource))
 (common-lisp:progn
+ (common-lisp:defun update-connection
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key connection-id connection-name
+                     encryption-mode)
+   (common-lisp:declare
+    (common-lisp:ignorable connection-id connection-name encryption-mode))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-update-connection-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "directconnect" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"UpdateConnection")
+                                     ("Version" ,@"2012-10-25"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "Connection" common-lisp:nil)))
+ (common-lisp:export 'update-connection))
+(common-lisp:progn
  (common-lisp:defun update-direct-connect-gateway-association
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -5261,8 +5656,10 @@
  (common-lisp:defun update-lag
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key lag-id lag-name minimum-links)
-   (common-lisp:declare (common-lisp:ignorable lag-id lag-name minimum-links))
+                     common-lisp:&key lag-id lag-name minimum-links
+                     encryption-mode)
+   (common-lisp:declare
+    (common-lisp:ignorable lag-id lag-name minimum-links encryption-mode))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-update-lag-request
                                          aws-sdk-cl/generator/operation::args)))

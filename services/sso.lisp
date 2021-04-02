@@ -46,6 +46,7 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype account-name-type () 'common-lisp:string)
 (common-lisp:deftype email-address-type () 'common-lisp:string)
+(common-lisp:deftype error-description () 'common-lisp:string)
 (common-lisp:deftype expiration-timestamp-type () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -97,6 +98,23 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'role-credentials))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-description common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-request-exception
+                    'make-invalid-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-account-roles-request (:copier common-lisp:nil))
    (next-token-type common-lisp:nil :type
@@ -228,6 +246,24 @@
 (common-lisp:deftype max-result-type () 'common-lisp:integer)
 (common-lisp:deftype next-token-type () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-description common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (role-credentials (:copier common-lisp:nil))
    (access-key-id-type common-lisp:nil :type
     (common-lisp:or access-key-type common-lisp:null))
@@ -292,6 +328,39 @@
 (common-lisp:deftype role-name-type () 'common-lisp:string)
 (common-lisp:deftype secret-access-key-type () 'common-lisp:string)
 (common-lisp:deftype session-token-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (too-many-requests-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-description common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-requests-exception
+                    'make-too-many-requests-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-requests-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (unauthorized-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-description common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'unauthorized-exception 'make-unauthorized-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unauthorized-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defun get-role-credentials
                     (

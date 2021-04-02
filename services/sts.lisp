@@ -441,6 +441,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'decoded-message))))))
 (common-lisp:progn
+ (common-lisp:defstruct (expired-token-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |expiredIdentityTokenMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'expired-token-exception 'make-expired-token-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          expired-token-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (federated-user (:copier common-lisp:nil))
    (federated-user-id-type (common-lisp:error ":federated-user-id is required")
     :type (common-lisp:or |federatedIdType| common-lisp:null))
@@ -664,8 +680,115 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'credentials))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (idpcommunication-error-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |idpCommunicationErrorMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'idpcommunication-error-exception
+                    'make-idpcommunication-error-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          idpcommunication-error-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (idprejected-claim-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |idpRejectedClaimMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'idprejected-claim-exception
+                    'make-idprejected-claim-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          idprejected-claim-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-authorization-message-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |invalidAuthorizationMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-authorization-message-exception
+                    'make-invalid-authorization-message-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-authorization-message-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-identity-token-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |invalidIdentityTokenMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-identity-token-exception
+                    'make-invalid-identity-token-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-identity-token-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype issuer () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (malformed-policy-document-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |malformedPolicyDocumentMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'malformed-policy-document-exception
+                    'make-malformed-policy-document-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          malformed-policy-document-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype name-qualifier () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (packed-policy-too-large-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |packedPolicyTooLargeMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'packed-policy-too-large-exception
+                    'make-packed-policy-too-large-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          packed-policy-too-large-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (policy-descriptor-type (:copier common-lisp:nil))
    (arn-type common-lisp:nil :type
@@ -682,6 +805,23 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct (region-disabled-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |regionDisabledMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'region-disabled-exception
+                    'make-region-disabled-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          region-disabled-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype samlassertion-type () 'common-lisp:string)
 (common-lisp:deftype subject () 'common-lisp:string)
 (common-lisp:deftype subject-type () 'common-lisp:string)
@@ -715,9 +855,16 @@
 (common-lisp:deftype |decodedMessageType| () 'common-lisp:string)
 (common-lisp:deftype |durationSecondsType| () 'common-lisp:integer)
 (common-lisp:deftype |encodedMessageType| () 'common-lisp:string)
+(common-lisp:deftype |expiredIdentityTokenMessage| () 'common-lisp:string)
 (common-lisp:deftype |externalIdType| () 'common-lisp:string)
 (common-lisp:deftype |federatedIdType| () 'common-lisp:string)
+(common-lisp:deftype |idpCommunicationErrorMessage| () 'common-lisp:string)
+(common-lisp:deftype |idpRejectedClaimMessage| () 'common-lisp:string)
+(common-lisp:deftype |invalidAuthorizationMessage| () 'common-lisp:string)
+(common-lisp:deftype |invalidIdentityTokenMessage| () 'common-lisp:string)
+(common-lisp:deftype |malformedPolicyDocumentMessage| () 'common-lisp:string)
 (common-lisp:deftype |nonNegativeIntegerType| () 'common-lisp:integer)
+(common-lisp:deftype |packedPolicyTooLargeMessage| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype |policyDescriptorListType| ()
    '(trivial-types:proper-list policy-descriptor-type))
@@ -726,6 +873,7 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list policy-descriptor-type))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype |regionDisabledMessage| () 'common-lisp:string)
 (common-lisp:deftype |roleDurationSecondsType| () 'common-lisp:integer)
 (common-lisp:deftype |roleSessionNameType| () 'common-lisp:string)
 (common-lisp:deftype |serialNumberType| () 'common-lisp:string)

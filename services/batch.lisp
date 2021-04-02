@@ -209,6 +209,20 @@
                           cancel-job-response))
    (common-lisp:append)))
 (common-lisp:progn
+ (common-lisp:defstruct (client-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'client-exception 'make-client-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape client-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (compute-environment-detail (:copier common-lisp:nil))
    (compute-environment-name-type
     (common-lisp:error ":computeenvironmentname is required") :type
@@ -913,7 +927,7 @@
    (state-type common-lisp:nil :type (common-lisp:or cestate common-lisp:null))
    (compute-resources-type common-lisp:nil :type
     (common-lisp:or compute-resource common-lisp:null))
-   (service-role-type (common-lisp:error ":servicerole is required") :type
+   (service-role-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (tags-type common-lisp:nil :type
     (common-lisp:or tagris-tags-map common-lisp:null)))
@@ -1392,6 +1406,75 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list device))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (efsauthorization-config (:copier common-lisp:nil))
+   (access-point-id-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (iam-type common-lisp:nil :type
+    (common-lisp:or efsauthorization-config-iam common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'efsauthorization-config 'make-efsauthorization-config))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          efsauthorization-config))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "accessPointId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-point-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "iam"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'iam))))))
+(common-lisp:deftype efsauthorization-config-iam () 'common-lisp:string)
+(common-lisp:deftype efstransit-encryption () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (efsvolume-configuration (:copier common-lisp:nil))
+   (file-system-id-type (common-lisp:error ":filesystemid is required") :type
+    (common-lisp:or string common-lisp:null))
+   (root-directory-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (transit-encryption-type common-lisp:nil :type
+    (common-lisp:or efstransit-encryption common-lisp:null))
+   (transit-encryption-port-type common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (authorization-config-type common-lisp:nil :type
+    (common-lisp:or efsauthorization-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'efsvolume-configuration 'make-efsvolume-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          efsvolume-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "fileSystemId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'file-system-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "rootDirectory"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'root-directory)))
+    (aws-sdk-cl/generator/shape::to-query-params "transitEncryption"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'transit-encryption)))
+    (aws-sdk-cl/generator/shape::to-query-params "transitEncryptionPort"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'transit-encryption-port)))
+    (aws-sdk-cl/generator/shape::to-query-params "authorizationConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'authorization-config))))))
 (common-lisp:progn
  (common-lisp:defstruct (ec2configuration (:copier common-lisp:nil))
    (image-type-type (common-lisp:error ":imagetype is required") :type
@@ -2685,6 +2768,20 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list secret))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (server-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'server-exception 'make-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype string-list () '(trivial-types:proper-list string))
@@ -3128,7 +3225,9 @@
 (common-lisp:progn
  (common-lisp:defstruct (volume (:copier common-lisp:nil))
    (host-type common-lisp:nil :type (common-lisp:or host common-lisp:null))
-   (name-type common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+   (name-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
+   (efs-volume-configuration-type common-lisp:nil :type
+    (common-lisp:or efsvolume-configuration common-lisp:null)))
  (common-lisp:export (common-lisp:list 'volume 'make-volume))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape volume))
@@ -3142,7 +3241,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'name))))))
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "efsVolumeConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'efs-volume-configuration))))))
 (common-lisp:progn
  (common-lisp:deftype volumes () '(trivial-types:proper-list volume))
  (common-lisp:defun |make-volumes|

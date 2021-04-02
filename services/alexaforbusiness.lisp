@@ -72,6 +72,22 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype address-book-description () 'common-lisp:string)
 (common-lisp:deftype address-book-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (already-exists-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'already-exists-exception 'make-already-exists-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          already-exists-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype amazon-id () 'common-lisp:string)
 (common-lisp:deftype appliance-description () 'common-lisp:string)
 (common-lisp:deftype appliance-friendly-name () 'common-lisp:string)
@@ -570,6 +586,24 @@
 (common-lisp:deftype client-id () 'common-lisp:string)
 (common-lisp:deftype client-request-token () 'common-lisp:string)
 (common-lisp:deftype comms-protocol () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (concurrent-modification-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'concurrent-modification-exception
+                    'make-concurrent-modification-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          concurrent-modification-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (conference-preference (:copier common-lisp:nil))
    (default-conference-provider-arn-type common-lisp:nil :type
@@ -1383,6 +1417,8 @@
     (common-lisp:or max-volume-limit common-lisp:null))
    (pstnenabled-type common-lisp:nil :type
     (common-lisp:or boolean common-lisp:null))
+   (data-retention-opt-in-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
    (meeting-room-configuration-type common-lisp:nil :type
     (common-lisp:or create-meeting-room-configuration common-lisp:null))
    (tags-type common-lisp:nil :type
@@ -1449,6 +1485,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'pstnenabled)))
+    (aws-sdk-cl/generator/shape::to-query-params "DataRetentionOptIn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'data-retention-opt-in)))
     (aws-sdk-cl/generator/shape::to-query-params "MeetingRoomConfiguration"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2389,6 +2430,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'certificate-expiration-time))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (device-not-registered-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'device-not-registered-exception
+                    'make-device-not-registered-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          device-not-registered-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype device-room-name () 'common-lisp:string)
 (common-lisp:deftype device-serial-number () 'common-lisp:string)
 (common-lisp:deftype device-serial-number-for-avs () 'common-lisp:string)
@@ -2670,6 +2729,7 @@
 (common-lisp:deftype endpoint () 'common-lisp:string)
 (common-lisp:deftype enrollment-id () 'common-lisp:string)
 (common-lisp:deftype enrollment-status () 'common-lisp:string)
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:deftype feature () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype features () '(trivial-types:proper-list feature))
@@ -3397,8 +3457,112 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'enabled))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-certificate-authority-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-certificate-authority-exception
+                    'make-invalid-certificate-authority-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-certificate-authority-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-device-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-device-exception 'make-invalid-device-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-device-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-secrets-manager-resource-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-secrets-manager-resource-exception
+                    'make-invalid-secrets-manager-resource-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-secrets-manager-resource-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-service-linked-role-state-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-service-linked-role-state-exception
+                    'make-invalid-service-linked-role-state-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-service-linked-role-state-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-user-status-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-user-status-exception
+                    'make-invalid-user-status-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-user-status-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype invocation-phrase () 'common-lisp:string)
 (common-lisp:deftype key () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-business-report-schedules-request (:copier common-lisp:nil))
@@ -4000,6 +4164,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'require-pin))))))
 (common-lisp:deftype minutes () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (name-in-use-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'name-in-use-exception 'make-name-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          name-in-use-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype network-eap-method () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (network-profile (:copier common-lisp:nil))
@@ -4157,6 +4337,22 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype next-token () 'common-lisp:string)
 (common-lisp:deftype next-wi-fi-password () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype one-click-id-delay () 'common-lisp:string)
 (common-lisp:deftype one-click-pin-delay () 'common-lisp:string)
 (common-lisp:deftype organization-name () 'common-lisp:string)
@@ -4255,6 +4451,8 @@
     (common-lisp:or max-volume-limit common-lisp:null))
    (pstnenabled-type common-lisp:nil :type
     (common-lisp:or boolean common-lisp:null))
+   (data-retention-opt-in-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
    (address-book-arn-type common-lisp:nil :type
     (common-lisp:or arn common-lisp:null))
    (meeting-room-configuration-type common-lisp:nil :type
@@ -4323,6 +4521,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'pstnenabled)))
+    (aws-sdk-cl/generator/shape::to-query-params "DataRetentionOptIn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'data-retention-opt-in)))
     (aws-sdk-cl/generator/shape::to-query-params "AddressBookArn"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -4747,6 +4950,48 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'room-skill-parameters))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-associated-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-associated-exception
+                    'make-resource-associated-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-associated-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (resource-in-use-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null))
+   (client-request-token-type common-lisp:nil :type
+    (common-lisp:or client-request-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-in-use-exception
+                    'make-resource-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-in-use-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ClientRequestToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-request-token))))))
 (common-lisp:deftype review-key () 'common-lisp:string)
 (common-lisp:deftype review-value () 'common-lisp:string)
 (common-lisp:defstruct
@@ -5736,6 +5981,23 @@
 (common-lisp:deftype skill-id () 'common-lisp:string)
 (common-lisp:deftype skill-list-max-results () 'common-lisp:integer)
 (common-lisp:deftype skill-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (skill-not-linked-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'skill-not-linked-exception
+                    'make-skill-not-linked-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          skill-not-linked-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype skill-store-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (skill-summary (:copier common-lisp:nil))
@@ -6136,6 +6398,22 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list trust-anchor))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (unauthorized-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'unauthorized-exception 'make-unauthorized-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unauthorized-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (untag-resource-request (:copier common-lisp:nil))
    (arn-type (common-lisp:error ":arn is required") :type
@@ -6713,6 +6991,8 @@
     (common-lisp:or max-volume-limit common-lisp:null))
    (pstnenabled-type common-lisp:nil :type
     (common-lisp:or boolean common-lisp:null))
+   (data-retention-opt-in-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
    (meeting-room-configuration-type common-lisp:nil :type
     (common-lisp:or update-meeting-room-configuration common-lisp:null)))
  (common-lisp:export
@@ -6782,6 +7062,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'pstnenabled)))
+    (aws-sdk-cl/generator/shape::to-query-params "DataRetentionOptIn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'data-retention-opt-in)))
     (aws-sdk-cl/generator/shape::to-query-params "MeetingRoomConfiguration"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -7263,11 +7548,13 @@ common-lisp:nil
                      common-lisp:&key profile-name timezone address
                      distance-unit temperature-unit wake-word locale
                      client-request-token setup-mode-disabled max-volume-limit
-                     pstnenabled meeting-room-configuration tags)
+                     pstnenabled data-retention-opt-in
+                     meeting-room-configuration tags)
    (common-lisp:declare
     (common-lisp:ignorable profile-name timezone address distance-unit
      temperature-unit wake-word locale client-request-token setup-mode-disabled
-     max-volume-limit pstnenabled meeting-room-configuration tags))
+     max-volume-limit pstnenabled data-retention-opt-in
+     meeting-room-configuration tags))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-profile-request
                                          aws-sdk-cl/generator/operation::args)))
@@ -8802,11 +9089,12 @@ common-lisp:nil
                      common-lisp:&key profile-arn profile-name is-default
                      timezone address distance-unit temperature-unit wake-word
                      locale setup-mode-disabled max-volume-limit pstnenabled
-                     meeting-room-configuration)
+                     data-retention-opt-in meeting-room-configuration)
    (common-lisp:declare
     (common-lisp:ignorable profile-arn profile-name is-default timezone address
      distance-unit temperature-unit wake-word locale setup-mode-disabled
-     max-volume-limit pstnenabled meeting-room-configuration))
+     max-volume-limit pstnenabled data-retention-opt-in
+     meeting-room-configuration))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-update-profile-request
                                          aws-sdk-cl/generator/operation::args)))

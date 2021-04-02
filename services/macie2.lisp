@@ -71,6 +71,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'allows-public-write-access))))))
 (common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (account-detail (:copier common-lisp:nil))
    (account-id-type (common-lisp:error ":accountid is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -1011,6 +1027,22 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'reason))))))
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-classification-job-request (:copier common-lisp:nil))
@@ -2155,6 +2187,12 @@
                                                    'domain-name))))))
 (common-lisp:deftype effective-permission () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (empty (:copier common-lisp:nil)))
+ (common-lisp:export (common-lisp:list 'empty 'make-empty))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape empty))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (enable-macie-request (:copier common-lisp:nil))
    (client-token-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
@@ -2956,6 +2994,37 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tags))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (get-findings-publication-configuration-request
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'get-findings-publication-configuration-request
+                    'make-get-findings-publication-configuration-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-findings-publication-configuration-request))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-findings-publication-configuration-response
+      (:copier common-lisp:nil))
+   (security-hub-configuration-type common-lisp:nil :type
+    (common-lisp:or security-hub-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-findings-publication-configuration-response
+                    'make-get-findings-publication-configuration-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-findings-publication-configuration-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "securityHubConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'security-hub-configuration))))))
+(common-lisp:progn
  (common-lisp:defstruct (get-findings-request (:copier common-lisp:nil))
    (finding-ids-type (common-lisp:error ":findingids is required") :type
     (common-lisp:or |__listOf__string| common-lisp:null))
@@ -3365,6 +3434,23 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'user-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-exception
+                    'make-internal-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (invitation (:copier common-lisp:nil))
    (account-id-type common-lisp:nil :type
@@ -4514,6 +4600,43 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'configuration))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (put-findings-publication-configuration-request (:copier common-lisp:nil))
+   (client-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (security-hub-configuration-type common-lisp:nil :type
+    (common-lisp:or security-hub-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-findings-publication-configuration-request
+                    'make-put-findings-publication-configuration-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          put-findings-publication-configuration-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "clientToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "securityHubConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'security-hub-configuration))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-findings-publication-configuration-response
+      (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'put-findings-publication-configuration-response
+                    'make-put-findings-publication-configuration-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          put-findings-publication-configuration-response))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (range (:copier common-lisp:nil))
    (end-type common-lisp:nil :type (common-lisp:or |__long| common-lisp:null))
    (start-type common-lisp:nil :type
@@ -4604,6 +4727,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'replication-accounts))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (resources-affected (:copier common-lisp:nil))
    (s3bucket-type common-lisp:nil :type
@@ -4885,6 +5026,32 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'includes))))))
 (common-lisp:progn
+ (common-lisp:defstruct (security-hub-configuration (:copier common-lisp:nil))
+   (publish-classification-findings-type
+    (common-lisp:error ":publishclassificationfindings is required") :type
+    (common-lisp:or |__boolean| common-lisp:null))
+   (publish-policy-findings-type
+    (common-lisp:error ":publishpolicyfindings is required") :type
+    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'security-hub-configuration
+                    'make-security-hub-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          security-hub-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params
+     "publishClassificationFindings"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'publish-classification-findings)))
+    (aws-sdk-cl/generator/shape::to-query-params "publishPolicyFindings"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'publish-policy-findings))))))
+(common-lisp:progn
  (common-lisp:deftype sensitive-data ()
    '(trivial-types:proper-list sensitive-data-item))
  (common-lisp:defun |make-sensitive-data|
@@ -4972,6 +5139,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'value))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (service-quota-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-quota-exceeded-exception
+                    'make-service-quota-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-quota-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (session-context (:copier common-lisp:nil))
    (attributes-type common-lisp:nil :type
@@ -5305,6 +5490,22 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'match-count))))))
+(common-lisp:progn
+ (common-lisp:defstruct (throttling-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'make-throttling-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          throttling-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype time-range () 'common-lisp:string)
 (common-lisp:deftype type () 'common-lisp:string)
 (common-lisp:deftype unit () 'common-lisp:string)
@@ -5848,6 +6049,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'job-paused-at))))))
 (common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (weekly-schedule (:copier common-lisp:nil))
    (day-of-week-type common-lisp:nil :type
     (common-lisp:or day-of-week common-lisp:null)))
@@ -6045,6 +6262,7 @@
 (common-lisp:deftype |__long| () 'common-lisp:integer)
 (common-lisp:deftype |__string| () 'common-lisp:string)
 (common-lisp:deftype |__timestampIso8601| () 'common-lisp:string)
+(common-lisp:deftype |__timestampUnix| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defun accept-invitation
                     (
@@ -6562,6 +6780,15 @@
       "GetFindingsFilterResponse" common-lisp:nil)))
  (common-lisp:export 'get-findings-filter))
 (common-lisp:progn
+ (common-lisp:defun get-findings-publication-configuration ()
+   (aws-sdk-cl/generator/operation::parse-response
+    (aws-sdk-cl/api:aws-request :service "macie2" :method :get :params
+                                `(("Action"
+                                   ,@"GetFindingsPublicationConfiguration")
+                                  ("Version" ,@"2020-01-01")))
+    "GetFindingsPublicationConfigurationResponse" common-lisp:nil))
+ (common-lisp:export 'get-findings-publication-configuration))
+(common-lisp:progn
  (common-lisp:defun get-invitations-count ()
    (aws-sdk-cl/generator/operation::parse-response
     (aws-sdk-cl/api:aws-request :service "macie2" :method :get :params
@@ -6816,6 +7043,27 @@
                                     aws-sdk-cl/generator/operation::input)))
       "PutClassificationExportConfigurationResponse" common-lisp:nil)))
  (common-lisp:export 'put-classification-export-configuration))
+(common-lisp:progn
+ (common-lisp:defun put-findings-publication-configuration
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key client-token security-hub-configuration)
+   (common-lisp:declare
+    (common-lisp:ignorable client-token security-hub-configuration))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-put-findings-publication-configuration-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "macie2" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"PutFindingsPublicationConfiguration")
+                                     ("Version" ,@"2020-01-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "PutFindingsPublicationConfigurationResponse" common-lisp:nil)))
+ (common-lisp:export 'put-findings-publication-configuration))
 (common-lisp:progn
  (common-lisp:defun tag-resource
                     (

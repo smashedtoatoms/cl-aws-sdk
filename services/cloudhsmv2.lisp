@@ -169,6 +169,111 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'cluster-certificate))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (cloud-hsm-access-denied-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |errorMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cloud-hsm-access-denied-exception
+                    'make-cloud-hsm-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cloud-hsm-access-denied-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cloud-hsm-internal-failure-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |errorMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cloud-hsm-internal-failure-exception
+                    'make-cloud-hsm-internal-failure-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cloud-hsm-internal-failure-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cloud-hsm-invalid-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |errorMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cloud-hsm-invalid-request-exception
+                    'make-cloud-hsm-invalid-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cloud-hsm-invalid-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cloud-hsm-resource-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |errorMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cloud-hsm-resource-not-found-exception
+                    'make-cloud-hsm-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cloud-hsm-resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (cloud-hsm-service-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |errorMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cloud-hsm-service-exception
+                    'make-cloud-hsm-service-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cloud-hsm-service-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (cloud-hsm-tag-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |errorMessage| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cloud-hsm-tag-exception 'make-cloud-hsm-tag-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cloud-hsm-tag-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (cluster (:copier common-lisp:nil))
    (backup-policy-type common-lisp:nil :type
     (common-lisp:or backup-policy common-lisp:null))
@@ -1144,6 +1249,7 @@
                           untag-resource-response))
    (common-lisp:append)))
 (common-lisp:deftype vpc-id () 'common-lisp:string)
+(common-lisp:deftype |errorMessage| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defun copy-backup-to-region
                     (

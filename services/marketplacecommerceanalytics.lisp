@@ -17,6 +17,7 @@
 (common-lisp:deftype data-set-type () 'common-lisp:string)
 (common-lisp:deftype destination-s3bucket-name () 'common-lisp:string)
 (common-lisp:deftype destination-s3prefix () 'common-lisp:string)
+(common-lisp:deftype exception-message () 'common-lisp:string)
 (common-lisp:deftype from-date () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (generate-data-set-request (:copier common-lisp:nil))
@@ -95,6 +96,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'data-set-request-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (marketplace-commerce-analytics-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'marketplace-commerce-analytics-exception
+                    'make-marketplace-commerce-analytics-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          marketplace-commerce-analytics-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype optional-key () 'common-lisp:string)
 (common-lisp:deftype optional-value () 'common-lisp:string)
 (common-lisp:deftype role-name-arn () 'common-lisp:string)

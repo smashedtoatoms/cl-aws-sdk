@@ -78,6 +78,23 @@
                                                    'access-logging-enabled))))))
 (common-lisp:deftype container-arn () 'common-lisp:string)
 (common-lisp:deftype container-access-logging-enabled () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct (container-in-use-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'container-in-use-exception
+                    'make-container-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          container-in-use-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype container-level-metrics () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype container-list () '(trivial-types:proper-list container))
@@ -88,6 +105,24 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype container-list-limit () 'common-lisp:integer)
 (common-lisp:deftype container-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (container-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'container-not-found-exception
+                    'make-container-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          container-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype container-policy () 'common-lisp:string)
 (common-lisp:deftype container-status () 'common-lisp:string)
 (common-lisp:progn
@@ -97,6 +132,24 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list cors-rule))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cors-policy-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cors-policy-not-found-exception
+                    'make-cors-policy-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cors-policy-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (cors-rule (:copier common-lisp:nil))
    (allowed-origins-type (common-lisp:error ":allowed-origins is required")
@@ -348,6 +401,7 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'container))))))
 (common-lisp:deftype endpoint () 'common-lisp:string)
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype expose-headers () '(trivial-types:proper-list header))
  (common-lisp:defun |make-expose-headers|
@@ -488,7 +542,39 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'metric-policy))))))
 (common-lisp:deftype header () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-error (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-error 'make-internal-server-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype lifecycle-policy () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-containers-input (:copier common-lisp:nil))
    (next-token-type common-lisp:nil :type
@@ -629,6 +715,23 @@
 (common-lisp:deftype object-group-name () 'common-lisp:string)
 (common-lisp:deftype origin () 'common-lisp:string)
 (common-lisp:deftype pagination-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (policy-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'policy-not-found-exception
+                    'make-policy-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          policy-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (put-container-policy-input (:copier common-lisp:nil))
    (container-name-type (common-lisp:error ":container-name is required") :type

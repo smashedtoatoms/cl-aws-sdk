@@ -1592,6 +1592,29 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'attributes))))))
 (common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (request-idtype common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestID"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-id))))))
+(common-lisp:progn
  (common-lisp:defstruct (baidu-channel-request (:copier common-lisp:nil))
    (api-key-type (common-lisp:error ":api-key is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -2424,6 +2447,29 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'true-activity))))))
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (request-idtype common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestID"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-id))))))
 (common-lisp:progn
  (common-lisp:defstruct (create-app-request (:copier common-lisp:nil))
    (create-application-request-type
@@ -5592,6 +5638,29 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
 (common-lisp:deftype filter-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (forbidden-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (request-idtype common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'forbidden-exception 'make-forbidden-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          forbidden-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestID"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-id))))))
 (common-lisp:deftype format () 'common-lisp:string)
 (common-lisp:deftype frequency () 'common-lisp:string)
 (common-lisp:progn
@@ -8123,6 +8192,31 @@
                                                    'next-token))))))
 (common-lisp:deftype include () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (internal-server-error-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (request-idtype common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-error-exception
+                    'make-internal-server-error-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-error-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestID"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-id))))))
+(common-lisp:progn
  (common-lisp:defstruct (item-response (:copier common-lisp:nil))
    (endpoint-item-response-type common-lisp:nil :type
     (common-lisp:or endpoint-item-response common-lisp:null))
@@ -8337,7 +8431,9 @@
    (endpoint-reentry-cap-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
    (messages-per-second-type common-lisp:nil :type
-    (common-lisp:or |__integer| common-lisp:null)))
+    (common-lisp:or |__integer| common-lisp:null))
+   (endpoint-reentry-interval-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
  (common-lisp:export (common-lisp:list 'journey-limits 'make-journey-limits))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape journey-limits))
@@ -8356,7 +8452,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'messages-per-second))))))
+                                                   'messages-per-second)))
+    (aws-sdk-cl/generator/shape::to-query-params "EndpointReentryInterval"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'endpoint-reentry-interval))))))
 (common-lisp:progn
  (common-lisp:defstruct (journey-push-message (:copier common-lisp:nil))
    (time-to-live-type common-lisp:nil :type
@@ -9113,6 +9214,31 @@
                                                    'updated-token))))))
 (common-lisp:deftype message-type () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (method-not-allowed-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (request-idtype common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'method-not-allowed-exception
+                    'make-method-not-allowed-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          method-not-allowed-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestID"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-id))))))
+(common-lisp:progn
  (common-lisp:defstruct (metric-dimension (:copier common-lisp:nil))
    (comparison-operator-type
     (common-lisp:error ":comparison-operator is required") :type
@@ -9190,6 +9316,29 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'evaluation-wait-time))))))
+(common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (request-idtype common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestID"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-id))))))
 (common-lisp:progn
  (common-lisp:defstruct (number-validate-request (:copier common-lisp:nil))
    (iso-country-code-type common-lisp:nil :type
@@ -9321,6 +9470,30 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'zip-code))))))
 (common-lisp:deftype operator () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (payload-too-large-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (request-idtype common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'payload-too-large-exception
+                    'make-payload-too-large-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          payload-too-large-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestID"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-id))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (phone-number-validate-request (:copier common-lisp:nil))
@@ -11486,6 +11659,30 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
 (common-lisp:progn
+ (common-lisp:defstruct (too-many-requests-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (request-idtype common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-requests-exception
+                    'make-too-many-requests-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-requests-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "RequestID"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-id))))))
+(common-lisp:progn
  (common-lisp:defstruct (treatment-resource (:copier common-lisp:nil))
    (custom-delivery-configuration-type common-lisp:nil :type
     (common-lisp:or custom-delivery-configuration common-lisp:null))
@@ -13098,8 +13295,6 @@
     (common-lisp:or campaign-hook common-lisp:null))
    (cloud-watch-metrics-enabled-type common-lisp:nil :type
     (common-lisp:or |__boolean| common-lisp:null))
-   (event-tagging-enabled-type common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
    (limits-type common-lisp:nil :type
     (common-lisp:or campaign-limits common-lisp:null))
    (quiet-time-type common-lisp:nil :type
@@ -13122,11 +13317,6 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'cloud-watch-metrics-enabled)))
-    (aws-sdk-cl/generator/shape::to-query-params "EventTaggingEnabled"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'event-tagging-enabled)))
     (aws-sdk-cl/generator/shape::to-query-params "Limits"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -13306,7 +13496,11 @@
     (common-lisp:or |__string| common-lisp:null))
    (start-condition-type common-lisp:nil :type
     (common-lisp:or start-condition common-lisp:null))
-   (state-type common-lisp:nil :type (common-lisp:or state common-lisp:null)))
+   (state-type common-lisp:nil :type (common-lisp:or state common-lisp:null))
+   (wait-for-quiet-time-type common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null))
+   (refresh-on-segment-update-type common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'write-journey-request 'make-write-journey-request))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -13373,7 +13567,17 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'state))))))
+                                                   'state)))
+    (aws-sdk-cl/generator/shape::to-query-params "WaitForQuietTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'wait-for-quiet-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "RefreshOnSegmentUpdate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'refresh-on-segment-update))))))
 (common-lisp:progn
  (common-lisp:defstruct (write-segment-request (:copier common-lisp:nil))
    (dimensions-type common-lisp:nil :type
@@ -13670,6 +13874,7 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list |__string|))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype |__long| () 'common-lisp:integer)
 (common-lisp:defstruct
     (map-of-activity
      (:constructor |make-map-of-activity|
@@ -13774,6 +13979,7 @@
   aws-sdk-cl/generator/shape::value)
 (common-lisp:deftype |__string| () 'common-lisp:string)
 (common-lisp:deftype |__timestampIso8601| () 'common-lisp:string)
+(common-lisp:deftype |__timestampUnix| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defun create-app
                     (

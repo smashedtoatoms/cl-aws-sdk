@@ -366,6 +366,126 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'group-id))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (create-mobile-device-access-rule-request (:copier common-lisp:nil))
+   (organization-id-type (common-lisp:error ":organization-id is required")
+    :type (common-lisp:or organization-id common-lisp:null))
+   (client-token-type common-lisp:nil :type
+    (common-lisp:or idempotency-client-token common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or mobile-device-access-rule-name common-lisp:null))
+   (description-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-description common-lisp:null))
+   (effect-type (common-lisp:error ":effect is required") :type
+    (common-lisp:or mobile-device-access-rule-effect common-lisp:null))
+   (device-types-type common-lisp:nil :type
+    (common-lisp:or device-type-list common-lisp:null))
+   (not-device-types-type common-lisp:nil :type
+    (common-lisp:or device-type-list common-lisp:null))
+   (device-models-type common-lisp:nil :type
+    (common-lisp:or device-model-list common-lisp:null))
+   (not-device-models-type common-lisp:nil :type
+    (common-lisp:or device-model-list common-lisp:null))
+   (device-operating-systems-type common-lisp:nil :type
+    (common-lisp:or device-operating-system-list common-lisp:null))
+   (not-device-operating-systems-type common-lisp:nil :type
+    (common-lisp:or device-operating-system-list common-lisp:null))
+   (device-user-agents-type common-lisp:nil :type
+    (common-lisp:or device-user-agent-list common-lisp:null))
+   (not-device-user-agents-type common-lisp:nil :type
+    (common-lisp:or device-user-agent-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-mobile-device-access-rule-request
+                    'make-create-mobile-device-access-rule-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-mobile-device-access-rule-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "OrganizationId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'organization-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ClientToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Description"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'description)))
+    (aws-sdk-cl/generator/shape::to-query-params "Effect"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'effect)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceTypes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-types)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceTypes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-types)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceModels"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-models)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceModels"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-models)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceOperatingSystems"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-operating-systems)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceOperatingSystems"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-operating-systems)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceUserAgents"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-user-agents)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceUserAgents"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-user-agents))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-mobile-device-access-rule-response (:copier common-lisp:nil))
+   (mobile-device-access-rule-id-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-mobile-device-access-rule-response
+                    'make-create-mobile-device-access-rule-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-mobile-device-access-rule-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MobileDeviceAccessRuleId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mobile-device-access-rule-id))))))
+(common-lisp:progn
  (common-lisp:defstruct (create-organization-request (:copier common-lisp:nil))
    (directory-id-type common-lisp:nil :type
     (common-lisp:or directory-id common-lisp:null))
@@ -703,6 +823,43 @@
                         (
                          (aws-sdk-cl/generator/shape::shape
                           delete-mailbox-permissions-response))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-mobile-device-access-rule-request (:copier common-lisp:nil))
+   (organization-id-type (common-lisp:error ":organization-id is required")
+    :type (common-lisp:or organization-id common-lisp:null))
+   (mobile-device-access-rule-id-type
+    (common-lisp:error ":mobile-device-access-rule-id is required") :type
+    (common-lisp:or mobile-device-access-rule-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-mobile-device-access-rule-request
+                    'make-delete-mobile-device-access-rule-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-mobile-device-access-rule-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "OrganizationId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'organization-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "MobileDeviceAccessRuleId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mobile-device-access-rule-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-mobile-device-access-rule-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'delete-mobile-device-access-rule-response
+                    'make-delete-mobile-device-access-rule-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-mobile-device-access-rule-response))
    (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (delete-organization-request (:copier common-lisp:nil))
@@ -1359,7 +1516,97 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'disabled-date))))))
 (common-lisp:deftype description () 'common-lisp:string)
+(common-lisp:deftype device-model () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype device-model-list ()
+   '(trivial-types:proper-list device-model))
+ (common-lisp:defun |make-device-model-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list device-model))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype device-operating-system () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype device-operating-system-list ()
+   '(trivial-types:proper-list device-operating-system))
+ (common-lisp:defun |make-device-operating-system-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list device-operating-system))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype device-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype device-type-list ()
+   '(trivial-types:proper-list device-type))
+ (common-lisp:defun |make-device-type-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list device-type))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype device-user-agent () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype device-user-agent-list ()
+   '(trivial-types:proper-list device-user-agent))
+ (common-lisp:defun |make-device-user-agent-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list device-user-agent))
+   aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype directory-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (directory-in-use-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'directory-in-use-exception
+                    'make-directory-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          directory-in-use-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (directory-service-authentication-failed-exception
+      (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'directory-service-authentication-failed-exception
+                    'make-directory-service-authentication-failed-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          directory-service-authentication-failed-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (directory-unavailable-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'directory-unavailable-exception
+                    'make-directory-unavailable-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          directory-unavailable-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (disassociate-delegate-from-resource-request (:copier common-lisp:nil))
@@ -1475,7 +1722,76 @@
                            (trivial-types:proper-list domain))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype email-address () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (email-address-in-use-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'email-address-in-use-exception
+                    'make-email-address-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          email-address-in-use-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (entity-already-registered-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'entity-already-registered-exception
+                    'make-entity-already-registered-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          entity-already-registered-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (entity-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'entity-not-found-exception
+                    'make-entity-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          entity-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype entity-state () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (entity-state-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'entity-state-exception 'make-entity-state-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          entity-state-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (folder-configuration (:copier common-lisp:nil))
    (name-type (common-lisp:error ":name is required") :type
@@ -1686,6 +2002,77 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'mailbox-size))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (get-mobile-device-access-effect-request (:copier common-lisp:nil))
+   (organization-id-type (common-lisp:error ":organization-id is required")
+    :type (common-lisp:or organization-id common-lisp:null))
+   (device-type-type common-lisp:nil :type
+    (common-lisp:or device-type common-lisp:null))
+   (device-model-type common-lisp:nil :type
+    (common-lisp:or device-model common-lisp:null))
+   (device-operating-system-type common-lisp:nil :type
+    (common-lisp:or device-operating-system common-lisp:null))
+   (device-user-agent-type common-lisp:nil :type
+    (common-lisp:or device-user-agent common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-mobile-device-access-effect-request
+                    'make-get-mobile-device-access-effect-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-mobile-device-access-effect-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "OrganizationId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'organization-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceModel"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-model)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceOperatingSystem"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-operating-system)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceUserAgent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-user-agent))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-mobile-device-access-effect-response (:copier common-lisp:nil))
+   (effect-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-effect common-lisp:null))
+   (matched-rules-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-matched-rule-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-mobile-device-access-effect-response
+                    'make-get-mobile-device-access-effect-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-mobile-device-access-effect-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Effect"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'effect)))
+    (aws-sdk-cl/generator/shape::to-query-params "MatchedRules"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'matched-rules))))))
+(common-lisp:progn
  (common-lisp:defstruct (group (:copier common-lisp:nil))
    (id-type common-lisp:nil :type
     (common-lisp:or work-mail-identifier common-lisp:null))
@@ -1743,6 +2130,58 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype hosted-zone-id () 'common-lisp:string)
 (common-lisp:deftype idempotency-client-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-configuration-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-configuration-exception
+                    'make-invalid-configuration-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-configuration-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-parameter-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-parameter-exception
+                    'make-invalid-parameter-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-parameter-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-password-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-password-exception
+                    'make-invalid-password-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-password-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype ip-address () 'common-lisp:string)
 (common-lisp:deftype ip-range () 'common-lisp:string)
 (common-lisp:progn
@@ -1760,6 +2199,22 @@
                            (trivial-types:proper-list mailbox-export-job))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype kms-key-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-access-control-rules-request (:copier common-lisp:nil))
@@ -2091,6 +2546,42 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (list-mobile-device-access-rules-request (:copier common-lisp:nil))
+   (organization-id-type (common-lisp:error ":organization-id is required")
+    :type (common-lisp:or organization-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-mobile-device-access-rules-request
+                    'make-list-mobile-device-access-rules-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-mobile-device-access-rules-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "OrganizationId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'organization-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-mobile-device-access-rules-response (:copier common-lisp:nil))
+   (rules-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rules-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-mobile-device-access-rules-response
+                    'make-list-mobile-device-access-rules-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-mobile-device-access-rules-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Rules"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'rules))))))
+(common-lisp:progn
  (common-lisp:defstruct (list-organizations-request (:copier common-lisp:nil))
    (next-token-type common-lisp:nil :type
     (common-lisp:or next-token common-lisp:null))
@@ -2343,6 +2834,41 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (mail-domain-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'mail-domain-not-found-exception
+                    'make-mail-domain-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          mail-domain-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (mail-domain-state-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'mail-domain-state-exception
+                    'make-mail-domain-state-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          mail-domain-state-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype mailbox-export-error-info () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (mailbox-export-job (:copier common-lisp:nil))
@@ -2475,9 +3001,218 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list member))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (mobile-device-access-matched-rule (:copier common-lisp:nil))
+   (mobile-device-access-rule-id-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-id common-lisp:null))
+   (name-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'mobile-device-access-matched-rule
+                    'make-mobile-device-access-matched-rule))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          mobile-device-access-matched-rule))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MobileDeviceAccessRuleId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mobile-device-access-rule-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:deftype mobile-device-access-matched-rule-list ()
+   '(trivial-types:proper-list mobile-device-access-matched-rule))
+ (common-lisp:defun |make-mobile-device-access-matched-rule-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            mobile-device-access-matched-rule))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (mobile-device-access-rule (:copier common-lisp:nil))
+   (mobile-device-access-rule-id-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-id common-lisp:null))
+   (name-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-name common-lisp:null))
+   (description-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-description common-lisp:null))
+   (effect-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-effect common-lisp:null))
+   (device-types-type common-lisp:nil :type
+    (common-lisp:or device-type-list common-lisp:null))
+   (not-device-types-type common-lisp:nil :type
+    (common-lisp:or device-type-list common-lisp:null))
+   (device-models-type common-lisp:nil :type
+    (common-lisp:or device-model-list common-lisp:null))
+   (not-device-models-type common-lisp:nil :type
+    (common-lisp:or device-model-list common-lisp:null))
+   (device-operating-systems-type common-lisp:nil :type
+    (common-lisp:or device-operating-system-list common-lisp:null))
+   (not-device-operating-systems-type common-lisp:nil :type
+    (common-lisp:or device-operating-system-list common-lisp:null))
+   (device-user-agents-type common-lisp:nil :type
+    (common-lisp:or device-user-agent-list common-lisp:null))
+   (not-device-user-agents-type common-lisp:nil :type
+    (common-lisp:or device-user-agent-list common-lisp:null))
+   (date-created-type common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null))
+   (date-modified-type common-lisp:nil :type
+    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'mobile-device-access-rule
+                    'make-mobile-device-access-rule))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          mobile-device-access-rule))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MobileDeviceAccessRuleId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mobile-device-access-rule-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Description"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'description)))
+    (aws-sdk-cl/generator/shape::to-query-params "Effect"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'effect)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceTypes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-types)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceTypes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-types)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceModels"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-models)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceModels"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-models)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceOperatingSystems"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-operating-systems)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceOperatingSystems"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-operating-systems)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceUserAgents"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-user-agents)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceUserAgents"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-user-agents)))
+    (aws-sdk-cl/generator/shape::to-query-params "DateCreated"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'date-created)))
+    (aws-sdk-cl/generator/shape::to-query-params "DateModified"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'date-modified))))))
+(common-lisp:deftype mobile-device-access-rule-description ()
+  'common-lisp:string)
+(common-lisp:deftype mobile-device-access-rule-effect () 'common-lisp:string)
+(common-lisp:deftype mobile-device-access-rule-id () 'common-lisp:string)
+(common-lisp:deftype mobile-device-access-rule-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype mobile-device-access-rules-list ()
+   '(trivial-types:proper-list mobile-device-access-rule))
+ (common-lisp:defun |make-mobile-device-access-rules-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            mobile-device-access-rule))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (name-availability-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'name-availability-exception
+                    'make-name-availability-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          name-availability-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype next-token () 'common-lisp:string)
 (common-lisp:deftype organization-id () 'common-lisp:string)
 (common-lisp:deftype organization-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (organization-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'organization-not-found-exception
+                    'make-organization-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          organization-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (organization-state-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'organization-state-exception
+                    'make-organization-state-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          organization-state-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:deftype organization-summaries ()
    '(trivial-types:proper-list organization-summary))
@@ -2819,6 +3554,22 @@
                           register-to-work-mail-response))
    (common-lisp:append)))
 (common-lisp:progn
+ (common-lisp:defstruct (reserved-name-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'reserved-name-exception 'make-reserved-name-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          reserved-name-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (reset-password-request (:copier common-lisp:nil))
    (organization-id-type (common-lisp:error ":organization-id is required")
     :type (common-lisp:or organization-id common-lisp:null))
@@ -2922,6 +3673,24 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype resource-id () 'common-lisp:string)
 (common-lisp:deftype resource-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype resources () '(trivial-types:proper-list resource))
@@ -3092,6 +3861,40 @@
 (common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (too-many-tags-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-tags-exception 'make-too-many-tags-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-tags-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (unsupported-operation-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'unsupported-operation-exception
+                    'make-unsupported-operation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unsupported-operation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (untag-resource-request (:copier common-lisp:nil))
    (resource-arntype (common-lisp:error ":resource-arn is required") :type
     (common-lisp:or amazon-resource-name common-lisp:null))
@@ -3165,6 +3968,120 @@
                         (
                          (aws-sdk-cl/generator/shape::shape
                           update-mailbox-quota-response))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-mobile-device-access-rule-request (:copier common-lisp:nil))
+   (organization-id-type (common-lisp:error ":organization-id is required")
+    :type (common-lisp:or organization-id common-lisp:null))
+   (mobile-device-access-rule-id-type
+    (common-lisp:error ":mobile-device-access-rule-id is required") :type
+    (common-lisp:or mobile-device-access-rule-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or mobile-device-access-rule-name common-lisp:null))
+   (description-type common-lisp:nil :type
+    (common-lisp:or mobile-device-access-rule-description common-lisp:null))
+   (effect-type (common-lisp:error ":effect is required") :type
+    (common-lisp:or mobile-device-access-rule-effect common-lisp:null))
+   (device-types-type common-lisp:nil :type
+    (common-lisp:or device-type-list common-lisp:null))
+   (not-device-types-type common-lisp:nil :type
+    (common-lisp:or device-type-list common-lisp:null))
+   (device-models-type common-lisp:nil :type
+    (common-lisp:or device-model-list common-lisp:null))
+   (not-device-models-type common-lisp:nil :type
+    (common-lisp:or device-model-list common-lisp:null))
+   (device-operating-systems-type common-lisp:nil :type
+    (common-lisp:or device-operating-system-list common-lisp:null))
+   (not-device-operating-systems-type common-lisp:nil :type
+    (common-lisp:or device-operating-system-list common-lisp:null))
+   (device-user-agents-type common-lisp:nil :type
+    (common-lisp:or device-user-agent-list common-lisp:null))
+   (not-device-user-agents-type common-lisp:nil :type
+    (common-lisp:or device-user-agent-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-mobile-device-access-rule-request
+                    'make-update-mobile-device-access-rule-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-mobile-device-access-rule-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "OrganizationId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'organization-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "MobileDeviceAccessRuleId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mobile-device-access-rule-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Description"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'description)))
+    (aws-sdk-cl/generator/shape::to-query-params "Effect"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'effect)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceTypes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-types)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceTypes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-types)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceModels"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-models)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceModels"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-models)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceOperatingSystems"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-operating-systems)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceOperatingSystems"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-operating-systems)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceUserAgents"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-user-agents)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotDeviceUserAgents"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'not-device-user-agents))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-mobile-device-access-rule-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'update-mobile-device-access-rule-response
+                    'make-update-mobile-device-access-rule-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-mobile-device-access-rule-response))
    (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
@@ -3433,6 +4350,34 @@
       "CreateGroupResponse" common-lisp:nil)))
  (common-lisp:export 'create-group))
 (common-lisp:progn
+ (common-lisp:defun create-mobile-device-access-rule
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key organization-id client-token name
+                     description effect device-types not-device-types
+                     device-models not-device-models device-operating-systems
+                     not-device-operating-systems device-user-agents
+                     not-device-user-agents)
+   (common-lisp:declare
+    (common-lisp:ignorable organization-id client-token name description effect
+     device-types not-device-types device-models not-device-models
+     device-operating-systems not-device-operating-systems device-user-agents
+     not-device-user-agents))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-mobile-device-access-rule-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "workmail" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"CreateMobileDeviceAccessRule")
+                                     ("Version" ,@"2017-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateMobileDeviceAccessRuleResponse" common-lisp:nil)))
+ (common-lisp:export 'create-mobile-device-access-rule))
+(common-lisp:progn
  (common-lisp:defun create-organization
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -3567,6 +4512,28 @@
                                     aws-sdk-cl/generator/operation::input)))
       "DeleteMailboxPermissionsResponse" common-lisp:nil)))
  (common-lisp:export 'delete-mailbox-permissions))
+(common-lisp:progn
+ (common-lisp:defun delete-mobile-device-access-rule
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key organization-id
+                     mobile-device-access-rule-id)
+   (common-lisp:declare
+    (common-lisp:ignorable organization-id mobile-device-access-rule-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-mobile-device-access-rule-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "workmail" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"DeleteMobileDeviceAccessRule")
+                                     ("Version" ,@"2017-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteMobileDeviceAccessRuleResponse" common-lisp:nil)))
+ (common-lisp:export 'delete-mobile-device-access-rule))
 (common-lisp:progn
  (common-lisp:defun delete-organization
                     (
@@ -3851,6 +4818,28 @@
       "GetMailboxDetailsResponse" common-lisp:nil)))
  (common-lisp:export 'get-mailbox-details))
 (common-lisp:progn
+ (common-lisp:defun get-mobile-device-access-effect
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key organization-id device-type device-model
+                     device-operating-system device-user-agent)
+   (common-lisp:declare
+    (common-lisp:ignorable organization-id device-type device-model
+     device-operating-system device-user-agent))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-mobile-device-access-effect-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "workmail" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"GetMobileDeviceAccessEffect")
+                                     ("Version" ,@"2017-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetMobileDeviceAccessEffectResponse" common-lisp:nil)))
+ (common-lisp:export 'get-mobile-device-access-effect))
+(common-lisp:progn
  (common-lisp:defun list-access-control-rules
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -3967,6 +4956,25 @@
                                     aws-sdk-cl/generator/operation::input)))
       "ListMailboxPermissionsResponse" common-lisp:nil)))
  (common-lisp:export 'list-mailbox-permissions))
+(common-lisp:progn
+ (common-lisp:defun list-mobile-device-access-rules
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key organization-id)
+   (common-lisp:declare (common-lisp:ignorable organization-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-mobile-device-access-rules-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "workmail" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListMobileDeviceAccessRules")
+                                     ("Version" ,@"2017-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListMobileDeviceAccessRulesResponse" common-lisp:nil)))
+ (common-lisp:export 'list-mobile-device-access-rules))
 (common-lisp:progn
  (common-lisp:defun list-organizations
                     (
@@ -4239,6 +5247,35 @@
                                     aws-sdk-cl/generator/operation::input)))
       "UpdateMailboxQuotaResponse" common-lisp:nil)))
  (common-lisp:export 'update-mailbox-quota))
+(common-lisp:progn
+ (common-lisp:defun update-mobile-device-access-rule
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key organization-id
+                     mobile-device-access-rule-id name description effect
+                     device-types not-device-types device-models
+                     not-device-models device-operating-systems
+                     not-device-operating-systems device-user-agents
+                     not-device-user-agents)
+   (common-lisp:declare
+    (common-lisp:ignorable organization-id mobile-device-access-rule-id name
+     description effect device-types not-device-types device-models
+     not-device-models device-operating-systems not-device-operating-systems
+     device-user-agents not-device-user-agents))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-mobile-device-access-rule-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "workmail" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"UpdateMobileDeviceAccessRule")
+                                     ("Version" ,@"2017-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "UpdateMobileDeviceAccessRuleResponse" common-lisp:nil)))
+ (common-lisp:export 'update-mobile-device-access-rule))
 (common-lisp:progn
  (common-lisp:defun update-primary-email-address
                     (

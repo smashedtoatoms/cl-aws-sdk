@@ -6,6 +6,37 @@
   (:import-from #:aws-sdk-cl/generator/operation)
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/inspector)
+(common-lisp:deftype access-denied-error-code () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (error-code-type (common-lisp:error ":errorcode is required") :type
+    (common-lisp:or access-denied-error-code common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "errorCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (add-attributes-to-findings-request (:copier common-lisp:nil))
@@ -56,6 +87,40 @@
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list arn))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (agent-already-running-assessment (:copier common-lisp:nil))
+   (agent-id-type (common-lisp:error ":agentid is required") :type
+    (common-lisp:or agent-id common-lisp:null))
+   (assessment-run-arn-type (common-lisp:error ":assessmentrunarn is required")
+    :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'agent-already-running-assessment
+                    'make-agent-already-running-assessment))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          agent-already-running-assessment))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "agentId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'agent-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "assessmentRunArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'assessment-run-arn))))))
+(common-lisp:progn
+ (common-lisp:deftype agent-already-running-assessment-list ()
+   '(trivial-types:proper-list agent-already-running-assessment))
+ (common-lisp:defun |make-agent-already-running-assessment-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            agent-already-running-assessment))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct (agent-filter (:copier common-lisp:nil))
@@ -174,6 +239,45 @@
                            (trivial-types:proper-list agent-preview))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype agent-version () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (agents-already-running-assessment-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (agents-type (common-lisp:error ":agents is required") :type
+    (common-lisp:or agent-already-running-assessment-list common-lisp:null))
+   (agents-truncated-type (common-lisp:error ":agentstruncated is required")
+    :type (common-lisp:or bool common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'agents-already-running-assessment-exception
+                    'make-agents-already-running-assessment-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          agents-already-running-assessment-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "agents"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'agents)))
+    (aws-sdk-cl/generator/shape::to-query-params "agentsTruncated"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'agents-truncated)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
 (common-lisp:deftype ami-id () 'common-lisp:string)
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:deftype arn-count () 'common-lisp:integer)
@@ -431,6 +535,55 @@
       (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
+(common-lisp:progn
+ (common-lisp:deftype assessment-run-in-progress-arn-list ()
+   '(trivial-types:proper-list arn))
+ (common-lisp:defun |make-assessment-run-in-progress-arn-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list arn))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (assessment-run-in-progress-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (assessment-run-arns-type
+    (common-lisp:error ":assessmentrunarns is required") :type
+    (common-lisp:or assessment-run-in-progress-arn-list common-lisp:null))
+   (assessment-run-arns-truncated-type
+    (common-lisp:error ":assessmentrunarnstruncated is required") :type
+    (common-lisp:or bool common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'assessment-run-in-progress-exception
+                    'make-assessment-run-in-progress-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          assessment-run-in-progress-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "assessmentRunArns"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'assessment-run-arns)))
+    (aws-sdk-cl/generator/shape::to-query-params "assessmentRunArnsTruncated"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'assessment-run-arns-truncated)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
 (common-lisp:progn
  (common-lisp:deftype assessment-run-list ()
    '(trivial-types:proper-list assessment-run))
@@ -1478,6 +1631,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'max-seconds))))))
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (event-subscription (:copier common-lisp:nil))
    (event-type (common-lisp:error ":event is required") :type
@@ -2058,6 +2212,94 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'rules-package-arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct (internal-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-exception 'make-internal-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
+(common-lisp:deftype invalid-cross-account-role-error-code ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-cross-account-role-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (error-code-type (common-lisp:error ":errorcode is required") :type
+    (common-lisp:or invalid-cross-account-role-error-code common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-cross-account-role-exception
+                    'make-invalid-cross-account-role-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-cross-account-role-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "errorCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
+(common-lisp:deftype invalid-input-error-code () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-input-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (error-code-type (common-lisp:error ":errorcode is required") :type
+    (common-lisp:or invalid-input-error-code common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-input-exception 'make-invalid-input-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-input-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "errorCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
 (common-lisp:deftype ioc-confidence () 'common-lisp:integer)
 (common-lisp:deftype ipv4address () 'common-lisp:string)
 (common-lisp:progn
@@ -2076,6 +2318,37 @@
                            (trivial-types:proper-list text))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype kernel-version () 'common-lisp:string)
+(common-lisp:deftype limit-exceeded-error-code () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (error-code-type (common-lisp:error ":errorcode is required") :type
+    (common-lisp:or limit-exceeded-error-code common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "errorCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-assessment-run-agents-request (:copier common-lisp:nil))
@@ -2691,6 +2964,37 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list network-interface))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype no-such-entity-error-code () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (no-such-entity-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (error-code-type (common-lisp:error ":errorcode is required") :type
+    (common-lisp:or no-such-entity-error-code common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-entity-exception 'make-no-such-entity-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-entity-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "errorCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
 (common-lisp:deftype numeric-severity () 'common-lisp:double-float)
 (common-lisp:deftype numeric-version () 'common-lisp:integer)
 (common-lisp:deftype operating-system () 'common-lisp:string)
@@ -2749,6 +3053,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (preview-generation-in-progress-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'preview-generation-in-progress-exception
+                    'make-preview-generation-in-progress-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          preview-generation-in-progress-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype preview-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (private-ip (:copier common-lisp:nil))
@@ -3025,6 +3347,31 @@
                            (trivial-types:proper-list security-group))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype service-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (service-temporarily-unavailable-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-temporarily-unavailable-exception
+                    'make-service-temporarily-unavailable-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-temporarily-unavailable-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (set-tags-for-resource-request (:copier common-lisp:nil))
@@ -3323,6 +3670,31 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'topic-arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (unsupported-feature-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or error-message common-lisp:null))
+   (can-retry-type (common-lisp:error ":canretry is required") :type
+    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'unsupported-feature-exception
+                    'make-unsupported-feature-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unsupported-feature-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "canRetry"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'can-retry))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-assessment-target-request (:copier common-lisp:nil))

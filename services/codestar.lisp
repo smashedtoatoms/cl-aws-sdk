@@ -146,6 +146,17 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    's3))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (concurrent-modification-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'concurrent-modification-exception
+                    'make-concurrent-modification-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          concurrent-modification-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (create-project-request (:copier common-lisp:nil))
    (name-type (common-lisp:error ":name is required") :type
     (common-lisp:or project-name common-lisp:null))
@@ -674,7 +685,38 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'token))))))
 (common-lisp:deftype git-hub-personal-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-next-token-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-next-token-exception
+                    'make-invalid-next-token-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-next-token-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-service-role-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-service-role-exception
+                    'make-invalid-service-role-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-service-role-exception))
+   (common-lisp:append)))
 (common-lisp:deftype last-modified-timestamp () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (list-projects-request (:copier common-lisp:nil))
    (next-token-type common-lisp:nil :type
@@ -934,10 +976,54 @@
                                                    'next-token))))))
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype pagination-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (project-already-exists-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'project-already-exists-exception
+                    'make-project-already-exists-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          project-already-exists-exception))
+   (common-lisp:append)))
 (common-lisp:deftype project-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (project-configuration-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'project-configuration-exception
+                    'make-project-configuration-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          project-configuration-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (project-creation-failed-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'project-creation-failed-exception
+                    'make-project-creation-failed-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          project-creation-failed-exception))
+   (common-lisp:append)))
 (common-lisp:deftype project-description () 'common-lisp:string)
 (common-lisp:deftype project-id () 'common-lisp:string)
 (common-lisp:deftype project-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (project-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'project-not-found-exception
+                    'make-project-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          project-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (project-status (:copier common-lisp:nil))
    (state-type (common-lisp:error ":state is required") :type
@@ -1129,6 +1215,28 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'remote-access-allowed))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (team-member-already-associated-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'team-member-already-associated-exception
+                    'make-team-member-already-associated-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          team-member-already-associated-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (team-member-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'team-member-not-found-exception
+                    'make-team-member-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          team-member-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:deftype team-member-result ()
    '(trivial-types:proper-list team-member))
@@ -1417,7 +1525,29 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'last-modified-timestamp))))))
 (common-lisp:deftype user-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (user-profile-already-exists-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'user-profile-already-exists-exception
+                    'make-user-profile-already-exists-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          user-profile-already-exists-exception))
+   (common-lisp:append)))
 (common-lisp:deftype user-profile-display-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (user-profile-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'user-profile-not-found-exception
+                    'make-user-profile-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          user-profile-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (user-profile-summary (:copier common-lisp:nil))
    (user-arn-type common-lisp:nil :type
@@ -1463,6 +1593,15 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list user-profile-summary))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defun associate-team-member
                     (

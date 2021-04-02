@@ -1812,10 +1812,10 @@
 (common-lisp:progn
  (common-lisp:defstruct
      (associate-subnet-cidr-block-request (:copier common-lisp:nil))
-   (subnet-id-type (common-lisp:error ":subnet-id is required") :type
-    (common-lisp:or subnet-id common-lisp:null))
    (ipv6cidr-block-type (common-lisp:error ":ipv6cidr-block is required") :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (subnet-id-type (common-lisp:error ":subnet-id is required") :type
+    (common-lisp:or subnet-id common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'associate-subnet-cidr-block-request
                     'make-associate-subnet-cidr-block-request))
@@ -1824,16 +1824,16 @@
                          (aws-sdk-cl/generator/shape::shape
                           associate-subnet-cidr-block-request))
    (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "SubnetId"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'subnet-id)))
     (aws-sdk-cl/generator/shape::to-query-params "Ipv6CidrBlock"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'ipv6cidr-block))))))
+                                                   'ipv6cidr-block)))
+    (aws-sdk-cl/generator/shape::to-query-params "SubnetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'subnet-id))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (associate-subnet-cidr-block-result (:copier common-lisp:nil))
@@ -2165,6 +2165,53 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'message))))))
 (common-lisp:deftype association-status-code () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (athena-integration (:copier common-lisp:nil))
+   (integration-result-s3destination-arn-type
+    (common-lisp:error ":integration-result-s3destination-arn is required")
+    :type (common-lisp:or string common-lisp:null))
+   (partition-load-frequency-type
+    (common-lisp:error ":partition-load-frequency is required") :type
+    (common-lisp:or partition-load-frequency common-lisp:null))
+   (partition-start-date-type common-lisp:nil :type
+    (common-lisp:or millisecond-date-time common-lisp:null))
+   (partition-end-date-type common-lisp:nil :type
+    (common-lisp:or millisecond-date-time common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'athena-integration 'make-athena-integration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          athena-integration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params
+     "IntegrationResultS3DestinationArn"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'integration-result-s3destination-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "PartitionLoadFrequency"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'partition-load-frequency)))
+    (aws-sdk-cl/generator/shape::to-query-params "PartitionStartDate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'partition-start-date)))
+    (aws-sdk-cl/generator/shape::to-query-params "PartitionEndDate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'partition-end-date))))))
+(common-lisp:progn
+ (common-lisp:deftype athena-integrations-set ()
+   '(trivial-types:proper-list athena-integration))
+ (common-lisp:defun |make-athena-integrations-set|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list athena-integration))
+   aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct
      (attach-classic-link-vpc-request (:copier common-lisp:nil))
@@ -2985,6 +3032,16 @@
                            (trivial-types:proper-list block-device-mapping))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
+(common-lisp:deftype boot-mode-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype boot-mode-type-list ()
+   '(trivial-types:proper-list boot-mode-type))
+ (common-lisp:defun |make-boot-mode-type-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list boot-mode-type))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype boot-mode-values () 'common-lisp:string)
 (common-lisp:deftype bundle-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype bundle-id-string-list ()
@@ -7106,12 +7163,13 @@
    (local-gateway-route-table-id-type
     (common-lisp:error ":local-gateway-route-table-id is required") :type
     (common-lisp:or local-gateway-routetable-id common-lisp:null))
+   (dry-run-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
    (local-gateway-virtual-interface-group-id-type
     (common-lisp:error ":local-gateway-virtual-interface-group-id is required")
     :type
-    (common-lisp:or local-gateway-virtual-interface-group-id common-lisp:null))
-   (dry-run-type common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+    (common-lisp:or local-gateway-virtual-interface-group-id
+                    common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-local-gateway-route-request
                     'make-create-local-gateway-route-request))
@@ -7130,16 +7188,16 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'local-gateway-route-table-id)))
-    (aws-sdk-cl/generator/shape::to-query-params
-     "LocalGatewayVirtualInterfaceGroupId"
-     (aws-sdk-cl/generator/shape:shape-to-params
-      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
-                              'local-gateway-virtual-interface-group-id)))
     (aws-sdk-cl/generator/shape::to-query-params "DryRun"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'dry-run))))))
+                                                   'dry-run)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "LocalGatewayVirtualInterfaceGroupId"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'local-gateway-virtual-interface-group-id))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-local-gateway-route-result (:copier common-lisp:nil))
@@ -7824,6 +7882,70 @@
                                                    'placement-group))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-replace-root-volume-task-request (:copier common-lisp:nil))
+   (instance-id-type (common-lisp:error ":instance-id is required") :type
+    (common-lisp:or instance-id common-lisp:null))
+   (snapshot-id-type common-lisp:nil :type
+    (common-lisp:or snapshot-id common-lisp:null))
+   (client-token-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (dry-run-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (tag-specifications-type common-lisp:nil :type
+    (common-lisp:or tag-specification-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-replace-root-volume-task-request
+                    'make-create-replace-root-volume-task-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-replace-root-volume-task-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InstanceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'instance-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "SnapshotId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'snapshot-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ClientToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "DryRun"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dry-run)))
+    (aws-sdk-cl/generator/shape::to-query-params "TagSpecifications"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tag-specifications))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-replace-root-volume-task-result (:copier common-lisp:nil))
+   (replace-root-volume-task-type common-lisp:nil :type
+    (common-lisp:or replace-root-volume-task common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-replace-root-volume-task-result
+                    'make-create-replace-root-volume-task-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-replace-root-volume-task-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ReplaceRootVolumeTask"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'replace-root-volume-task))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (create-reserved-instances-listing-request (:copier common-lisp:nil))
    (client-token-type (common-lisp:error ":client-token is required") :type
     (common-lisp:or string common-lisp:null))
@@ -8298,6 +8420,8 @@
     (common-lisp:or string common-lisp:null))
    (availability-zone-id-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
+   (cidr-block-type (common-lisp:error ":cidr-block is required") :type
+    (common-lisp:or string common-lisp:null))
    (ipv6cidr-block-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (outpost-arn-type common-lisp:nil :type
@@ -8305,9 +8429,7 @@
    (vpc-id-type (common-lisp:error ":vpc-id is required") :type
     (common-lisp:or vpc-id common-lisp:null))
    (dry-run-type common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (cidr-block-type (common-lisp:error ":cidr-block is required") :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or boolean common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-subnet-request 'make-create-subnet-request))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -8330,6 +8452,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'availability-zone-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "CidrBlock"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cidr-block)))
     (aws-sdk-cl/generator/shape::to-query-params "Ipv6CidrBlock"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -8349,12 +8476,7 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'dry-run)))
-    (aws-sdk-cl/generator/shape::to-query-params "CidrBlock"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'cidr-block))))))
+                                                   'dry-run))))))
 (common-lisp:progn
  (common-lisp:defstruct (create-subnet-result (:copier common-lisp:nil))
    (subnet-type common-lisp:nil :type
@@ -17940,6 +18062,80 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'regions))))))
+(common-lisp:deftype describe-replace-root-volume-tasks-max-results ()
+  'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-replace-root-volume-tasks-request (:copier common-lisp:nil))
+   (replace-root-volume-task-ids-type common-lisp:nil :type
+    (common-lisp:or replace-root-volume-task-ids common-lisp:null))
+   (filters-type common-lisp:nil :type
+    (common-lisp:or filter-list common-lisp:null))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or describe-replace-root-volume-tasks-max-results
+                    common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (dry-run-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-replace-root-volume-tasks-request
+                    'make-describe-replace-root-volume-tasks-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-replace-root-volume-tasks-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ReplaceRootVolumeTaskIds"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'replace-root-volume-task-ids)))
+    (aws-sdk-cl/generator/shape::to-query-params "Filters"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'filters)))
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "DryRun"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dry-run))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-replace-root-volume-tasks-result (:copier common-lisp:nil))
+   (replace-root-volume-tasks-type common-lisp:nil :type
+    (common-lisp:or replace-root-volume-tasks common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-replace-root-volume-tasks-result
+                    'make-describe-replace-root-volume-tasks-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-replace-root-volume-tasks-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ReplaceRootVolumeTasks"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'replace-root-volume-tasks)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-reserved-instances-listings-request (:copier common-lisp:nil))
@@ -21940,6 +22136,42 @@
                                                    'unsuccessful))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (disable-serial-console-access-request (:copier common-lisp:nil))
+   (dry-run-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disable-serial-console-access-request
+                    'make-disable-serial-console-access-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          disable-serial-console-access-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "DryRun"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dry-run))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disable-serial-console-access-result (:copier common-lisp:nil))
+   (serial-console-access-enabled-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disable-serial-console-access-result
+                    'make-disable-serial-console-access-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          disable-serial-console-access-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SerialConsoleAccessEnabled"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'serial-console-access-enabled))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (disable-transit-gateway-route-table-propagation-request
       (:copier common-lisp:nil))
    (transit-gateway-route-table-id-type
@@ -22950,6 +23182,19 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'maximum-iops))))))
 (common-lisp:deftype ebs-optimized-support () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (efa-info (:copier common-lisp:nil))
+   (maximum-efa-interfaces-type common-lisp:nil :type
+    (common-lisp:or maximum-efa-interfaces common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'efa-info 'make-efa-info))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape efa-info))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MaximumEfaInterfaces"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'maximum-efa-interfaces))))))
 (common-lisp:deftype efa-supported-flag () 'common-lisp:boolean)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -23570,6 +23815,42 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'unsuccessful))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (enable-serial-console-access-request (:copier common-lisp:nil))
+   (dry-run-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'enable-serial-console-access-request
+                    'make-enable-serial-console-access-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          enable-serial-console-access-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "DryRun"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dry-run))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (enable-serial-console-access-result (:copier common-lisp:nil))
+   (serial-console-access-enabled-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'enable-serial-console-access-result
+                    'make-enable-serial-console-access-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          enable-serial-console-access-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SerialConsoleAccessEnabled"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'serial-console-access-enabled))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (enable-transit-gateway-route-table-propagation-request
@@ -26299,6 +26580,65 @@
                                                    'ebs-encryption-by-default))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-flow-logs-integration-template-request (:copier common-lisp:nil))
+   (dry-run-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (flow-log-id-type (common-lisp:error ":flow-log-id is required") :type
+    (common-lisp:or vpc-flow-log-id common-lisp:null))
+   (config-delivery-s3destination-arn-type
+    (common-lisp:error ":config-delivery-s3destination-arn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (integrate-services-type
+    (common-lisp:error ":integrate-services is required") :type
+    (common-lisp:or integrate-services common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-flow-logs-integration-template-request
+                    'make-get-flow-logs-integration-template-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-flow-logs-integration-template-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "DryRun"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dry-run)))
+    (aws-sdk-cl/generator/shape::to-query-params "FlowLogId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'flow-log-id)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "ConfigDeliveryS3DestinationArn"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'config-delivery-s3destination-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "IntegrateServices"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'integrate-services))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-flow-logs-integration-template-result (:copier common-lisp:nil))
+   (result-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-flow-logs-integration-template-result
+                    'make-get-flow-logs-integration-template-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-flow-logs-integration-template-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Result"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'result))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-groups-for-capacity-reservation-request (:copier common-lisp:nil))
    (capacity-reservation-id-type
     (common-lisp:error ":capacity-reservation-id is required") :type
@@ -26771,6 +27111,42 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'validation-failure-reason))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-serial-console-access-status-request (:copier common-lisp:nil))
+   (dry-run-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-serial-console-access-status-request
+                    'make-get-serial-console-access-status-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-serial-console-access-status-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "DryRun"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dry-run))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-serial-console-access-status-result (:copier common-lisp:nil))
+   (serial-console-access-enabled-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-serial-console-access-status-result
+                    'make-get-serial-console-access-status-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-serial-console-access-status-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SerialConsoleAccessEnabled"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'serial-console-access-enabled))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-transit-gateway-attachment-propagations-request
@@ -28044,7 +28420,9 @@
     (common-lisp:or state-reason common-lisp:null))
    (tags-type common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
    (virtualization-type-type common-lisp:nil :type
-    (common-lisp:or virtualization-type common-lisp:null)))
+    (common-lisp:or virtualization-type common-lisp:null))
+   (boot-mode-type common-lisp:nil :type
+    (common-lisp:or boot-mode-values common-lisp:null)))
  (common-lisp:export (common-lisp:list 'image 'make-image))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape image))
@@ -28178,7 +28556,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'virtualization-type))))))
+                                                   'virtualization-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "BootMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'boot-mode))))))
 (common-lisp:progn
  (common-lisp:defstruct (image-attribute (:copier common-lisp:nil))
    (block-device-mappings-type common-lisp:nil :type
@@ -28196,6 +28579,8 @@
    (ramdisk-id-type common-lisp:nil :type
     (common-lisp:or attribute-value common-lisp:null))
    (sriov-net-support-type common-lisp:nil :type
+    (common-lisp:or attribute-value common-lisp:null))
+   (boot-mode-type common-lisp:nil :type
     (common-lisp:or attribute-value common-lisp:null)))
  (common-lisp:export (common-lisp:list 'image-attribute 'make-image-attribute))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -28240,7 +28625,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'sriov-net-support))))))
+                                                   'sriov-net-support)))
+    (aws-sdk-cl/generator/shape::to-query-params "BootMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'boot-mode))))))
 (common-lisp:deftype image-attribute-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (image-disk-container (:copier common-lisp:nil))
@@ -29539,7 +29929,9 @@
    (metadata-options-type common-lisp:nil :type
     (common-lisp:or instance-metadata-options-response common-lisp:null))
    (enclave-options-type common-lisp:nil :type
-    (common-lisp:or enclave-options common-lisp:null)))
+    (common-lisp:or enclave-options common-lisp:null))
+   (boot-mode-type common-lisp:nil :type
+    (common-lisp:or boot-mode-values common-lisp:null)))
  (common-lisp:export (common-lisp:list 'instance 'make-instance))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape instance))
@@ -29783,7 +30175,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'enclave-options))))))
+                                                   'enclave-options)))
+    (aws-sdk-cl/generator/shape::to-query-params "BootMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'boot-mode))))))
 (common-lisp:progn
  (common-lisp:defstruct (instance-attribute (:copier common-lisp:nil))
    (groups-type common-lisp:nil :type
@@ -31149,7 +31546,9 @@
    (dedicated-hosts-supported-type common-lisp:nil :type
     (common-lisp:or dedicated-host-flag common-lisp:null))
    (auto-recovery-supported-type common-lisp:nil :type
-    (common-lisp:or auto-recovery-flag common-lisp:null)))
+    (common-lisp:or auto-recovery-flag common-lisp:null))
+   (supported-boot-modes-type common-lisp:nil :type
+    (common-lisp:or boot-mode-type-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'instance-type-info 'make-instance-type-info))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -31271,7 +31670,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'auto-recovery-supported))))))
+                                                   'auto-recovery-supported)))
+    (aws-sdk-cl/generator/shape::to-query-params "SupportedBootModes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'supported-boot-modes))))))
 (common-lisp:progn
  (common-lisp:deftype instance-type-info-list ()
    '(trivial-types:proper-list instance-type-info))
@@ -31355,6 +31759,22 @@
                            (trivial-types:proper-list instance-usage))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype integer () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (integrate-services (:copier common-lisp:nil))
+   (athena-integrations-type common-lisp:nil :type
+    (common-lisp:or athena-integrations-set common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'integrate-services 'make-integrate-services))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          integrate-services))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AthenaIntegrations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'athena-integrations))))))
 (common-lisp:deftype interface-permission-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (internet-gateway (:copier common-lisp:nil))
@@ -34384,6 +34804,7 @@
 (common-lisp:deftype max-network-interfaces () 'common-lisp:integer)
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype maximum-bandwidth-in-mbps () 'common-lisp:integer)
+(common-lisp:deftype maximum-efa-interfaces () 'common-lisp:integer)
 (common-lisp:deftype maximum-iops () 'common-lisp:integer)
 (common-lisp:deftype maximum-network-cards () 'common-lisp:integer)
 (common-lisp:deftype maximum-throughput-in-mbps () 'common-lisp:double-float)
@@ -38029,7 +38450,9 @@
    (ena-support-type common-lisp:nil :type
     (common-lisp:or ena-support common-lisp:null))
    (efa-supported-type common-lisp:nil :type
-    (common-lisp:or efa-supported-flag common-lisp:null)))
+    (common-lisp:or efa-supported-flag common-lisp:null))
+   (efa-info-type common-lisp:nil :type
+    (common-lisp:or efa-info common-lisp:null)))
  (common-lisp:export (common-lisp:list 'network-info 'make-network-info))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape network-info))
@@ -38083,7 +38506,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'efa-supported))))))
+                                                   'efa-supported)))
+    (aws-sdk-cl/generator/shape::to-query-params "EfaInfo"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'efa-info))))))
 (common-lisp:progn
  (common-lisp:defstruct (network-insights-analysis (:copier common-lisp:nil))
    (network-insights-analysis-id-type common-lisp:nil :type
@@ -38965,6 +39393,7 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list string))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype partition-load-frequency () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (path-component (:copier common-lisp:nil))
    (sequence-number-type common-lisp:nil :type
@@ -40946,7 +41375,9 @@
    (sriov-net-support-type common-lisp:nil :type
     (common-lisp:or string common-lisp:null))
    (virtualization-type-type common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+    (common-lisp:or string common-lisp:null))
+   (boot-mode-type common-lisp:nil :type
+    (common-lisp:or boot-mode-values common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'register-image-request 'make-register-image-request))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -41018,7 +41449,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'virtualization-type))))))
+                                                   'virtualization-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "BootMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'boot-mode))))))
 (common-lisp:progn
  (common-lisp:defstruct (register-image-result (:copier common-lisp:nil))
    (image-id-type common-lisp:nil :type
@@ -41751,6 +42187,77 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'rule-number))))))
+(common-lisp:progn
+ (common-lisp:defstruct (replace-root-volume-task (:copier common-lisp:nil))
+   (replace-root-volume-task-id-type common-lisp:nil :type
+    (common-lisp:or replace-root-volume-task-id common-lisp:null))
+   (instance-id-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (task-state-type common-lisp:nil :type
+    (common-lisp:or replace-root-volume-task-state common-lisp:null))
+   (start-time-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (complete-time-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'replace-root-volume-task 'make-replace-root-volume-task))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          replace-root-volume-task))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ReplaceRootVolumeTaskId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'replace-root-volume-task-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "InstanceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'instance-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "TaskState"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'task-state)))
+    (aws-sdk-cl/generator/shape::to-query-params "StartTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'start-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "CompleteTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'complete-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:deftype replace-root-volume-task-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype replace-root-volume-task-ids ()
+   '(trivial-types:proper-list replace-root-volume-task-id))
+ (common-lisp:defun |make-replace-root-volume-task-ids|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            replace-root-volume-task-id))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype replace-root-volume-task-state () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype replace-root-volume-tasks ()
+   '(trivial-types:proper-list replace-root-volume-task))
+ (common-lisp:defun |make-replace-root-volume-tasks|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            replace-root-volume-task))
+   aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct (replace-route-request (:copier common-lisp:nil))
    (destination-cidr-block-type common-lisp:nil :type
@@ -54246,8 +54753,8 @@
  (common-lisp:defun associate-subnet-cidr-block
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key subnet-id ipv6cidr-block)
-   (common-lisp:declare (common-lisp:ignorable subnet-id ipv6cidr-block))
+                     common-lisp:&key ipv6cidr-block subnet-id)
+   (common-lisp:declare (common-lisp:ignorable ipv6cidr-block subnet-id))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply
                        'make-associate-subnet-cidr-block-request
@@ -55160,11 +55667,11 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key destination-cidr-block
-                     local-gateway-route-table-id
-                     local-gateway-virtual-interface-group-id dry-run)
+                     local-gateway-route-table-id dry-run
+                     local-gateway-virtual-interface-group-id)
    (common-lisp:declare
     (common-lisp:ignorable destination-cidr-block local-gateway-route-table-id
-     local-gateway-virtual-interface-group-id dry-run))
+     dry-run local-gateway-virtual-interface-group-id))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply
                        'make-create-local-gateway-route-request
@@ -55380,6 +55887,28 @@
       "CreatePlacementGroupResult" common-lisp:nil)))
  (common-lisp:export 'create-placement-group))
 (common-lisp:progn
+ (common-lisp:defun create-replace-root-volume-task
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key instance-id snapshot-id client-token
+                     dry-run tag-specifications)
+   (common-lisp:declare
+    (common-lisp:ignorable instance-id snapshot-id client-token dry-run
+     tag-specifications))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-replace-root-volume-task-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "ec2" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateReplaceRootVolumeTask")
+                                     ("Version" ,@"2016-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateReplaceRootVolumeTaskResult" common-lisp:nil)))
+ (common-lisp:export 'create-replace-root-volume-task))
+(common-lisp:progn
  (common-lisp:defun create-reserved-instances-listing
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -55538,12 +56067,12 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key tag-specifications availability-zone
-                     availability-zone-id ipv6cidr-block outpost-arn vpc-id
-                     dry-run cidr-block)
+                     availability-zone-id cidr-block ipv6cidr-block outpost-arn
+                     vpc-id dry-run)
    (common-lisp:declare
     (common-lisp:ignorable tag-specifications availability-zone
-     availability-zone-id ipv6cidr-block outpost-arn vpc-id dry-run
-     cidr-block))
+     availability-zone-id cidr-block ipv6cidr-block outpost-arn vpc-id
+     dry-run))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-subnet-request
                                          aws-sdk-cl/generator/operation::args)))
@@ -58774,6 +59303,29 @@
       "DescribeRegionsResult" common-lisp:nil)))
  (common-lisp:export 'describe-regions))
 (common-lisp:progn
+ (common-lisp:defun describe-replace-root-volume-tasks
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key replace-root-volume-task-ids filters
+                     max-results next-token dry-run)
+   (common-lisp:declare
+    (common-lisp:ignorable replace-root-volume-task-ids filters max-results
+     next-token dry-run))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-replace-root-volume-tasks-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "ec2" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"DescribeReplaceRootVolumeTasks")
+                                     ("Version" ,@"2016-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DescribeReplaceRootVolumeTasksResult" common-lisp:nil)))
+ (common-lisp:export 'describe-replace-root-volume-tasks))
+(common-lisp:progn
  (common-lisp:defun describe-reserved-instances
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -59949,6 +60501,25 @@
       "DisableFastSnapshotRestoresResult" common-lisp:nil)))
  (common-lisp:export 'disable-fast-snapshot-restores))
 (common-lisp:progn
+ (common-lisp:defun disable-serial-console-access
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key dry-run)
+   (common-lisp:declare (common-lisp:ignorable dry-run))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-disable-serial-console-access-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "ec2" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DisableSerialConsoleAccess")
+                                     ("Version" ,@"2016-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DisableSerialConsoleAccessResult" common-lisp:nil)))
+ (common-lisp:export 'disable-serial-console-access))
+(common-lisp:progn
  (common-lisp:defun disable-transit-gateway-route-table-propagation
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -60254,6 +60825,25 @@
                                     aws-sdk-cl/generator/operation::input)))
       "EnableFastSnapshotRestoresResult" common-lisp:nil)))
  (common-lisp:export 'enable-fast-snapshot-restores))
+(common-lisp:progn
+ (common-lisp:defun enable-serial-console-access
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key dry-run)
+   (common-lisp:declare (common-lisp:ignorable dry-run))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-enable-serial-console-access-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "ec2" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"EnableSerialConsoleAccess")
+                                     ("Version" ,@"2016-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "EnableSerialConsoleAccessResult" common-lisp:nil)))
+ (common-lisp:export 'enable-serial-console-access))
 (common-lisp:progn
  (common-lisp:defun enable-transit-gateway-route-table-propagation
                     (
@@ -60614,6 +61204,29 @@
       "GetEbsEncryptionByDefaultResult" common-lisp:nil)))
  (common-lisp:export 'get-ebs-encryption-by-default))
 (common-lisp:progn
+ (common-lisp:defun get-flow-logs-integration-template
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key dry-run flow-log-id
+                     config-delivery-s3destination-arn integrate-services)
+   (common-lisp:declare
+    (common-lisp:ignorable dry-run flow-log-id
+     config-delivery-s3destination-arn integrate-services))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-flow-logs-integration-template-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "ec2" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"GetFlowLogsIntegrationTemplate")
+                                     ("Version" ,@"2016-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetFlowLogsIntegrationTemplateResult" common-lisp:nil)))
+ (common-lisp:export 'get-flow-logs-integration-template))
+(common-lisp:progn
  (common-lisp:defun get-groups-for-capacity-reservation
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -60759,6 +61372,26 @@
                                     aws-sdk-cl/generator/operation::input)))
       "GetReservedInstancesExchangeQuoteResult" common-lisp:nil)))
  (common-lisp:export 'get-reserved-instances-exchange-quote))
+(common-lisp:progn
+ (common-lisp:defun get-serial-console-access-status
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key dry-run)
+   (common-lisp:declare (common-lisp:ignorable dry-run))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-serial-console-access-status-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "ec2" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"GetSerialConsoleAccessStatus")
+                                     ("Version" ,@"2016-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetSerialConsoleAccessStatusResult" common-lisp:nil)))
+ (common-lisp:export 'get-serial-console-access-status))
 (common-lisp:progn
  (common-lisp:defun get-transit-gateway-attachment-propagations
                     (
@@ -62140,11 +62773,12 @@
                      common-lisp:&key image-location architecture
                      block-device-mappings description dry-run ena-support
                      kernel-id name billing-products ramdisk-id
-                     root-device-name sriov-net-support virtualization-type)
+                     root-device-name sriov-net-support virtualization-type
+                     boot-mode)
    (common-lisp:declare
     (common-lisp:ignorable image-location architecture block-device-mappings
      description dry-run ena-support kernel-id name billing-products ramdisk-id
-     root-device-name sriov-net-support virtualization-type))
+     root-device-name sriov-net-support virtualization-type boot-mode))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-register-image-request
                                          aws-sdk-cl/generator/operation::args)))

@@ -6,6 +6,17 @@
   (:import-from #:aws-sdk-cl/generator/operation)
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/codebuild)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (account-limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'account-limit-exceeded-exception
+                    'make-account-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          account-limit-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:deftype artifact-namespace () 'common-lisp:string)
 (common-lisp:deftype artifact-packaging () 'common-lisp:string)
 (common-lisp:deftype artifacts-type () 'common-lisp:string)
@@ -2317,6 +2328,15 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'arn))))))
 (common-lisp:progn
+ (common-lisp:defstruct (invalid-input-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-input-exception 'make-invalid-input-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-input-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct
      (invalidate-project-cache-input (:copier common-lisp:nil))
    (project-name-type (common-lisp:error ":projectname is required") :type
@@ -3113,6 +3133,15 @@
                                                    'network-interface-id))))))
 (common-lisp:deftype non-empty-string () 'common-lisp:string)
 (common-lisp:deftype non-negative-int () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (oauth-provider-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'oauth-provider-exception 'make-oauth-provider-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          oauth-provider-exception))
+   (common-lisp:append)))
 (common-lisp:deftype page-size () 'common-lisp:integer)
 (common-lisp:deftype percentage () 'common-lisp:double-float)
 (common-lisp:progn
@@ -4144,6 +4173,28 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list resolved-artifact))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-already-exists-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-already-exists-exception
+                    'make-resource-already-exists-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-already-exists-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (retry-build-batch-input (:copier common-lisp:nil))
    (id-type common-lisp:nil :type

@@ -7,6 +7,23 @@
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/frauddetector)
 (common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype async-job-status () 'common-lisp:string)
+(common-lisp:progn
  (common-lisp:defstruct (batch-create-variable-error (:copier common-lisp:nil))
    (name-type common-lisp:nil :type
     (common-lisp:or common-lisp:string common-lisp:null))
@@ -169,6 +186,249 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'errors))))))
+(common-lisp:progn
+ (common-lisp:defstruct (batch-prediction (:copier common-lisp:nil))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |identifier| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or async-job-status common-lisp:null))
+   (failure-reason-type common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null))
+   (start-time-type common-lisp:nil :type
+    (common-lisp:or |time| common-lisp:null))
+   (completion-time-type common-lisp:nil :type
+    (common-lisp:or |time| common-lisp:null))
+   (last-heartbeat-time-type common-lisp:nil :type
+    (common-lisp:or |time| common-lisp:null))
+   (input-path-type common-lisp:nil :type
+    (common-lisp:or |s3BucketLocation| common-lisp:null))
+   (output-path-type common-lisp:nil :type
+    (common-lisp:or |s3BucketLocation| common-lisp:null))
+   (event-type-name-type common-lisp:nil :type
+    (common-lisp:or |identifier| common-lisp:null))
+   (detector-name-type common-lisp:nil :type
+    (common-lisp:or |identifier| common-lisp:null))
+   (detector-version-type common-lisp:nil :type
+    (common-lisp:or |floatVersionString| common-lisp:null))
+   (iam-role-arn-type common-lisp:nil :type
+    (common-lisp:or |iamRoleArn| common-lisp:null))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |fraudDetectorArn| common-lisp:null))
+   (processed-records-count-type common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null))
+   (total-records-count-type common-lisp:nil :type
+    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'batch-prediction 'make-batch-prediction))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape batch-prediction))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "jobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status)))
+    (aws-sdk-cl/generator/shape::to-query-params "failureReason"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'failure-reason)))
+    (aws-sdk-cl/generator/shape::to-query-params "startTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'start-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "completionTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'completion-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "lastHeartbeatTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-heartbeat-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "inputPath"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'input-path)))
+    (aws-sdk-cl/generator/shape::to-query-params "outputPath"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'output-path)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventTypeName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-type-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "detectorName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'detector-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "detectorVersion"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'detector-version)))
+    (aws-sdk-cl/generator/shape::to-query-params "iamRoleArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'iam-role-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "processedRecordsCount"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'processed-records-count)))
+    (aws-sdk-cl/generator/shape::to-query-params "totalRecordsCount"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'total-records-count))))))
+(common-lisp:progn
+ (common-lisp:deftype batch-prediction-list ()
+   '(trivial-types:proper-list batch-prediction))
+ (common-lisp:defun |make-batch-prediction-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list batch-prediction))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cancel-batch-prediction-job-request (:copier common-lisp:nil))
+   (job-id-type (common-lisp:error ":jobid is required") :type
+    (common-lisp:or |identifier| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'cancel-batch-prediction-job-request
+                    'make-cancel-batch-prediction-job-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cancel-batch-prediction-job-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "jobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (cancel-batch-prediction-job-result (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'cancel-batch-prediction-job-result
+                    'make-cancel-batch-prediction-job-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          cancel-batch-prediction-job-result))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-batch-prediction-job-request (:copier common-lisp:nil))
+   (job-id-type (common-lisp:error ":jobid is required") :type
+    (common-lisp:or |identifier| common-lisp:null))
+   (input-path-type (common-lisp:error ":inputpath is required") :type
+    (common-lisp:or |s3BucketLocation| common-lisp:null))
+   (output-path-type (common-lisp:error ":outputpath is required") :type
+    (common-lisp:or |s3BucketLocation| common-lisp:null))
+   (event-type-name-type (common-lisp:error ":eventtypename is required") :type
+    (common-lisp:or |identifier| common-lisp:null))
+   (detector-name-type (common-lisp:error ":detectorname is required") :type
+    (common-lisp:or |identifier| common-lisp:null))
+   (detector-version-type common-lisp:nil :type
+    (common-lisp:or |wholeNumberVersionString| common-lisp:null))
+   (iam-role-arn-type (common-lisp:error ":iamrolearn is required") :type
+    (common-lisp:or |iamRoleArn| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |tagList| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-batch-prediction-job-request
+                    'make-create-batch-prediction-job-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-batch-prediction-job-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "jobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "inputPath"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'input-path)))
+    (aws-sdk-cl/generator/shape::to-query-params "outputPath"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'output-path)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventTypeName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-type-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "detectorName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'detector-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "detectorVersion"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'detector-version)))
+    (aws-sdk-cl/generator/shape::to-query-params "iamRoleArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'iam-role-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-batch-prediction-job-result (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'create-batch-prediction-job-result
+                    'make-create-batch-prediction-job-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-batch-prediction-job-result))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-detector-version-request (:copier common-lisp:nil))
@@ -578,6 +838,35 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'field-level-messages))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-batch-prediction-job-request (:copier common-lisp:nil))
+   (job-id-type (common-lisp:error ":jobid is required") :type
+    (common-lisp:or |identifier| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-batch-prediction-job-request
+                    'make-delete-batch-prediction-job-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-batch-prediction-job-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "jobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-batch-prediction-job-result (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'delete-batch-prediction-job-result
+                    'make-delete-batch-prediction-job-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-batch-prediction-job-result))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (delete-detector-request (:copier common-lisp:nil))
    (detector-id-type (common-lisp:error ":detectorid is required") :type
@@ -1486,6 +1775,63 @@
                                                    'type))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (get-batch-prediction-jobs-request (:copier common-lisp:nil))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |identifier| common-lisp:null))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or |batchPredictionsMaxPageSize| common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-batch-prediction-jobs-request
+                    'make-get-batch-prediction-jobs-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-batch-prediction-jobs-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "jobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "maxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "nextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-batch-prediction-jobs-result (:copier common-lisp:nil))
+   (batch-predictions-type common-lisp:nil :type
+    (common-lisp:or batch-prediction-list common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-batch-prediction-jobs-result
+                    'make-get-batch-prediction-jobs-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-batch-prediction-jobs-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "batchPredictions"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'batch-predictions)))
+    (aws-sdk-cl/generator/shape::to-query-params "nextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (get-detector-version-request (:copier common-lisp:nil))
    (detector-id-type (common-lisp:error ":detectorid is required") :type
     (common-lisp:or |identifier| common-lisp:null))
@@ -2295,6 +2641,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
+(common-lisp:deftype integer () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-exception
+                    'make-internal-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:defstruct
     (json-key-to-variable-map
      (:constructor |make-json-key-to-variable-map|
@@ -3192,6 +3556,24 @@
                           put-outcome-result))
    (common-lisp:append)))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (rule (:copier common-lisp:nil))
    (detector-id-type (common-lisp:error ":detectorid is required") :type
     (common-lisp:or |identifier| common-lisp:null))
@@ -3384,6 +3766,22 @@
                           tag-resource-result))
    (common-lisp:append)))
 (common-lisp:deftype tags-max-results () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (throttling-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'make-throttling-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          throttling-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (training-data-schema (:copier common-lisp:nil))
    (model-variables-type (common-lisp:error ":modelvariables is required")
@@ -3969,6 +4367,22 @@
    (common-lisp:append)))
 (common-lisp:deftype use-event-variables () 'common-lisp:boolean)
 (common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (variable (:copier common-lisp:nil))
    (name-type common-lisp:nil :type
     (common-lisp:or common-lisp:string common-lisp:null))
@@ -4101,6 +4515,7 @@
                            (trivial-types:proper-list variable))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype variables-max-results () 'common-lisp:integer)
+(common-lisp:deftype |batchPredictionsMaxPageSize| () 'common-lisp:integer)
 common-lisp:nil
 (common-lisp:deftype |contentType| () 'common-lisp:string)
 (common-lisp:deftype |description| () 'common-lisp:string)
@@ -4255,6 +4670,50 @@ common-lisp:nil
       "BatchGetVariableResult" common-lisp:nil)))
  (common-lisp:export 'batch-get-variable))
 (common-lisp:progn
+ (common-lisp:defun cancel-batch-prediction-job
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key job-id)
+   (common-lisp:declare (common-lisp:ignorable job-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-cancel-batch-prediction-job-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "frauddetector" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CancelBatchPredictionJob")
+                                     ("Version" ,@"2019-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CancelBatchPredictionJobResult" common-lisp:nil)))
+ (common-lisp:export 'cancel-batch-prediction-job))
+(common-lisp:progn
+ (common-lisp:defun create-batch-prediction-job
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key job-id input-path output-path
+                     event-type-name detector-name detector-version
+                     iam-role-arn tags)
+   (common-lisp:declare
+    (common-lisp:ignorable job-id input-path output-path event-type-name
+     detector-name detector-version iam-role-arn tags))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-batch-prediction-job-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "frauddetector" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateBatchPredictionJob")
+                                     ("Version" ,@"2019-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateBatchPredictionJobResult" common-lisp:nil)))
+ (common-lisp:export 'create-batch-prediction-job))
+(common-lisp:progn
  (common-lisp:defun create-detector-version
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -4365,6 +4824,26 @@ common-lisp:nil
                                     aws-sdk-cl/generator/operation::input)))
       "CreateVariableResult" common-lisp:nil)))
  (common-lisp:export 'create-variable))
+(common-lisp:progn
+ (common-lisp:defun delete-batch-prediction-job
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key job-id)
+   (common-lisp:declare (common-lisp:ignorable job-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-batch-prediction-job-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "frauddetector" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteBatchPredictionJob")
+                                     ("Version" ,@"2019-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteBatchPredictionJobResult" common-lisp:nil)))
+ (common-lisp:export 'delete-batch-prediction-job))
 (common-lisp:progn
  (common-lisp:defun delete-detector
                     (
@@ -4637,6 +5116,26 @@ common-lisp:nil
                                     aws-sdk-cl/generator/operation::input)))
       "DescribeModelVersionsResult" common-lisp:nil)))
  (common-lisp:export 'describe-model-versions))
+(common-lisp:progn
+ (common-lisp:defun get-batch-prediction-jobs
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key job-id max-results next-token)
+   (common-lisp:declare (common-lisp:ignorable job-id max-results next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-batch-prediction-jobs-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "frauddetector" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"GetBatchPredictionJobs")
+                                     ("Version" ,@"2019-11-15"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetBatchPredictionJobsResult" common-lisp:nil)))
+ (common-lisp:export 'get-batch-prediction-jobs))
 (common-lisp:progn
  (common-lisp:defun get-detector-version
                     (

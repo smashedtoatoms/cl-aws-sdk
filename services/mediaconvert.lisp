@@ -85,8 +85,10 @@
 (common-lisp:deftype aac-vbr-quality () 'common-lisp:string)
 (common-lisp:deftype ac3bitstream-mode () 'common-lisp:string)
 (common-lisp:deftype ac3coding-mode () 'common-lisp:string)
+(common-lisp:deftype ac3dynamic-range-compression-line () 'common-lisp:string)
 (common-lisp:deftype ac3dynamic-range-compression-profile ()
   'common-lisp:string)
+(common-lisp:deftype ac3dynamic-range-compression-rf () 'common-lisp:string)
 (common-lisp:deftype ac3lfe-filter () 'common-lisp:string)
 (common-lisp:deftype ac3metadata-control () 'common-lisp:string)
 (common-lisp:progn
@@ -99,8 +101,12 @@
     (common-lisp:or ac3coding-mode common-lisp:null))
    (dialnorm-type common-lisp:nil :type
     (common-lisp:or |__integerMin1Max31| common-lisp:null))
+   (dynamic-range-compression-line-type common-lisp:nil :type
+    (common-lisp:or ac3dynamic-range-compression-line common-lisp:null))
    (dynamic-range-compression-profile-type common-lisp:nil :type
     (common-lisp:or ac3dynamic-range-compression-profile common-lisp:null))
+   (dynamic-range-compression-rf-type common-lisp:nil :type
+    (common-lisp:or ac3dynamic-range-compression-rf common-lisp:null))
    (lfe-filter-type common-lisp:nil :type
     (common-lisp:or ac3lfe-filter common-lisp:null))
    (metadata-control-type common-lisp:nil :type
@@ -131,11 +137,21 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'dialnorm)))
+    (aws-sdk-cl/generator/shape::to-query-params "DynamicRangeCompressionLine"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dynamic-range-compression-line)))
     (aws-sdk-cl/generator/shape::to-query-params
      "DynamicRangeCompressionProfile"
      (aws-sdk-cl/generator/shape:shape-to-params
       (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
                               'dynamic-range-compression-profile)))
+    (aws-sdk-cl/generator/shape::to-query-params "DynamicRangeCompressionRf"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dynamic-range-compression-rf)))
     (aws-sdk-cl/generator/shape::to-query-params "LfeFilter"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -891,6 +907,22 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'quality-tuning-level))))))
+(common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype billing-tags-source () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (burnin-destination-settings (:copier common-lisp:nil))
@@ -1154,7 +1186,9 @@
    (teletext-destination-settings-type common-lisp:nil :type
     (common-lisp:or teletext-destination-settings common-lisp:null))
    (ttml-destination-settings-type common-lisp:nil :type
-    (common-lisp:or ttml-destination-settings common-lisp:null)))
+    (common-lisp:or ttml-destination-settings common-lisp:null))
+   (webvtt-destination-settings-type common-lisp:nil :type
+    (common-lisp:or webvtt-destination-settings common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'caption-destination-settings
                     'make-caption-destination-settings))
@@ -1202,7 +1236,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'ttml-destination-settings))))))
+                                                   'ttml-destination-settings)))
+    (aws-sdk-cl/generator/shape::to-query-params "WebvttDestinationSettings"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'webvtt-destination-settings))))))
 (common-lisp:deftype caption-destination-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (caption-selector (:copier common-lisp:nil))
@@ -1432,6 +1471,8 @@
     (common-lisp:or |__doubleMin0Max2147483647| common-lisp:null))
    (mpd-profile-type common-lisp:nil :type
     (common-lisp:or cmaf-mpd-profile common-lisp:null))
+   (pts-offset-handling-for-bframes-type common-lisp:nil :type
+    (common-lisp:or cmaf-pts-offset-handling-for-bframes common-lisp:null))
    (segment-control-type common-lisp:nil :type
     (common-lisp:or cmaf-segment-control common-lisp:null))
    (segment-length-type common-lisp:nil :type
@@ -1517,6 +1558,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'mpd-profile)))
+    (aws-sdk-cl/generator/shape::to-query-params "PtsOffsetHandlingForBFrames"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pts-offset-handling-for-bframes)))
     (aws-sdk-cl/generator/shape::to-query-params "SegmentControl"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1553,6 +1599,8 @@
 (common-lisp:deftype cmaf-manifest-compression () 'common-lisp:string)
 (common-lisp:deftype cmaf-manifest-duration-format () 'common-lisp:string)
 (common-lisp:deftype cmaf-mpd-profile () 'common-lisp:string)
+(common-lisp:deftype cmaf-pts-offset-handling-for-bframes ()
+  'common-lisp:string)
 (common-lisp:deftype cmaf-segment-control () 'common-lisp:string)
 (common-lisp:deftype cmaf-stream-inf-resolution () 'common-lisp:string)
 (common-lisp:deftype cmaf-write-dashmanifest () 'common-lisp:string)
@@ -1560,6 +1608,8 @@
 (common-lisp:deftype cmaf-write-segment-timeline-in-representation ()
   'common-lisp:string)
 (common-lisp:deftype cmfc-audio-duration () 'common-lisp:string)
+(common-lisp:deftype cmfc-audio-track-type () 'common-lisp:string)
+(common-lisp:deftype cmfc-descriptive-video-service-flag () 'common-lisp:string)
 (common-lisp:deftype cmfc-iframe-only-manifest () 'common-lisp:string)
 (common-lisp:deftype cmfc-scte35esam () 'common-lisp:string)
 (common-lisp:deftype cmfc-scte35source () 'common-lisp:string)
@@ -1567,6 +1617,14 @@
  (common-lisp:defstruct (cmfc-settings (:copier common-lisp:nil))
    (audio-duration-type common-lisp:nil :type
     (common-lisp:or cmfc-audio-duration common-lisp:null))
+   (audio-group-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (audio-rendition-sets-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (audio-track-type-type common-lisp:nil :type
+    (common-lisp:or cmfc-audio-track-type common-lisp:null))
+   (descriptive-video-service-flag-type common-lisp:nil :type
+    (common-lisp:or cmfc-descriptive-video-service-flag common-lisp:null))
    (iframe-only-manifest-type common-lisp:nil :type
     (common-lisp:or cmfc-iframe-only-manifest common-lisp:null))
    (scte35esam-type common-lisp:nil :type
@@ -1582,6 +1640,26 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'audio-duration)))
+    (aws-sdk-cl/generator/shape::to-query-params "AudioGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'audio-group-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "AudioRenditionSets"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'audio-rendition-sets)))
+    (aws-sdk-cl/generator/shape::to-query-params "AudioTrackType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'audio-track-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "DescriptiveVideoServiceFlag"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'descriptive-video-service-flag)))
     (aws-sdk-cl/generator/shape::to-query-params "IFrameOnlyManifest"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1650,6 +1728,22 @@
 (common-lisp:deftype color-space-conversion () 'common-lisp:string)
 (common-lisp:deftype color-space-usage () 'common-lisp:string)
 (common-lisp:deftype commitment () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (container-settings (:copier common-lisp:nil))
    (cmfc-settings-type common-lisp:nil :type
@@ -2110,10 +2204,15 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'speke-key-provider))))))
+(common-lisp:deftype dash-iso-group-audio-channel-config-scheme-id-uri ()
+  'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (dash-iso-group-settings (:copier common-lisp:nil))
    (additional-manifests-type common-lisp:nil :type
     (common-lisp:or |__listOfDashAdditionalManifest| common-lisp:null))
+   (audio-channel-config-scheme-id-uri-type common-lisp:nil :type
+    (common-lisp:or dash-iso-group-audio-channel-config-scheme-id-uri
+                    common-lisp:null))
    (base-url-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (destination-type common-lisp:nil :type
@@ -2132,6 +2231,8 @@
     (common-lisp:or |__doubleMin0Max2147483647| common-lisp:null))
    (mpd-profile-type common-lisp:nil :type
     (common-lisp:or dash-iso-mpd-profile common-lisp:null))
+   (pts-offset-handling-for-bframes-type common-lisp:nil :type
+    (common-lisp:or dash-iso-pts-offset-handling-for-bframes common-lisp:null))
    (segment-control-type common-lisp:nil :type
     (common-lisp:or dash-iso-segment-control common-lisp:null))
    (segment-length-type common-lisp:nil :type
@@ -2151,6 +2252,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'additional-manifests)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "AudioChannelConfigSchemeIdUri"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'audio-channel-config-scheme-id-uri)))
     (aws-sdk-cl/generator/shape::to-query-params "BaseUrl"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2196,6 +2302,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'mpd-profile)))
+    (aws-sdk-cl/generator/shape::to-query-params "PtsOffsetHandlingForBFrames"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pts-offset-handling-for-bframes)))
     (aws-sdk-cl/generator/shape::to-query-params "SegmentControl"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2214,6 +2325,8 @@
 (common-lisp:deftype dash-iso-hbbtv-compliance () 'common-lisp:string)
 (common-lisp:deftype dash-iso-mpd-profile () 'common-lisp:string)
 (common-lisp:deftype dash-iso-playback-device-compatibility ()
+  'common-lisp:string)
+(common-lisp:deftype dash-iso-pts-offset-handling-for-bframes ()
   'common-lisp:string)
 (common-lisp:deftype dash-iso-segment-control () 'common-lisp:string)
 (common-lisp:deftype dash-iso-write-segment-timeline-in-representation ()
@@ -3155,6 +3268,19 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'scc-xml))))))
+(common-lisp:progn
+ (common-lisp:defstruct (exception-body (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'exception-body 'make-exception-body))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape exception-body))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype f4v-moov-placement () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (f4v-settings (:copier common-lisp:nil))
@@ -3201,7 +3327,7 @@
     (common-lisp:or caption-source-framerate common-lisp:null))
    (source-file-type common-lisp:nil :type
     (common-lisp:or
-     |__stringMin14PatternS3SccSCCTtmlTTMLDfxpDFXPStlSTLSrtSRTXmlXMLSmiSMIHttpsSccSCCTtmlTTMLDfxpDFXPStlSTLSrtSRTXmlXMLSmiSMI|
+     |__stringMin14PatternS3SccSCCTtmlTTMLDfxpDFXPStlSTLSrtSRTXmlXMLSmiSMIVttVTTHttpsSccSCCTtmlTTMLDfxpDFXPStlSTLSrtSRTXmlXMLSmiSMIVttVTT|
      common-lisp:null))
    (time-delta-type common-lisp:nil :type
     (common-lisp:or |__integerMinNegative2147483648Max2147483647|
@@ -3234,6 +3360,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'time-delta))))))
 (common-lisp:deftype font-script () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (forbidden-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'forbidden-exception 'make-forbidden-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          forbidden-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (frame-capture-settings (:copier common-lisp:nil))
    (framerate-denominator-type common-lisp:nil :type
@@ -4229,6 +4371,7 @@
 (common-lisp:deftype hls-caption-language-setting () 'common-lisp:string)
 (common-lisp:deftype hls-client-cache () 'common-lisp:string)
 (common-lisp:deftype hls-codec-specification () 'common-lisp:string)
+(common-lisp:deftype hls-descriptive-video-service-flag () 'common-lisp:string)
 (common-lisp:deftype hls-directory-structure () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (hls-encryption-settings (:copier common-lisp:nil))
@@ -4502,6 +4645,8 @@
     (common-lisp:or |__string| common-lisp:null))
    (audio-track-type-type common-lisp:nil :type
     (common-lisp:or hls-audio-track-type common-lisp:null))
+   (descriptive-video-service-flag-type common-lisp:nil :type
+    (common-lisp:or hls-descriptive-video-service-flag common-lisp:null))
    (iframe-only-manifest-type common-lisp:nil :type
     (common-lisp:or hls-iframe-only-manifest common-lisp:null))
    (segment-modifier-type common-lisp:nil :type
@@ -4530,6 +4675,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'audio-track-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "DescriptiveVideoServiceFlag"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'descriptive-video-service-flag)))
     (aws-sdk-cl/generator/shape::to-query-params "IFrameOnlyManifest"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -5047,6 +5197,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'width))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (internal-server-error-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-error-exception
+                    'make-internal-server-error-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-error-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (job (:copier common-lisp:nil))
    (acceleration-settings-type common-lisp:nil :type
@@ -7188,6 +7356,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'strength))))))
 (common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (opus-settings (:copier common-lisp:nil))
    (bitrate-type common-lisp:nil :type
     (common-lisp:or |__integerMin32000Max192000| common-lisp:null))
@@ -8325,6 +8509,23 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'submit-time))))))
 (common-lisp:progn
+ (common-lisp:defstruct (too-many-requests-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-requests-exception
+                    'make-too-many-requests-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-requests-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (track-source-settings (:copier common-lisp:nil))
    (track-number-type common-lisp:nil :type
     (common-lisp:or |__integerMin1Max2147483647| common-lisp:null)))
@@ -9264,6 +9465,26 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'sample-rate))))))
+(common-lisp:progn
+ (common-lisp:defstruct (webvtt-destination-settings (:copier common-lisp:nil))
+   (style-passthrough-type common-lisp:nil :type
+    (common-lisp:or webvtt-style-passthrough common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'webvtt-destination-settings
+                    'make-webvtt-destination-settings))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          webvtt-destination-settings))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "StylePassthrough"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'style-passthrough))))))
+(common-lisp:deftype webvtt-style-passthrough () 'common-lisp:string)
+(common-lisp:deftype |__boolean| () 'common-lisp:boolean)
+(common-lisp:deftype |__double| () 'common-lisp:double-float)
 (common-lisp:deftype |__doubleMin0| () 'common-lisp:double-float)
 (common-lisp:deftype |__doubleMin0Max1| () 'common-lisp:double-float)
 (common-lisp:deftype |__doubleMin0Max2147483647| () 'common-lisp:double-float)
@@ -9694,7 +9915,7 @@
   'common-lisp:string)
 (common-lisp:deftype |__stringMin14PatternS3Mov09PngHttpsMov09Png| ()
   'common-lisp:string)
-(common-lisp:deftype |__stringMin14PatternS3SccSCCTtmlTTMLDfxpDFXPStlSTLSrtSRTXmlXMLSmiSMIHttpsSccSCCTtmlTTMLDfxpDFXPStlSTLSrtSRTXmlXMLSmiSMI|
+(common-lisp:deftype |__stringMin14PatternS3SccSCCTtmlTTMLDfxpDFXPStlSTLSrtSRTXmlXMLSmiSMIVttVTTHttpsSccSCCTtmlTTMLDfxpDFXPStlSTLSrtSRTXmlXMLSmiSMIVttVTT|
                      ()
   'common-lisp:string)
 (common-lisp:deftype |__stringMin16Max24PatternAZaZ0922AZaZ0916| ()
@@ -9749,6 +9970,7 @@
   'common-lisp:string)
 (common-lisp:deftype |__stringPatternW| () 'common-lisp:string)
 (common-lisp:deftype |__stringPatternWS| () 'common-lisp:string)
+(common-lisp:deftype |__timestampIso8601| () 'common-lisp:string)
 (common-lisp:deftype |__timestampUnix| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defun associate-certificate

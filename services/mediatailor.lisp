@@ -7,6 +7,57 @@
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/mediatailor)
 (common-lisp:progn
+ (common-lisp:defstruct (access-configuration (:copier common-lisp:nil))
+   (access-type-type common-lisp:nil :type
+    (common-lisp:or access-type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'access-configuration 'make-access-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccessType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-type))))))
+(common-lisp:deftype access-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (ad-break (:copier common-lisp:nil))
+   (message-type-type common-lisp:nil :type
+    (common-lisp:or message-type common-lisp:null))
+   (offset-millis-type common-lisp:nil :type
+    (common-lisp:or |__long| common-lisp:null))
+   (slate-type common-lisp:nil :type
+    (common-lisp:or slate-source common-lisp:null))
+   (splice-insert-message-type common-lisp:nil :type
+    (common-lisp:or splice-insert-message common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'ad-break 'make-ad-break))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape ad-break))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MessageType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "OffsetMillis"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'offset-millis)))
+    (aws-sdk-cl/generator/shape::to-query-params "Slate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'slate)))
+    (aws-sdk-cl/generator/shape::to-query-params "SpliceInsertMessage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'splice-insert-message))))))
+(common-lisp:progn
  (common-lisp:defstruct (ad-marker-passthrough (:copier common-lisp:nil))
    (enabled-type common-lisp:nil :type
     (common-lisp:or |__boolean| common-lisp:null)))
@@ -42,6 +93,22 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'value))))))
+(common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (bumper (:copier common-lisp:nil))
    (end-url-type common-lisp:nil :type
@@ -83,6 +150,69 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'content-segment-url-prefix))))))
+(common-lisp:progn
+ (common-lisp:defstruct (channel (:copier common-lisp:nil))
+   (arn-type (common-lisp:error ":arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-state-type (common-lisp:error ":channel-state is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (outputs-type (common-lisp:error ":outputs is required") :type
+    (common-lisp:or response-outputs common-lisp:null))
+   (playback-mode-type (common-lisp:error ":playback-mode is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'channel 'make-channel))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape channel))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelState"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-state)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "Outputs"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'outputs)))
+    (aws-sdk-cl/generator/shape::to-query-params "PlaybackMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'playback-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:deftype channel-state () 'common-lisp:string)
 (common-lisp:defstruct
     (configuration-aliases-request
      (:constructor |make-configuration-aliases-request|
@@ -95,6 +225,433 @@
       (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
+(common-lisp:progn
+ (common-lisp:defstruct (create-channel-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (outputs-type (common-lisp:error ":outputs is required") :type
+    (common-lisp:or request-outputs common-lisp:null))
+   (playback-mode-type (common-lisp:error ":playback-mode is required") :type
+    (common-lisp:or playback-mode common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-channel-request 'make-create-channel-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-channel-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Outputs"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'outputs)))
+    (aws-sdk-cl/generator/shape::to-query-params "PlaybackMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'playback-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-channel-response (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-state-type common-lisp:nil :type
+    (common-lisp:or channel-state common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (outputs-type common-lisp:nil :type
+    (common-lisp:or response-outputs common-lisp:null))
+   (playback-mode-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-channel-response 'make-create-channel-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-channel-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelState"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-state)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "Outputs"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'outputs)))
+    (aws-sdk-cl/generator/shape::to-query-params "PlaybackMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'playback-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-program-request (:copier common-lisp:nil))
+   (ad-breaks-type common-lisp:nil :type
+    (common-lisp:or |__listOfAdBreak| common-lisp:null))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (program-name-type (common-lisp:error ":program-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (schedule-configuration-type
+    (common-lisp:error ":schedule-configuration is required") :type
+    (common-lisp:or schedule-configuration common-lisp:null))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vod-source-name-type (common-lisp:error ":vod-source-name is required")
+    :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-program-request 'make-create-program-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-program-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AdBreaks"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ad-breaks)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ProgramName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'program-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ScheduleConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'schedule-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-program-response (:copier common-lisp:nil))
+   (ad-breaks-type common-lisp:nil :type
+    (common-lisp:or |__listOfAdBreak| common-lisp:null))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (program-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-location-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vod-source-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-program-response 'make-create-program-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-program-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AdBreaks"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ad-breaks)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "ProgramName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'program-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-source-location-request (:copier common-lisp:nil))
+   (access-configuration-type common-lisp:nil :type
+    (common-lisp:or access-configuration common-lisp:null))
+   (default-segment-delivery-configuration-type common-lisp:nil :type
+    (common-lisp:or default-segment-delivery-configuration common-lisp:null))
+   (http-configuration-type
+    (common-lisp:error ":http-configuration is required") :type
+    (common-lisp:or http-configuration common-lisp:null))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-source-location-request
+                    'make-create-source-location-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-source-location-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccessConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "DefaultSegmentDeliveryConfiguration"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'default-segment-delivery-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-source-location-response (:copier common-lisp:nil))
+   (access-configuration-type common-lisp:nil :type
+    (common-lisp:or access-configuration common-lisp:null))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (default-segment-delivery-configuration-type common-lisp:nil :type
+    (common-lisp:or default-segment-delivery-configuration common-lisp:null))
+   (http-configuration-type common-lisp:nil :type
+    (common-lisp:or http-configuration common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (source-location-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-source-location-response
+                    'make-create-source-location-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-source-location-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccessConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "DefaultSegmentDeliveryConfiguration"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'default-segment-delivery-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-vod-source-request (:copier common-lisp:nil))
+   (http-package-configurations-type
+    (common-lisp:error ":http-package-configurations is required") :type
+    (common-lisp:or http-package-configurations common-lisp:null))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null))
+   (vod-source-name-type (common-lisp:error ":vod-source-name is required")
+    :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-vod-source-request
+                    'make-create-vod-source-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-vod-source-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "HttpPackageConfigurations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-package-configurations)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-vod-source-response (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (http-package-configurations-type common-lisp:nil :type
+    (common-lisp:or http-package-configurations common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (source-location-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null))
+   (vod-source-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-vod-source-response
+                    'make-create-vod-source-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-vod-source-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpPackageConfigurations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-package-configurations)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
 (common-lisp:progn
  (common-lisp:defstruct (dash-configuration (:copier common-lisp:nil))
    (manifest-endpoint-prefix-type common-lisp:nil :type
@@ -150,6 +707,115 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'origin-manifest-type))))))
 (common-lisp:progn
+ (common-lisp:defstruct (dash-playlist-settings (:copier common-lisp:nil))
+   (manifest-window-seconds-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (min-buffer-time-seconds-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (min-update-period-seconds-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (suggested-presentation-delay-seconds-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dash-playlist-settings 'make-dash-playlist-settings))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          dash-playlist-settings))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ManifestWindowSeconds"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'manifest-window-seconds)))
+    (aws-sdk-cl/generator/shape::to-query-params "MinBufferTimeSeconds"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'min-buffer-time-seconds)))
+    (aws-sdk-cl/generator/shape::to-query-params "MinUpdatePeriodSeconds"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'min-update-period-seconds)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "SuggestedPresentationDelaySeconds"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'suggested-presentation-delay-seconds))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (default-segment-delivery-configuration (:copier common-lisp:nil))
+   (base-url-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'default-segment-delivery-configuration
+                    'make-default-segment-delivery-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          default-segment-delivery-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "BaseUrl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'base-url))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-channel-policy-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-channel-policy-request
+                    'make-delete-channel-policy-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-channel-policy-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-channel-policy-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'delete-channel-policy-response
+                    'make-delete-channel-policy-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-channel-policy-response))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (delete-channel-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-channel-request 'make-delete-channel-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-channel-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (delete-channel-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'delete-channel-response 'make-delete-channel-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-channel-response))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct
      (delete-playback-configuration-request (:copier common-lisp:nil))
    (name-type (common-lisp:error ":name is required") :type
@@ -178,6 +844,536 @@
                          (aws-sdk-cl/generator/shape::shape
                           delete-playback-configuration-response))
    (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (delete-program-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (program-name-type (common-lisp:error ":program-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-program-request 'make-delete-program-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-program-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ProgramName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'program-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (delete-program-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'delete-program-response 'make-delete-program-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-program-response))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-source-location-request (:copier common-lisp:nil))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-source-location-request
+                    'make-delete-source-location-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-source-location-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-source-location-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'delete-source-location-response
+                    'make-delete-source-location-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-source-location-response))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (delete-vod-source-request (:copier common-lisp:nil))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vod-source-name-type (common-lisp:error ":vod-source-name is required")
+    :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-vod-source-request
+                    'make-delete-vod-source-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-vod-source-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (delete-vod-source-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'delete-vod-source-response
+                    'make-delete-vod-source-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-vod-source-response))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (describe-channel-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-channel-request 'make-describe-channel-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-channel-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (describe-channel-response (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-state-type common-lisp:nil :type
+    (common-lisp:or channel-state common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (outputs-type common-lisp:nil :type
+    (common-lisp:or response-outputs common-lisp:null))
+   (playback-mode-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-channel-response
+                    'make-describe-channel-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-channel-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelState"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-state)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "Outputs"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'outputs)))
+    (aws-sdk-cl/generator/shape::to-query-params "PlaybackMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'playback-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (describe-program-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (program-name-type (common-lisp:error ":program-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-program-request 'make-describe-program-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-program-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ProgramName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'program-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (describe-program-response (:copier common-lisp:nil))
+   (ad-breaks-type common-lisp:nil :type
+    (common-lisp:or |__listOfAdBreak| common-lisp:null))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (program-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-location-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vod-source-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-program-response
+                    'make-describe-program-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-program-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AdBreaks"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ad-breaks)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "ProgramName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'program-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-source-location-request (:copier common-lisp:nil))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-source-location-request
+                    'make-describe-source-location-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-source-location-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-source-location-response (:copier common-lisp:nil))
+   (access-configuration-type common-lisp:nil :type
+    (common-lisp:or access-configuration common-lisp:null))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (default-segment-delivery-configuration-type common-lisp:nil :type
+    (common-lisp:or default-segment-delivery-configuration common-lisp:null))
+   (http-configuration-type common-lisp:nil :type
+    (common-lisp:or http-configuration common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (source-location-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-source-location-response
+                    'make-describe-source-location-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-source-location-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccessConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "DefaultSegmentDeliveryConfiguration"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'default-segment-delivery-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (describe-vod-source-request (:copier common-lisp:nil))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vod-source-name-type (common-lisp:error ":vod-source-name is required")
+    :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-vod-source-request
+                    'make-describe-vod-source-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-vod-source-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-vod-source-response (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (http-package-configurations-type common-lisp:nil :type
+    (common-lisp:or http-package-configurations common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (source-location-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null))
+   (vod-source-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-vod-source-response
+                    'make-describe-vod-source-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-vod-source-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpPackageConfigurations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-package-configurations)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (get-channel-policy-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-channel-policy-request
+                    'make-get-channel-policy-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-channel-policy-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (get-channel-policy-response (:copier common-lisp:nil))
+   (policy-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-channel-policy-response
+                    'make-get-channel-policy-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-channel-policy-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Policy"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'policy))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-channel-schedule-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (duration-minutes-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-channel-schedule-request
+                    'make-get-channel-schedule-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-channel-schedule-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "DurationMinutes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'duration-minutes)))
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-channel-schedule-response (:copier common-lisp:nil))
+   (items-type common-lisp:nil :type
+    (common-lisp:or |__listOfScheduleEntry| common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-channel-schedule-response
+                    'make-get-channel-schedule-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-channel-schedule-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Items"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'items)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-playback-configuration-request (:copier common-lisp:nil))
@@ -347,10 +1543,128 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'manifest-endpoint-prefix))))))
 (common-lisp:progn
+ (common-lisp:defstruct (hls-playlist-settings (:copier common-lisp:nil))
+   (manifest-window-seconds-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'hls-playlist-settings 'make-hls-playlist-settings))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          hls-playlist-settings))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ManifestWindowSeconds"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'manifest-window-seconds))))))
+(common-lisp:progn
+ (common-lisp:defstruct (http-configuration (:copier common-lisp:nil))
+   (base-url-type (common-lisp:error ":base-url is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'http-configuration 'make-http-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          http-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "BaseUrl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'base-url))))))
+(common-lisp:progn
+ (common-lisp:defstruct (http-package-configuration (:copier common-lisp:nil))
+   (path-type (common-lisp:error ":path is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-group-type (common-lisp:error ":source-group is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (type-type (common-lisp:error ":type is required") :type
+    (common-lisp:or type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'http-package-configuration
+                    'make-http-package-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          http-package-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Path"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'path)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceGroup"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-group)))
+    (aws-sdk-cl/generator/shape::to-query-params "Type"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'type))))))
+(common-lisp:progn
+ (common-lisp:deftype http-package-configurations ()
+   '(trivial-types:proper-list http-package-configuration))
+ (common-lisp:defun |make-http-package-configurations|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            http-package-configuration))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (list-channels-request (:copier common-lisp:nil))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-channels-request 'make-list-channels-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-channels-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct (list-channels-response (:copier common-lisp:nil))
+   (items-type common-lisp:nil :type
+    (common-lisp:or |__listOfChannel| common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-channels-response 'make-list-channels-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-channels-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Items"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'items)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
  (common-lisp:defstruct
      (list-playback-configurations-request (:copier common-lisp:nil))
    (max-results-type common-lisp:nil :type
-    (common-lisp:or |__integerMin1Max100| common-lisp:null))
+    (common-lisp:or max-results common-lisp:null))
    (next-token-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null)))
  (common-lisp:export
@@ -375,7 +1689,7 @@
  (common-lisp:defstruct
      (list-playback-configurations-response (:copier common-lisp:nil))
    (items-type common-lisp:nil :type
-    (common-lisp:or |__listOfPlaybackConfigurations| common-lisp:null))
+    (common-lisp:or |__listOfPlaybackConfiguration| common-lisp:null))
    (next-token-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null)))
  (common-lisp:export
@@ -385,6 +1699,56 @@
                         (
                          (aws-sdk-cl/generator/shape::shape
                           list-playback-configurations-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Items"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'items)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-source-locations-request (:copier common-lisp:nil))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-source-locations-request
+                    'make-list-source-locations-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-source-locations-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-source-locations-response (:copier common-lisp:nil))
+   (items-type common-lisp:nil :type
+    (common-lisp:or |__listOfSourceLocation| common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-source-locations-response
+                    'make-list-source-locations-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-source-locations-response))
    (common-lisp:append
     (aws-sdk-cl/generator/shape::to-query-params "Items"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
@@ -432,7 +1796,85 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tags))))))
-(common-lisp:deftype origin-manifest-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (list-vod-sources-request (:copier common-lisp:nil))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-vod-sources-request 'make-list-vod-sources-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-vod-sources-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (list-vod-sources-response (:copier common-lisp:nil))
+   (items-type common-lisp:nil :type
+    (common-lisp:or |__listOfVodSource| common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-vod-sources-response
+                    'make-list-vod-sources-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-vod-sources-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Items"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'items)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct (live-pre-roll-configuration (:copier common-lisp:nil))
+   (ad-decision-server-url-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (max-duration-seconds-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'live-pre-roll-configuration
+                    'make-live-pre-roll-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          live-pre-roll-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AdDecisionServerUrl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ad-decision-server-url)))
+    (aws-sdk-cl/generator/shape::to-query-params "MaxDurationSeconds"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-duration-seconds))))))
 (common-lisp:progn
  (common-lisp:defstruct (manifest-processing-rules (:copier common-lisp:nil))
    (ad-marker-passthrough-type common-lisp:nil :type
@@ -450,7 +1892,10 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'ad-marker-passthrough))))))
+(common-lisp:deftype max-results () 'common-lisp:integer)
+(common-lisp:deftype message-type () 'common-lisp:string)
 (common-lisp:deftype mode () 'common-lisp:string)
+(common-lisp:deftype origin-manifest-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (playback-configuration (:copier common-lisp:nil))
    (ad-decision-server-url-type common-lisp:nil :type
@@ -466,10 +1911,14 @@
     (common-lisp:or dash-configuration common-lisp:null))
    (hls-configuration-type common-lisp:nil :type
     (common-lisp:or hls-configuration common-lisp:null))
+   (live-pre-roll-configuration-type common-lisp:nil :type
+    (common-lisp:or live-pre-roll-configuration common-lisp:null))
    (manifest-processing-rules-type common-lisp:nil :type
     (common-lisp:or manifest-processing-rules common-lisp:null))
    (name-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
+   (personalization-threshold-seconds-type common-lisp:nil :type
+    (common-lisp:or |__integerMin1| common-lisp:null))
    (playback-configuration-arn-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (playback-endpoint-prefix-type common-lisp:nil :type
@@ -482,8 +1931,6 @@
     (common-lisp:or |__mapOf__string| common-lisp:null))
    (transcode-profile-name-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
-   (personalization-threshold-seconds-type common-lisp:nil :type
-    (common-lisp:or |__integerMin1| common-lisp:null))
    (video-content-source-url-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null)))
  (common-lisp:export
@@ -528,6 +1975,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'hls-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "LivePreRollConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'live-pre-roll-configuration)))
     (aws-sdk-cl/generator/shape::to-query-params "ManifestProcessingRules"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -538,6 +1990,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'name)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "PersonalizationThresholdSeconds"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'personalization-threshold-seconds)))
     (aws-sdk-cl/generator/shape::to-query-params "PlaybackConfigurationArn"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -568,40 +2025,47 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'transcode-profile-name)))
-    (aws-sdk-cl/generator/shape::to-query-params
-     "PersonalizationThresholdSeconds"
-     (aws-sdk-cl/generator/shape:shape-to-params
-      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
-                              'personalization-threshold-seconds)))
     (aws-sdk-cl/generator/shape::to-query-params "VideoContentSourceUrl"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'video-content-source-url))))))
+(common-lisp:deftype playback-mode () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct (live-pre-roll-configuration (:copier common-lisp:nil))
-   (ad-decision-server-url-type common-lisp:nil :type
+ (common-lisp:defstruct (put-channel-policy-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
     (common-lisp:or |__string| common-lisp:null))
-   (max-duration-seconds-type common-lisp:nil :type
-    (common-lisp:or |__integer| common-lisp:null)))
+   (policy-type (common-lisp:error ":policy is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
  (common-lisp:export
-  (common-lisp:list 'live-pre-roll-configuration
-                    'make-live-pre-roll-configuration))
+  (common-lisp:list 'put-channel-policy-request
+                    'make-put-channel-policy-request))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         (
                          (aws-sdk-cl/generator/shape::shape
-                          live-pre-roll-configuration))
+                          put-channel-policy-request))
    (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "AdDecisionServerUrl"
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'ad-decision-server-url)))
-    (aws-sdk-cl/generator/shape::to-query-params "MaxDurationSeconds"
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Policy"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'max-duration-seconds))))))
+                                                   'policy))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-channel-policy-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'put-channel-policy-response
+                    'make-put-channel-policy-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          put-channel-policy-response))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (put-playback-configuration-request (:copier common-lisp:nil))
@@ -846,6 +2310,347 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'video-content-source-url))))))
+(common-lisp:deftype relative-position () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (request-output-item (:copier common-lisp:nil))
+   (dash-playlist-settings-type common-lisp:nil :type
+    (common-lisp:or dash-playlist-settings common-lisp:null))
+   (hls-playlist-settings-type common-lisp:nil :type
+    (common-lisp:or hls-playlist-settings common-lisp:null))
+   (manifest-name-type (common-lisp:error ":manifest-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-group-type (common-lisp:error ":source-group is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'request-output-item 'make-request-output-item))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          request-output-item))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "DashPlaylistSettings"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dash-playlist-settings)))
+    (aws-sdk-cl/generator/shape::to-query-params "HlsPlaylistSettings"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'hls-playlist-settings)))
+    (aws-sdk-cl/generator/shape::to-query-params "ManifestName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'manifest-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceGroup"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-group))))))
+(common-lisp:progn
+ (common-lisp:deftype request-outputs ()
+   '(trivial-types:proper-list request-output-item))
+ (common-lisp:defun |make-request-outputs|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list request-output-item))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (response-output-item (:copier common-lisp:nil))
+   (dash-playlist-settings-type common-lisp:nil :type
+    (common-lisp:or dash-playlist-settings common-lisp:null))
+   (hls-playlist-settings-type common-lisp:nil :type
+    (common-lisp:or hls-playlist-settings common-lisp:null))
+   (manifest-name-type (common-lisp:error ":manifest-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (playback-url-type (common-lisp:error ":playback-url is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-group-type (common-lisp:error ":source-group is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'response-output-item 'make-response-output-item))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          response-output-item))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "DashPlaylistSettings"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dash-playlist-settings)))
+    (aws-sdk-cl/generator/shape::to-query-params "HlsPlaylistSettings"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'hls-playlist-settings)))
+    (aws-sdk-cl/generator/shape::to-query-params "ManifestName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'manifest-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "PlaybackUrl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'playback-url)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceGroup"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-group))))))
+(common-lisp:progn
+ (common-lisp:deftype response-outputs ()
+   '(trivial-types:proper-list response-output-item))
+ (common-lisp:defun |make-response-outputs|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list response-output-item))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (schedule-configuration (:copier common-lisp:nil))
+   (transition-type (common-lisp:error ":transition is required") :type
+    (common-lisp:or transition common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'schedule-configuration 'make-schedule-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          schedule-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Transition"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'transition))))))
+(common-lisp:progn
+ (common-lisp:defstruct (schedule-entry (:copier common-lisp:nil))
+   (approximate-duration-seconds-type common-lisp:nil :type
+    (common-lisp:or |__long| common-lisp:null))
+   (approximate-start-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (arn-type (common-lisp:error ":arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (program-name-type (common-lisp:error ":program-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vod-source-name-type (common-lisp:error ":vod-source-name is required")
+    :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'schedule-entry 'make-schedule-entry))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape schedule-entry))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ApproximateDurationSeconds"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'approximate-duration-seconds)))
+    (aws-sdk-cl/generator/shape::to-query-params "ApproximateStartTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'approximate-start-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ProgramName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'program-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (slate-source (:copier common-lisp:nil))
+   (source-location-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vod-source-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'slate-source 'make-slate-source))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape slate-source))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (source-location (:copier common-lisp:nil))
+   (access-configuration-type common-lisp:nil :type
+    (common-lisp:or access-configuration common-lisp:null))
+   (arn-type (common-lisp:error ":arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (default-segment-delivery-configuration-type common-lisp:nil :type
+    (common-lisp:or default-segment-delivery-configuration common-lisp:null))
+   (http-configuration-type
+    (common-lisp:error ":http-configuration is required") :type
+    (common-lisp:or http-configuration common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'source-location 'make-source-location))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape source-location))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccessConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "DefaultSegmentDeliveryConfiguration"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'default-segment-delivery-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (splice-insert-message (:copier common-lisp:nil))
+   (avail-num-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (avails-expected-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (splice-event-id-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null))
+   (unique-program-id-type common-lisp:nil :type
+    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'splice-insert-message 'make-splice-insert-message))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          splice-insert-message))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AvailNum"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'avail-num)))
+    (aws-sdk-cl/generator/shape::to-query-params "AvailsExpected"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'avails-expected)))
+    (aws-sdk-cl/generator/shape::to-query-params "SpliceEventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'splice-event-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "UniqueProgramId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'unique-program-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct (start-channel-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-channel-request 'make-start-channel-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          start-channel-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (start-channel-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'start-channel-response 'make-start-channel-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          start-channel-response))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (stop-channel-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'stop-channel-request 'make-stop-channel-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          stop-channel-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (stop-channel-response (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'stop-channel-response 'make-stop-channel-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          stop-channel-response))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (tag-resource-request (:copier common-lisp:nil))
    (resource-arn-type (common-lisp:error ":resource-arn is required") :type
@@ -870,6 +2675,34 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tags))))))
 (common-lisp:progn
+ (common-lisp:defstruct (transition (:copier common-lisp:nil))
+   (relative-position-type (common-lisp:error ":relative-position is required")
+    :type (common-lisp:or relative-position common-lisp:null))
+   (relative-program-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (type-type (common-lisp:error ":type is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'transition 'make-transition))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape transition))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "RelativePosition"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'relative-position)))
+    (aws-sdk-cl/generator/shape::to-query-params "RelativeProgram"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'relative-program)))
+    (aws-sdk-cl/generator/shape::to-query-params "Type"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'type))))))
+(common-lisp:deftype type () 'common-lisp:string)
+(common-lisp:progn
  (common-lisp:defstruct (untag-resource-request (:copier common-lisp:nil))
    (resource-arn-type (common-lisp:error ":resource-arn is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -892,17 +2725,401 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tag-keys))))))
+(common-lisp:progn
+ (common-lisp:defstruct (update-channel-request (:copier common-lisp:nil))
+   (channel-name-type (common-lisp:error ":channel-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (outputs-type (common-lisp:error ":outputs is required") :type
+    (common-lisp:or request-outputs common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-channel-request 'make-update-channel-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-channel-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Outputs"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'outputs))))))
+(common-lisp:progn
+ (common-lisp:defstruct (update-channel-response (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (channel-state-type common-lisp:nil :type
+    (common-lisp:or channel-state common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (outputs-type common-lisp:nil :type
+    (common-lisp:or response-outputs common-lisp:null))
+   (playback-mode-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-channel-response 'make-update-channel-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-channel-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChannelState"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'channel-state)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "Outputs"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'outputs)))
+    (aws-sdk-cl/generator/shape::to-query-params "PlaybackMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'playback-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-source-location-request (:copier common-lisp:nil))
+   (access-configuration-type common-lisp:nil :type
+    (common-lisp:or access-configuration common-lisp:null))
+   (default-segment-delivery-configuration-type common-lisp:nil :type
+    (common-lisp:or default-segment-delivery-configuration common-lisp:null))
+   (http-configuration-type
+    (common-lisp:error ":http-configuration is required") :type
+    (common-lisp:or http-configuration common-lisp:null))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-source-location-request
+                    'make-update-source-location-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-source-location-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccessConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "DefaultSegmentDeliveryConfiguration"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'default-segment-delivery-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-source-location-response (:copier common-lisp:nil))
+   (access-configuration-type common-lisp:nil :type
+    (common-lisp:or access-configuration common-lisp:null))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (default-segment-delivery-configuration-type common-lisp:nil :type
+    (common-lisp:or default-segment-delivery-configuration common-lisp:null))
+   (http-configuration-type common-lisp:nil :type
+    (common-lisp:or http-configuration common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (source-location-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-source-location-response
+                    'make-update-source-location-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-source-location-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccessConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "DefaultSegmentDeliveryConfiguration"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'default-segment-delivery-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (update-vod-source-request (:copier common-lisp:nil))
+   (http-package-configurations-type
+    (common-lisp:error ":http-package-configurations is required") :type
+    (common-lisp:or http-package-configurations common-lisp:null))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (vod-source-name-type (common-lisp:error ":vod-source-name is required")
+    :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-vod-source-request
+                    'make-update-vod-source-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-vod-source-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "HttpPackageConfigurations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-package-configurations)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (update-vod-source-response (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (http-package-configurations-type common-lisp:nil :type
+    (common-lisp:or http-package-configurations common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (source-location-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null))
+   (vod-source-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-vod-source-response
+                    'make-update-vod-source-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-vod-source-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpPackageConfigurations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-package-configurations)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (vod-source (:copier common-lisp:nil))
+   (arn-type (common-lisp:error ":arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (http-package-configurations-type
+    (common-lisp:error ":http-package-configurations is required") :type
+    (common-lisp:or http-package-configurations common-lisp:null))
+   (last-modified-time-type common-lisp:nil :type
+    (common-lisp:or |__timestampUnix| common-lisp:null))
+   (source-location-name-type
+    (common-lisp:error ":source-location-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or |__mapOf__string| common-lisp:null))
+   (vod-source-name-type (common-lisp:error ":vod-source-name is required")
+    :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'vod-source 'make-vod-source))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape vod-source))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "HttpPackageConfigurations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'http-package-configurations)))
+    (aws-sdk-cl/generator/shape::to-query-params "LastModifiedTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'last-modified-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceLocationName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-location-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags)))
+    (aws-sdk-cl/generator/shape::to-query-params "VodSourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vod-source-name))))))
 (common-lisp:deftype |__boolean| () 'common-lisp:boolean)
 (common-lisp:deftype |__integer| () 'common-lisp:integer)
 (common-lisp:deftype |__integerMin1| () 'common-lisp:integer)
-(common-lisp:deftype |__integerMin1Max100| () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:deftype |__listOfPlaybackConfigurations| ()
+ (common-lisp:deftype |__listOfAdBreak| ()
+   '(trivial-types:proper-list ad-break))
+ (common-lisp:defun |make-__listofadbreak|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list ad-break))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfChannel| ()
+   '(trivial-types:proper-list channel))
+ (common-lisp:defun |make-__listofchannel|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list channel))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfPlaybackConfiguration| ()
    '(trivial-types:proper-list playback-configuration))
- (common-lisp:defun |make-__listofplaybackconfigurations|
+ (common-lisp:defun |make-__listofplaybackconfiguration|
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list playback-configuration))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfScheduleEntry| ()
+   '(trivial-types:proper-list schedule-entry))
+ (common-lisp:defun |make-__listofscheduleentry|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list schedule-entry))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfSourceLocation| ()
+   '(trivial-types:proper-list source-location))
+ (common-lisp:defun |make-__listofsourcelocation|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list source-location))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype |__listOfVodSource| ()
+   '(trivial-types:proper-list vod-source))
+ (common-lisp:defun |make-__listofvodsource|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list vod-source))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype |__listOf__string| ()
@@ -912,6 +3129,7 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list |__string|))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype |__long| () 'common-lisp:integer)
 (common-lisp:defstruct
     (|__mapOf__string|
      (:constructor |make-__mapof__string|
@@ -919,6 +3137,130 @@
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
 (common-lisp:deftype |__string| () 'common-lisp:string)
+(common-lisp:deftype |__timestampUnix| () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defun create-channel
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name outputs playback-mode tags)
+   (common-lisp:declare
+    (common-lisp:ignorable channel-name outputs playback-mode tags))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-create-channel-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateChannel")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateChannelResponse" common-lisp:nil)))
+ (common-lisp:export 'create-channel))
+(common-lisp:progn
+ (common-lisp:defun create-program
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key ad-breaks channel-name program-name
+                     schedule-configuration source-location-name
+                     vod-source-name)
+   (common-lisp:declare
+    (common-lisp:ignorable ad-breaks channel-name program-name
+     schedule-configuration source-location-name vod-source-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-create-program-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateProgram")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateProgramResponse" common-lisp:nil)))
+ (common-lisp:export 'create-program))
+(common-lisp:progn
+ (common-lisp:defun create-source-location
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key access-configuration
+                     default-segment-delivery-configuration http-configuration
+                     source-location-name tags)
+   (common-lisp:declare
+    (common-lisp:ignorable access-configuration
+     default-segment-delivery-configuration http-configuration
+     source-location-name tags))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-create-source-location-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateSourceLocation")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateSourceLocationResponse" common-lisp:nil)))
+ (common-lisp:export 'create-source-location))
+(common-lisp:progn
+ (common-lisp:defun create-vod-source
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key http-package-configurations
+                     source-location-name tags vod-source-name)
+   (common-lisp:declare
+    (common-lisp:ignorable http-package-configurations source-location-name
+     tags vod-source-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-create-vod-source-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateVodSource")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateVodSourceResponse" common-lisp:nil)))
+ (common-lisp:export 'create-vod-source))
+(common-lisp:progn
+ (common-lisp:defun delete-channel
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name)
+   (common-lisp:declare (common-lisp:ignorable channel-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-delete-channel-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :delete
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteChannel")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteChannelResponse" common-lisp:nil)))
+ (common-lisp:export 'delete-channel))
+(common-lisp:progn
+ (common-lisp:defun delete-channel-policy
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name)
+   (common-lisp:declare (common-lisp:ignorable channel-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-delete-channel-policy-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :delete
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteChannelPolicy")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteChannelPolicyResponse" common-lisp:nil)))
+ (common-lisp:export 'delete-channel-policy))
 (common-lisp:progn
  (common-lisp:defun delete-playback-configuration
                     (
@@ -940,6 +3282,176 @@
       "DeletePlaybackConfigurationResponse" common-lisp:nil)))
  (common-lisp:export 'delete-playback-configuration))
 (common-lisp:progn
+ (common-lisp:defun delete-program
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name program-name)
+   (common-lisp:declare (common-lisp:ignorable channel-name program-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-delete-program-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :delete
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteProgram")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteProgramResponse" common-lisp:nil)))
+ (common-lisp:export 'delete-program))
+(common-lisp:progn
+ (common-lisp:defun delete-source-location
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key source-location-name)
+   (common-lisp:declare (common-lisp:ignorable source-location-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-delete-source-location-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :delete
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteSourceLocation")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteSourceLocationResponse" common-lisp:nil)))
+ (common-lisp:export 'delete-source-location))
+(common-lisp:progn
+ (common-lisp:defun delete-vod-source
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key source-location-name vod-source-name)
+   (common-lisp:declare
+    (common-lisp:ignorable source-location-name vod-source-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-delete-vod-source-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :delete
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteVodSource")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteVodSourceResponse" common-lisp:nil)))
+ (common-lisp:export 'delete-vod-source))
+(common-lisp:progn
+ (common-lisp:defun describe-channel
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name)
+   (common-lisp:declare (common-lisp:ignorable channel-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-describe-channel-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DescribeChannel")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DescribeChannelResponse" common-lisp:nil)))
+ (common-lisp:export 'describe-channel))
+(common-lisp:progn
+ (common-lisp:defun describe-program
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name program-name)
+   (common-lisp:declare (common-lisp:ignorable channel-name program-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-describe-program-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DescribeProgram")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DescribeProgramResponse" common-lisp:nil)))
+ (common-lisp:export 'describe-program))
+(common-lisp:progn
+ (common-lisp:defun describe-source-location
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key source-location-name)
+   (common-lisp:declare (common-lisp:ignorable source-location-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-describe-source-location-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DescribeSourceLocation")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DescribeSourceLocationResponse" common-lisp:nil)))
+ (common-lisp:export 'describe-source-location))
+(common-lisp:progn
+ (common-lisp:defun describe-vod-source
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key source-location-name vod-source-name)
+   (common-lisp:declare
+    (common-lisp:ignorable source-location-name vod-source-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-describe-vod-source-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DescribeVodSource")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DescribeVodSourceResponse" common-lisp:nil)))
+ (common-lisp:export 'describe-vod-source))
+(common-lisp:progn
+ (common-lisp:defun get-channel-policy
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name)
+   (common-lisp:declare (common-lisp:ignorable channel-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-get-channel-policy-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"GetChannelPolicy")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetChannelPolicyResponse" common-lisp:nil)))
+ (common-lisp:export 'get-channel-policy))
+(common-lisp:progn
+ (common-lisp:defun get-channel-schedule
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name duration-minutes max-results
+                     next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable channel-name duration-minutes max-results
+     next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-get-channel-schedule-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"GetChannelSchedule")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetChannelScheduleResponse" common-lisp:nil)))
+ (common-lisp:export 'get-channel-schedule))
+(common-lisp:progn
  (common-lisp:defun get-playback-configuration
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -958,6 +3470,24 @@
                                     aws-sdk-cl/generator/operation::input)))
       "GetPlaybackConfigurationResponse" common-lisp:nil)))
  (common-lisp:export 'get-playback-configuration))
+(common-lisp:progn
+ (common-lisp:defun list-channels
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:declare (common-lisp:ignorable max-results next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-list-channels-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListChannels")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListChannelsResponse" common-lisp:nil)))
+ (common-lisp:export 'list-channels))
 (common-lisp:progn
  (common-lisp:defun list-playback-configurations
                     (
@@ -978,6 +3508,24 @@
       "ListPlaybackConfigurationsResponse" common-lisp:nil)))
  (common-lisp:export 'list-playback-configurations))
 (common-lisp:progn
+ (common-lisp:defun list-source-locations
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:declare (common-lisp:ignorable max-results next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-list-source-locations-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListSourceLocations")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListSourceLocationsResponse" common-lisp:nil)))
+ (common-lisp:export 'list-source-locations))
+(common-lisp:progn
  (common-lisp:defun list-tags-for-resource
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -995,6 +3543,44 @@
                                     aws-sdk-cl/generator/operation::input)))
       "ListTagsForResourceResponse" common-lisp:nil)))
  (common-lisp:export 'list-tags-for-resource))
+(common-lisp:progn
+ (common-lisp:defun list-vod-sources
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key max-results next-token
+                     source-location-name)
+   (common-lisp:declare
+    (common-lisp:ignorable max-results next-token source-location-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-list-vod-sources-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListVodSources")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListVodSourcesResponse" common-lisp:nil)))
+ (common-lisp:export 'list-vod-sources))
+(common-lisp:progn
+ (common-lisp:defun put-channel-policy
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name policy)
+   (common-lisp:declare (common-lisp:ignorable channel-name policy))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-put-channel-policy-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"PutChannelPolicy")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "PutChannelPolicyResponse" common-lisp:nil)))
+ (common-lisp:export 'put-channel-policy))
 (common-lisp:progn
  (common-lisp:defun put-playback-configuration
                     (
@@ -1024,6 +3610,42 @@
                                     aws-sdk-cl/generator/operation::input)))
       "PutPlaybackConfigurationResponse" common-lisp:nil)))
  (common-lisp:export 'put-playback-configuration))
+(common-lisp:progn
+ (common-lisp:defun start-channel
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name)
+   (common-lisp:declare (common-lisp:ignorable channel-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-start-channel-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"StartChannel")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "StartChannelResponse" common-lisp:nil)))
+ (common-lisp:export 'start-channel))
+(common-lisp:progn
+ (common-lisp:defun stop-channel
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name)
+   (common-lisp:declare (common-lisp:ignorable channel-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-stop-channel-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"StopChannel")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "StopChannelResponse" common-lisp:nil)))
+ (common-lisp:export 'stop-channel))
 (common-lisp:progn
  (common-lisp:defun tag-resource
                     (
@@ -1061,3 +3683,65 @@
                                     aws-sdk-cl/generator/operation::input)))
       common-lisp:nil common-lisp:nil)))
  (common-lisp:export 'untag-resource))
+(common-lisp:progn
+ (common-lisp:defun update-channel
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key channel-name outputs)
+   (common-lisp:declare (common-lisp:ignorable channel-name outputs))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-update-channel-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"UpdateChannel")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "UpdateChannelResponse" common-lisp:nil)))
+ (common-lisp:export 'update-channel))
+(common-lisp:progn
+ (common-lisp:defun update-source-location
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key access-configuration
+                     default-segment-delivery-configuration http-configuration
+                     source-location-name)
+   (common-lisp:declare
+    (common-lisp:ignorable access-configuration
+     default-segment-delivery-configuration http-configuration
+     source-location-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-update-source-location-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"UpdateSourceLocation")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "UpdateSourceLocationResponse" common-lisp:nil)))
+ (common-lisp:export 'update-source-location))
+(common-lisp:progn
+ (common-lisp:defun update-vod-source
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key http-package-configurations
+                     source-location-name vod-source-name)
+   (common-lisp:declare
+    (common-lisp:ignorable http-package-configurations source-location-name
+     vod-source-name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-update-vod-source-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "mediatailor" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"UpdateVodSource")
+                                     ("Version" ,@"2018-04-23"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "UpdateVodSourceResponse" common-lisp:nil)))
+ (common-lisp:export 'update-vod-source))

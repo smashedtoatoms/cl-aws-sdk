@@ -26,6 +26,15 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'connection-id))))))
 (common-lisp:progn
+ (common-lisp:defstruct (forbidden-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'forbidden-exception 'make-forbidden-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          forbidden-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (get-connection-request (:copier common-lisp:nil))
    (connection-id-type (common-lisp:error ":connection-id is required") :type
     (common-lisp:or |__string| common-lisp:null)))
@@ -72,6 +81,12 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'last-active-at))))))
 (common-lisp:progn
+ (common-lisp:defstruct (gone-exception (:copier common-lisp:nil)))
+ (common-lisp:export (common-lisp:list 'gone-exception 'make-gone-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape gone-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (identity (:copier common-lisp:nil))
    (source-ip-type (common-lisp:error ":source-ip is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -91,6 +106,23 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'user-agent))))))
+(common-lisp:progn
+ (common-lisp:defstruct (payload-too-large-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'payload-too-large-exception
+                    'make-payload-too-large-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          payload-too-large-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (post-to-connection-request (:copier common-lisp:nil))
    (data-type (common-lisp:error ":data is required") :type
@@ -115,6 +147,15 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'connection-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:deftype |__string| () 'common-lisp:string)
 (common-lisp:deftype |__timestampIso8601| () 'common-lisp:string)
 (common-lisp:progn

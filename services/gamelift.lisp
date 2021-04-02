@@ -317,6 +317,22 @@
                                                    'game-server))))))
 (common-lisp:deftype comparison-operator-type () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (create-alias-input (:copier common-lisp:nil))
    (name-type (common-lisp:error ":name is required") :type
     (common-lisp:or non-blank-and-length-constraint-string common-lisp:null))
@@ -479,6 +495,8 @@
     (common-lisp:or non-empty-string common-lisp:null))
    (certificate-configuration-type common-lisp:nil :type
     (common-lisp:or certificate-configuration common-lisp:null))
+   (locations-type common-lisp:nil :type
+    (common-lisp:or location-configuration-list common-lisp:null))
    (tags-type common-lisp:nil :type
     (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export
@@ -578,15 +596,79 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'certificate-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "Locations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'locations)))
     (aws-sdk-cl/generator/shape::to-query-params "Tags"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tags))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (create-fleet-locations-input (:copier common-lisp:nil))
+   (fleet-id-type (common-lisp:error ":fleet-id is required") :type
+    (common-lisp:or fleet-id-or-arn common-lisp:null))
+   (locations-type (common-lisp:error ":locations is required") :type
+    (common-lisp:or location-configuration-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-fleet-locations-input
+                    'make-create-fleet-locations-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-fleet-locations-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Locations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'locations))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-fleet-locations-output (:copier common-lisp:nil))
+   (fleet-id-type common-lisp:nil :type
+    (common-lisp:or fleet-id-or-arn common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null))
+   (location-states-type common-lisp:nil :type
+    (common-lisp:or location-state-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-fleet-locations-output
+                    'make-create-fleet-locations-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-fleet-locations-output))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "LocationStates"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location-states))))))
+(common-lisp:progn
  (common-lisp:defstruct (create-fleet-output (:copier common-lisp:nil))
    (fleet-attributes-type common-lisp:nil :type
-    (common-lisp:or fleet-attributes common-lisp:null)))
+    (common-lisp:or fleet-attributes common-lisp:null))
+   (location-states-type common-lisp:nil :type
+    (common-lisp:or location-state-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-fleet-output 'make-create-fleet-output))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -598,7 +680,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'fleet-attributes))))))
+                                                   'fleet-attributes)))
+    (aws-sdk-cl/generator/shape::to-query-params "LocationStates"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location-states))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-game-server-group-input (:copier common-lisp:nil))
@@ -727,7 +814,9 @@
    (idempotency-token-type common-lisp:nil :type
     (common-lisp:or id-string-model common-lisp:null))
    (game-session-data-type common-lisp:nil :type
-    (common-lisp:or game-session-data common-lisp:null)))
+    (common-lisp:or large-game-session-data common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-game-session-input
                     'make-create-game-session-input))
@@ -780,7 +869,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'game-session-data))))))
+                                                   'game-session-data)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:defstruct (create-game-session-output (:copier common-lisp:nil))
    (game-session-type common-lisp:nil :type
@@ -809,6 +903,14 @@
     (common-lisp:or player-latency-policy-list common-lisp:null))
    (destinations-type common-lisp:nil :type
     (common-lisp:or game-session-queue-destination-list common-lisp:null))
+   (filter-configuration-type common-lisp:nil :type
+    (common-lisp:or filter-configuration common-lisp:null))
+   (priority-configuration-type common-lisp:nil :type
+    (common-lisp:or priority-configuration common-lisp:null))
+   (custom-event-data-type common-lisp:nil :type
+    (common-lisp:or queue-custom-event-data common-lisp:null))
+   (notification-target-type common-lisp:nil :type
+    (common-lisp:or queue-sns-arn-string-model common-lisp:null))
    (tags-type common-lisp:nil :type
     (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export
@@ -839,6 +941,26 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'destinations)))
+    (aws-sdk-cl/generator/shape::to-query-params "FilterConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'filter-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "PriorityConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "CustomEventData"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'custom-event-data)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotificationTarget"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'notification-target)))
     (aws-sdk-cl/generator/shape::to-query-params "Tags"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1346,6 +1468,63 @@
                                                    'fleet-id))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (delete-fleet-locations-input (:copier common-lisp:nil))
+   (fleet-id-type (common-lisp:error ":fleet-id is required") :type
+    (common-lisp:or fleet-id-or-arn common-lisp:null))
+   (locations-type (common-lisp:error ":locations is required") :type
+    (common-lisp:or location-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-fleet-locations-input
+                    'make-delete-fleet-locations-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-fleet-locations-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Locations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'locations))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-fleet-locations-output (:copier common-lisp:nil))
+   (fleet-id-type common-lisp:nil :type
+    (common-lisp:or fleet-id-or-arn common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null))
+   (location-states-type common-lisp:nil :type
+    (common-lisp:or location-state-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-fleet-locations-output
+                    'make-delete-fleet-locations-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-fleet-locations-output))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "LocationStates"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location-states))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (delete-game-server-group-input (:copier common-lisp:nil))
    (game-server-group-name-type
     (common-lisp:error ":game-server-group-name is required") :type
@@ -1681,7 +1860,9 @@
  (common-lisp:defstruct
      (describe-ec2instance-limits-input (:copier common-lisp:nil))
    (ec2instance-type-type common-lisp:nil :type
-    (common-lisp:or ec2instance-type common-lisp:null)))
+    (common-lisp:or ec2instance-type common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-ec2instance-limits-input
                     'make-describe-ec2instance-limits-input))
@@ -1694,7 +1875,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'ec2instance-type))))))
+                                                   'ec2instance-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-ec2instance-limits-output (:copier common-lisp:nil))
@@ -1899,9 +2085,175 @@
                                                    'next-token))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (describe-fleet-location-attributes-input (:copier common-lisp:nil))
+   (fleet-id-type (common-lisp:error ":fleet-id is required") :type
+    (common-lisp:or fleet-id-or-arn common-lisp:null))
+   (locations-type common-lisp:nil :type
+    (common-lisp:or location-list common-lisp:null))
+   (limit-type common-lisp:nil :type
+    (common-lisp:or positive-integer common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or non-zero-and-max-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-fleet-location-attributes-input
+                    'make-describe-fleet-location-attributes-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-fleet-location-attributes-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Locations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'locations)))
+    (aws-sdk-cl/generator/shape::to-query-params "Limit"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'limit)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-fleet-location-attributes-output (:copier common-lisp:nil))
+   (fleet-id-type common-lisp:nil :type
+    (common-lisp:or fleet-id-or-arn common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null))
+   (location-attributes-type common-lisp:nil :type
+    (common-lisp:or location-attributes-list common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or non-zero-and-max-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-fleet-location-attributes-output
+                    'make-describe-fleet-location-attributes-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-fleet-location-attributes-output))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "LocationAttributes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location-attributes)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-fleet-location-capacity-input (:copier common-lisp:nil))
+   (fleet-id-type (common-lisp:error ":fleet-id is required") :type
+    (common-lisp:or fleet-id-or-arn common-lisp:null))
+   (location-type (common-lisp:error ":location is required") :type
+    (common-lisp:or location-string-model common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-fleet-location-capacity-input
+                    'make-describe-fleet-location-capacity-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-fleet-location-capacity-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-fleet-location-capacity-output (:copier common-lisp:nil))
+   (fleet-capacity-type common-lisp:nil :type
+    (common-lisp:or fleet-capacity common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-fleet-location-capacity-output
+                    'make-describe-fleet-location-capacity-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-fleet-location-capacity-output))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetCapacity"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-capacity))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-fleet-location-utilization-input (:copier common-lisp:nil))
+   (fleet-id-type (common-lisp:error ":fleet-id is required") :type
+    (common-lisp:or fleet-id-or-arn common-lisp:null))
+   (location-type (common-lisp:error ":location is required") :type
+    (common-lisp:or location-string-model common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-fleet-location-utilization-input
+                    'make-describe-fleet-location-utilization-input))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-fleet-location-utilization-input))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (describe-fleet-location-utilization-output (:copier common-lisp:nil))
+   (fleet-utilization-type common-lisp:nil :type
+    (common-lisp:or fleet-utilization common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'describe-fleet-location-utilization-output
+                    'make-describe-fleet-location-utilization-output))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          describe-fleet-location-utilization-output))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetUtilization"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-utilization))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (describe-fleet-port-settings-input (:copier common-lisp:nil))
    (fleet-id-type (common-lisp:error ":fleet-id is required") :type
-    (common-lisp:or fleet-id-or-arn common-lisp:null)))
+    (common-lisp:or fleet-id-or-arn common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-fleet-port-settings-input
                     'make-describe-fleet-port-settings-input))
@@ -1914,12 +2266,25 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'fleet-id))))))
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-fleet-port-settings-output (:copier common-lisp:nil))
+   (fleet-id-type common-lisp:nil :type
+    (common-lisp:or fleet-id common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null))
    (inbound-permissions-type common-lisp:nil :type
-    (common-lisp:or ip-permissions-list common-lisp:null)))
+    (common-lisp:or ip-permissions-list common-lisp:null))
+   (update-status-type common-lisp:nil :type
+    (common-lisp:or location-update-status common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-fleet-port-settings-output
                     'make-describe-fleet-port-settings-output))
@@ -1928,11 +2293,31 @@
                          (aws-sdk-cl/generator/shape::shape
                           describe-fleet-port-settings-output))
    (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn)))
     (aws-sdk-cl/generator/shape::to-query-params "InboundPermissions"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'inbound-permissions))))))
+                                                   'inbound-permissions)))
+    (aws-sdk-cl/generator/shape::to-query-params "UpdateStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'update-status)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-fleet-utilization-input (:copier common-lisp:nil))
@@ -2143,6 +2528,8 @@
     (common-lisp:or arn-string-model common-lisp:null))
    (alias-id-type common-lisp:nil :type
     (common-lisp:or alias-id-or-arn common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null))
    (status-filter-type common-lisp:nil :type
     (common-lisp:or non-zero-and-max-string common-lisp:null))
    (limit-type common-lisp:nil :type
@@ -2172,6 +2559,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'alias-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location)))
     (aws-sdk-cl/generator/shape::to-query-params "StatusFilter"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2314,6 +2706,8 @@
     (common-lisp:or arn-string-model common-lisp:null))
    (alias-id-type common-lisp:nil :type
     (common-lisp:or alias-id-or-arn common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null))
    (status-filter-type common-lisp:nil :type
     (common-lisp:or non-zero-and-max-string common-lisp:null))
    (limit-type common-lisp:nil :type
@@ -2343,6 +2737,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'alias-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location)))
     (aws-sdk-cl/generator/shape::to-query-params "StatusFilter"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2392,7 +2791,9 @@
    (limit-type common-lisp:nil :type
     (common-lisp:or positive-integer common-lisp:null))
    (next-token-type common-lisp:nil :type
-    (common-lisp:or non-zero-and-max-string common-lisp:null)))
+    (common-lisp:or non-zero-and-max-string common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-instances-input 'make-describe-instances-input))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -2419,7 +2820,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'next-token))))))
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:defstruct (describe-instances-output (:copier common-lisp:nil))
    (instances-type common-lisp:nil :type
@@ -2723,7 +3129,9 @@
    (limit-type common-lisp:nil :type
     (common-lisp:or positive-integer common-lisp:null))
    (next-token-type common-lisp:nil :type
-    (common-lisp:or non-zero-and-max-string common-lisp:null)))
+    (common-lisp:or non-zero-and-max-string common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-scaling-policies-input
                     'make-describe-scaling-policies-input))
@@ -2751,7 +3159,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'next-token))))))
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-scaling-policies-output (:copier common-lisp:nil))
@@ -2973,7 +3386,9 @@
    (current-instances-type common-lisp:nil :type
     (common-lisp:or whole-number common-lisp:null))
    (instance-limit-type common-lisp:nil :type
-    (common-lisp:or whole-number common-lisp:null)))
+    (common-lisp:or whole-number common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'ec2instance-limit 'make-ec2instance-limit))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -2993,7 +3408,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'instance-limit))))))
+                                                   'instance-limit)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:deftype ec2instance-limit-list ()
    '(trivial-types:proper-list ec2instance-limit))
@@ -3059,6 +3479,22 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list event))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (filter-configuration (:copier common-lisp:nil))
+   (allowed-locations-type common-lisp:nil :type
+    (common-lisp:or location-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'filter-configuration 'make-filter-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          filter-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AllowedLocations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'allowed-locations))))))
 (common-lisp:deftype fleet-action () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype fleet-action-list ()
@@ -3249,10 +3685,14 @@
  (common-lisp:defstruct (fleet-capacity (:copier common-lisp:nil))
    (fleet-id-type common-lisp:nil :type
     (common-lisp:or fleet-id common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null))
    (instance-type-type common-lisp:nil :type
     (common-lisp:or ec2instance-type common-lisp:null))
    (instance-counts-type common-lisp:nil :type
-    (common-lisp:or ec2instance-counts common-lisp:null)))
+    (common-lisp:or ec2instance-counts common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export (common-lisp:list 'fleet-capacity 'make-fleet-capacity))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape fleet-capacity))
@@ -3262,6 +3702,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn)))
     (aws-sdk-cl/generator/shape::to-query-params "InstanceType"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -3271,7 +3716,30 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'instance-counts))))))
+                                                   'instance-counts)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (fleet-capacity-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'fleet-capacity-exceeded-exception
+                    'make-fleet-capacity-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          fleet-capacity-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:deftype fleet-capacity-list ()
    '(trivial-types:proper-list fleet-capacity))
@@ -3303,6 +3771,8 @@
  (common-lisp:defstruct (fleet-utilization (:copier common-lisp:nil))
    (fleet-id-type common-lisp:nil :type
     (common-lisp:or fleet-id common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null))
    (active-server-process-count-type common-lisp:nil :type
     (common-lisp:or whole-number common-lisp:null))
    (active-game-session-count-type common-lisp:nil :type
@@ -3310,7 +3780,9 @@
    (current-player-session-count-type common-lisp:nil :type
     (common-lisp:or whole-number common-lisp:null))
    (maximum-player-session-count-type common-lisp:nil :type
-    (common-lisp:or whole-number common-lisp:null)))
+    (common-lisp:or whole-number common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'fleet-utilization 'make-fleet-utilization))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -3321,6 +3793,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn)))
     (aws-sdk-cl/generator/shape::to-query-params "ActiveServerProcessCount"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -3340,7 +3817,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'maximum-player-session-count))))))
+                                                   'maximum-player-session-count)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:deftype fleet-utilization-list ()
    '(trivial-types:proper-list fleet-utilization))
@@ -3710,9 +4192,11 @@
    (creator-id-type common-lisp:nil :type
     (common-lisp:or non-zero-and-max-string common-lisp:null))
    (game-session-data-type common-lisp:nil :type
-    (common-lisp:or game-session-data common-lisp:null))
+    (common-lisp:or large-game-session-data common-lisp:null))
    (matchmaker-data-type common-lisp:nil :type
-    (common-lisp:or matchmaker-data common-lisp:null)))
+    (common-lisp:or matchmaker-data common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export (common-lisp:list 'game-session 'make-game-session))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape game-session))
@@ -3806,7 +4290,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'matchmaker-data))))))
+                                                   'matchmaker-data)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:deftype game-session-activation-timeout-seconds ()
   'common-lisp:integer)
 (common-lisp:progn
@@ -3888,6 +4377,23 @@
                            (trivial-types:proper-list game-session-detail))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (game-session-full-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'game-session-full-exception
+                    'make-game-session-full-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          game-session-full-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:deftype game-session-list ()
    '(trivial-types:proper-list game-session))
  (common-lisp:defun |make-game-session-list|
@@ -3930,7 +4436,7 @@
    (placed-player-sessions-type common-lisp:nil :type
     (common-lisp:or placed-player-session-list common-lisp:null))
    (game-session-data-type common-lisp:nil :type
-    (common-lisp:or game-session-data common-lisp:null))
+    (common-lisp:or large-game-session-data common-lisp:null))
    (matchmaker-data-type common-lisp:nil :type
     (common-lisp:or matchmaker-data common-lisp:null)))
  (common-lisp:export
@@ -4042,7 +4548,15 @@
    (player-latency-policies-type common-lisp:nil :type
     (common-lisp:or player-latency-policy-list common-lisp:null))
    (destinations-type common-lisp:nil :type
-    (common-lisp:or game-session-queue-destination-list common-lisp:null)))
+    (common-lisp:or game-session-queue-destination-list common-lisp:null))
+   (filter-configuration-type common-lisp:nil :type
+    (common-lisp:or filter-configuration common-lisp:null))
+   (priority-configuration-type common-lisp:nil :type
+    (common-lisp:or priority-configuration common-lisp:null))
+   (custom-event-data-type common-lisp:nil :type
+    (common-lisp:or queue-custom-event-data common-lisp:null))
+   (notification-target-type common-lisp:nil :type
+    (common-lisp:or queue-sns-arn-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'game-session-queue 'make-game-session-queue))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -4074,7 +4588,27 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'destinations))))))
+                                                   'destinations)))
+    (aws-sdk-cl/generator/shape::to-query-params "FilterConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'filter-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "PriorityConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "CustomEventData"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'custom-event-data)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotificationTarget"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'notification-target))))))
 (common-lisp:deftype game-session-queue-arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -4204,9 +4738,29 @@
 (common-lisp:deftype iam-role-arn () 'common-lisp:string)
 (common-lisp:deftype id-string-model () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (idempotent-parameter-mismatch-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'idempotent-parameter-mismatch-exception
+                    'make-idempotent-parameter-mismatch-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          idempotent-parameter-mismatch-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (instance (:copier common-lisp:nil))
    (fleet-id-type common-lisp:nil :type
     (common-lisp:or fleet-id common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null))
    (instance-id-type common-lisp:nil :type
     (common-lisp:or instance-id common-lisp:null))
    (ip-address-type common-lisp:nil :type
@@ -4220,7 +4774,9 @@
    (status-type common-lisp:nil :type
     (common-lisp:or instance-status common-lisp:null))
    (creation-time-type common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+    (common-lisp:or timestamp common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export (common-lisp:list 'instance 'make-instance))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape instance))
@@ -4230,6 +4786,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn)))
     (aws-sdk-cl/generator/shape::to-query-params "InstanceId"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -4264,7 +4825,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'creation-time))))))
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:defstruct (instance-access (:copier common-lisp:nil))
    (fleet-id-type common-lisp:nil :type
@@ -4370,6 +4936,76 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype instance-status () 'common-lisp:string)
 (common-lisp:deftype integer () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-service-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-service-exception
+                    'make-internal-service-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-service-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-fleet-status-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-fleet-status-exception
+                    'make-invalid-fleet-status-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-fleet-status-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-game-session-status-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-game-session-status-exception
+                    'make-invalid-game-session-status-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-game-session-status-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-request-exception
+                    'make-invalid-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype ip-address () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (ip-permission (:copier common-lisp:nil))
@@ -4414,6 +5050,7 @@
                            (trivial-types:proper-list ip-permission))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype ip-protocol () 'common-lisp:string)
+(common-lisp:deftype large-game-session-data () 'common-lisp:string)
 (common-lisp:defstruct
     (latency-map
      (:constructor |make-latency-map|
@@ -4455,6 +5092,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'version))))))
 (common-lisp:deftype launch-template-version () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-aliases-input (:copier common-lisp:nil))
    (routing-strategy-type-type common-lisp:nil :type
@@ -4817,6 +5470,106 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct (location-attributes (:copier common-lisp:nil))
+   (location-state-type common-lisp:nil :type
+    (common-lisp:or location-state common-lisp:null))
+   (stopped-actions-type common-lisp:nil :type
+    (common-lisp:or fleet-action-list common-lisp:null))
+   (update-status-type common-lisp:nil :type
+    (common-lisp:or location-update-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'location-attributes 'make-location-attributes))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          location-attributes))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "LocationState"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location-state)))
+    (aws-sdk-cl/generator/shape::to-query-params "StoppedActions"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'stopped-actions)))
+    (aws-sdk-cl/generator/shape::to-query-params "UpdateStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'update-status))))))
+(common-lisp:progn
+ (common-lisp:deftype location-attributes-list ()
+   '(trivial-types:proper-list location-attributes))
+ (common-lisp:defun |make-location-attributes-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list location-attributes))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (location-configuration (:copier common-lisp:nil))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'location-configuration 'make-location-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          location-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
+(common-lisp:progn
+ (common-lisp:deftype location-configuration-list ()
+   '(trivial-types:proper-list location-configuration))
+ (common-lisp:defun |make-location-configuration-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list location-configuration))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype location-list ()
+   '(trivial-types:proper-list location-string-model))
+ (common-lisp:defun |make-location-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list location-string-model))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (location-state (:copier common-lisp:nil))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or fleet-status common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'location-state 'make-location-state))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape location-state))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
+(common-lisp:progn
+ (common-lisp:deftype location-state-list ()
+   '(trivial-types:proper-list location-state))
+ (common-lisp:defun |make-location-state-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list location-state))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype location-string-model () 'common-lisp:string)
+(common-lisp:deftype location-update-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (matched-player-session (:copier common-lisp:nil))
    (player-id-type common-lisp:nil :type
@@ -5181,7 +5934,40 @@
 (common-lisp:deftype non-empty-string () 'common-lisp:string)
 (common-lisp:deftype non-negative-double () 'common-lisp:double-float)
 (common-lisp:deftype non-zero-and-max-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype operating-system () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (out-of-capacity-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'out-of-capacity-exception
+                    'make-out-of-capacity-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          out-of-capacity-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (placed-player-session (:copier common-lisp:nil))
    (player-id-type common-lisp:nil :type
@@ -5446,6 +6232,38 @@
 (common-lisp:deftype port-number () 'common-lisp:integer)
 (common-lisp:deftype positive-integer () 'common-lisp:integer)
 (common-lisp:deftype positive-long () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (priority-configuration (:copier common-lisp:nil))
+   (priority-order-type common-lisp:nil :type
+    (common-lisp:or priority-type-list common-lisp:null))
+   (location-order-type common-lisp:nil :type
+    (common-lisp:or location-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'priority-configuration 'make-priority-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          priority-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "PriorityOrder"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority-order)))
+    (aws-sdk-cl/generator/shape::to-query-params "LocationOrder"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location-order))))))
+(common-lisp:deftype priority-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype priority-type-list ()
+   '(trivial-types:proper-list priority-type))
+ (common-lisp:defun |make-priority-type-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list priority-type))
+   aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype protection-policy () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (put-scaling-policy-input (:copier common-lisp:nil))
@@ -5551,6 +6369,8 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list arn-string-model))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype queue-custom-event-data () 'common-lisp:string)
+(common-lisp:deftype queue-sns-arn-string-model () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (register-game-server-input (:copier common-lisp:nil))
    (game-server-group-name-type
@@ -5865,6 +6685,8 @@
  (common-lisp:defstruct (scaling-policy (:copier common-lisp:nil))
    (fleet-id-type common-lisp:nil :type
     (common-lisp:or fleet-id common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null))
    (name-type common-lisp:nil :type
     (common-lisp:or non-zero-and-max-string common-lisp:null))
    (status-type common-lisp:nil :type
@@ -5884,7 +6706,11 @@
    (policy-type-type common-lisp:nil :type
     (common-lisp:or policy-type common-lisp:null))
    (target-configuration-type common-lisp:nil :type
-    (common-lisp:or target-configuration common-lisp:null)))
+    (common-lisp:or target-configuration common-lisp:null))
+   (update-status-type common-lisp:nil :type
+    (common-lisp:or location-update-status common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export (common-lisp:list 'scaling-policy 'make-scaling-policy))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape scaling-policy))
@@ -5894,6 +6720,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn)))
     (aws-sdk-cl/generator/shape::to-query-params "Name"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -5943,7 +6774,17 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'target-configuration))))))
+                                                   'target-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "UpdateStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'update-status)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:deftype scaling-policy-list ()
    '(trivial-types:proper-list scaling-policy))
@@ -6024,6 +6865,8 @@
     (common-lisp:or fleet-id-or-arn common-lisp:null))
    (alias-id-type common-lisp:nil :type
     (common-lisp:or alias-id-or-arn common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null))
    (filter-expression-type common-lisp:nil :type
     (common-lisp:or non-zero-and-max-string common-lisp:null))
    (sort-expression-type common-lisp:nil :type
@@ -6050,6 +6893,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'alias-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location)))
     (aws-sdk-cl/generator/shape::to-query-params "FilterExpression"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -6137,7 +6985,9 @@
    (fleet-id-type (common-lisp:error ":fleet-id is required") :type
     (common-lisp:or fleet-id-or-arn common-lisp:null))
    (actions-type (common-lisp:error ":actions is required") :type
-    (common-lisp:or fleet-action-list common-lisp:null)))
+    (common-lisp:or fleet-action-list common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'start-fleet-actions-input
                     'make-start-fleet-actions-input))
@@ -6155,9 +7005,18 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'actions))))))
+                                                   'actions)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
- (common-lisp:defstruct (start-fleet-actions-output (:copier common-lisp:nil)))
+ (common-lisp:defstruct (start-fleet-actions-output (:copier common-lisp:nil))
+   (fleet-id-type common-lisp:nil :type
+    (common-lisp:or fleet-id common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'start-fleet-actions-output
                     'make-start-fleet-actions-output))
@@ -6165,7 +7024,17 @@
                         (
                          (aws-sdk-cl/generator/shape::shape
                           start-fleet-actions-output))
-   (common-lisp:append)))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (start-game-session-placement-input (:copier common-lisp:nil))
@@ -6186,7 +7055,7 @@
    (desired-player-sessions-type common-lisp:nil :type
     (common-lisp:or desired-player-session-list common-lisp:null))
    (game-session-data-type common-lisp:nil :type
-    (common-lisp:or game-session-data common-lisp:null)))
+    (common-lisp:or large-game-session-data common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'start-game-session-placement-input
                     'make-start-game-session-placement-input))
@@ -6361,7 +7230,9 @@
    (fleet-id-type (common-lisp:error ":fleet-id is required") :type
     (common-lisp:or fleet-id-or-arn common-lisp:null))
    (actions-type (common-lisp:error ":actions is required") :type
-    (common-lisp:or fleet-action-list common-lisp:null)))
+    (common-lisp:or fleet-action-list common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'stop-fleet-actions-input 'make-stop-fleet-actions-input))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -6378,9 +7249,18 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'actions))))))
+                                                   'actions)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
- (common-lisp:defstruct (stop-fleet-actions-output (:copier common-lisp:nil)))
+ (common-lisp:defstruct (stop-fleet-actions-output (:copier common-lisp:nil))
+   (fleet-id-type common-lisp:nil :type
+    (common-lisp:or fleet-id common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'stop-fleet-actions-output
                     'make-stop-fleet-actions-output))
@@ -6388,7 +7268,17 @@
                         (
                          (aws-sdk-cl/generator/shape::shape
                           stop-fleet-actions-output))
-   (common-lisp:append)))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FleetId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (stop-game-session-placement-input (:copier common-lisp:nil))
@@ -6578,6 +7468,22 @@
    (common-lisp:append)))
 (common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (tagging-failed-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'tagging-failed-exception 'make-tagging-failed-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          tagging-failed-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (target-configuration (:copier common-lisp:nil))
    (target-value-type (common-lisp:error ":target-value is required") :type
     (common-lisp:or double common-lisp:null)))
@@ -6611,7 +7517,59 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'target-value))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (terminal-routing-strategy-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'terminal-routing-strategy-exception
+                    'make-terminal-routing-strategy-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          terminal-routing-strategy-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype timestamp () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (unauthorized-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'unauthorized-exception 'make-unauthorized-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unauthorized-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (unsupported-region-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'unsupported-region-exception
+                    'make-unsupported-region-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unsupported-region-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (untag-resource-request (:copier common-lisp:nil))
    (resource-arntype (common-lisp:error ":resource-arn is required") :type
@@ -6821,7 +7779,9 @@
    (min-size-type common-lisp:nil :type
     (common-lisp:or whole-number common-lisp:null))
    (max-size-type common-lisp:nil :type
-    (common-lisp:or whole-number common-lisp:null)))
+    (common-lisp:or whole-number common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-fleet-capacity-input
                     'make-update-fleet-capacity-input))
@@ -6849,12 +7809,21 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'max-size))))))
+                                                   'max-size)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-fleet-capacity-output (:copier common-lisp:nil))
    (fleet-id-type common-lisp:nil :type
-    (common-lisp:or fleet-id common-lisp:null)))
+    (common-lisp:or fleet-id common-lisp:null))
+   (fleet-arn-type common-lisp:nil :type
+    (common-lisp:or fleet-arn common-lisp:null))
+   (location-type common-lisp:nil :type
+    (common-lisp:or location-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-fleet-capacity-output
                     'make-update-fleet-capacity-output))
@@ -6867,7 +7836,17 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'fleet-id))))))
+                                                   'fleet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FleetArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'fleet-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "Location"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'location))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-fleet-port-settings-input (:copier common-lisp:nil))
@@ -7117,7 +8096,15 @@
    (player-latency-policies-type common-lisp:nil :type
     (common-lisp:or player-latency-policy-list common-lisp:null))
    (destinations-type common-lisp:nil :type
-    (common-lisp:or game-session-queue-destination-list common-lisp:null)))
+    (common-lisp:or game-session-queue-destination-list common-lisp:null))
+   (filter-configuration-type common-lisp:nil :type
+    (common-lisp:or filter-configuration common-lisp:null))
+   (priority-configuration-type common-lisp:nil :type
+    (common-lisp:or priority-configuration common-lisp:null))
+   (custom-event-data-type common-lisp:nil :type
+    (common-lisp:or queue-custom-event-data common-lisp:null))
+   (notification-target-type common-lisp:nil :type
+    (common-lisp:or queue-sns-arn-string-model common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'update-game-session-queue-input
                     'make-update-game-session-queue-input))
@@ -7145,7 +8132,27 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'destinations))))))
+                                                   'destinations)))
+    (aws-sdk-cl/generator/shape::to-query-params "FilterConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'filter-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "PriorityConfiguration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "CustomEventData"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'custom-event-data)))
+    (aws-sdk-cl/generator/shape::to-query-params "NotificationTarget"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'notification-target))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-game-session-queue-output (:copier common-lisp:nil))
@@ -7678,14 +8685,15 @@
                      new-game-session-protection-policy runtime-configuration
                      resource-creation-limit-policy metric-groups
                      peer-vpc-aws-account-id peer-vpc-id fleet-type
-                     instance-role-arn certificate-configuration tags)
+                     instance-role-arn certificate-configuration locations
+                     tags)
    (common-lisp:declare
     (common-lisp:ignorable name description build-id script-id
      server-launch-path server-launch-parameters log-paths ec2instance-type
      ec2inbound-permissions new-game-session-protection-policy
      runtime-configuration resource-creation-limit-policy metric-groups
      peer-vpc-aws-account-id peer-vpc-id fleet-type instance-role-arn
-     certificate-configuration tags))
+     certificate-configuration locations tags))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-fleet-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -7698,6 +8706,24 @@
                                     aws-sdk-cl/generator/operation::input)))
       "CreateFleetOutput" common-lisp:nil)))
  (common-lisp:export 'create-fleet))
+(common-lisp:progn
+ (common-lisp:defun create-fleet-locations
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key fleet-id locations)
+   (common-lisp:declare (common-lisp:ignorable fleet-id locations))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-create-fleet-locations-input
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "gamelift" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateFleetLocations")
+                                     ("Version" ,@"2015-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateFleetLocationsOutput" common-lisp:nil)))
+ (common-lisp:export 'create-fleet-locations))
 (common-lisp:progn
  (common-lisp:defun create-game-server-group
                     (
@@ -7729,11 +8755,11 @@
                      common-lisp:&key fleet-id alias-id
                      maximum-player-session-count name game-properties
                      creator-id game-session-id idempotency-token
-                     game-session-data)
+                     game-session-data location)
    (common-lisp:declare
     (common-lisp:ignorable fleet-id alias-id maximum-player-session-count name
      game-properties creator-id game-session-id idempotency-token
-     game-session-data))
+     game-session-data location))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-game-session-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -7751,10 +8777,13 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key name timeout-in-seconds
-                     player-latency-policies destinations tags)
+                     player-latency-policies destinations filter-configuration
+                     priority-configuration custom-event-data
+                     notification-target tags)
    (common-lisp:declare
     (common-lisp:ignorable name timeout-in-seconds player-latency-policies
-     destinations tags))
+     destinations filter-configuration priority-configuration custom-event-data
+     notification-target tags))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-game-session-queue-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -7971,6 +9000,24 @@
       common-lisp:nil common-lisp:nil)))
  (common-lisp:export 'delete-fleet))
 (common-lisp:progn
+ (common-lisp:defun delete-fleet-locations
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key fleet-id locations)
+   (common-lisp:declare (common-lisp:ignorable fleet-id locations))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-delete-fleet-locations-input
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "gamelift" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteFleetLocations")
+                                     ("Version" ,@"2015-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteFleetLocationsOutput" common-lisp:nil)))
+ (common-lisp:export 'delete-fleet-locations))
+(common-lisp:progn
  (common-lisp:defun delete-game-server-group
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -8182,8 +9229,8 @@
  (common-lisp:defun describe-ec2instance-limits
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key ec2instance-type)
-   (common-lisp:declare (common-lisp:ignorable ec2instance-type))
+                     common-lisp:&key ec2instance-type location)
+   (common-lisp:declare (common-lisp:ignorable ec2instance-type location))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply
                        'make-describe-ec2instance-limits-input
@@ -8254,11 +9301,72 @@
       "DescribeFleetEventsOutput" common-lisp:nil)))
  (common-lisp:export 'describe-fleet-events))
 (common-lisp:progn
+ (common-lisp:defun describe-fleet-location-attributes
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key fleet-id locations limit next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable fleet-id locations limit next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-fleet-location-attributes-input
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "gamelift" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"DescribeFleetLocationAttributes")
+                                     ("Version" ,@"2015-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DescribeFleetLocationAttributesOutput" common-lisp:nil)))
+ (common-lisp:export 'describe-fleet-location-attributes))
+(common-lisp:progn
+ (common-lisp:defun describe-fleet-location-capacity
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key fleet-id location)
+   (common-lisp:declare (common-lisp:ignorable fleet-id location))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-fleet-location-capacity-input
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "gamelift" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"DescribeFleetLocationCapacity")
+                                     ("Version" ,@"2015-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DescribeFleetLocationCapacityOutput" common-lisp:nil)))
+ (common-lisp:export 'describe-fleet-location-capacity))
+(common-lisp:progn
+ (common-lisp:defun describe-fleet-location-utilization
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key fleet-id location)
+   (common-lisp:declare (common-lisp:ignorable fleet-id location))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-describe-fleet-location-utilization-input
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "gamelift" :method :post :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"DescribeFleetLocationUtilization")
+                                     ("Version" ,@"2015-10-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DescribeFleetLocationUtilizationOutput" common-lisp:nil)))
+ (common-lisp:export 'describe-fleet-location-utilization))
+(common-lisp:progn
  (common-lisp:defun describe-fleet-port-settings
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key fleet-id)
-   (common-lisp:declare (common-lisp:ignorable fleet-id))
+                     common-lisp:&key fleet-id location)
+   (common-lisp:declare (common-lisp:ignorable fleet-id location))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply
                        'make-describe-fleet-port-settings-input
@@ -8354,10 +9462,10 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key fleet-id game-session-id alias-id
-                     status-filter limit next-token)
+                     location status-filter limit next-token)
    (common-lisp:declare
-    (common-lisp:ignorable fleet-id game-session-id alias-id status-filter
-     limit next-token))
+    (common-lisp:ignorable fleet-id game-session-id alias-id location
+     status-filter limit next-token))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply
                        'make-describe-game-session-details-input
@@ -8415,10 +9523,10 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key fleet-id game-session-id alias-id
-                     status-filter limit next-token)
+                     location status-filter limit next-token)
    (common-lisp:declare
-    (common-lisp:ignorable fleet-id game-session-id alias-id status-filter
-     limit next-token))
+    (common-lisp:ignorable fleet-id game-session-id alias-id location
+     status-filter limit next-token))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-describe-game-sessions-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -8435,9 +9543,10 @@
  (common-lisp:defun describe-instances
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key fleet-id instance-id limit next-token)
+                     common-lisp:&key fleet-id instance-id limit next-token
+                     location)
    (common-lisp:declare
-    (common-lisp:ignorable fleet-id instance-id limit next-token))
+    (common-lisp:ignorable fleet-id instance-id limit next-token location))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-describe-instances-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -8554,9 +9663,10 @@
  (common-lisp:defun describe-scaling-policies
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key fleet-id status-filter limit next-token)
+                     common-lisp:&key fleet-id status-filter limit next-token
+                     location)
    (common-lisp:declare
-    (common-lisp:ignorable fleet-id status-filter limit next-token))
+    (common-lisp:ignorable fleet-id status-filter limit next-token location))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-describe-scaling-policies-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -8887,11 +9997,11 @@
  (common-lisp:defun search-game-sessions
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key fleet-id alias-id filter-expression
-                     sort-expression limit next-token)
+                     common-lisp:&key fleet-id alias-id location
+                     filter-expression sort-expression limit next-token)
    (common-lisp:declare
-    (common-lisp:ignorable fleet-id alias-id filter-expression sort-expression
-     limit next-token))
+    (common-lisp:ignorable fleet-id alias-id location filter-expression
+     sort-expression limit next-token))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-search-game-sessions-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -8908,8 +10018,8 @@
  (common-lisp:defun start-fleet-actions
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key fleet-id actions)
-   (common-lisp:declare (common-lisp:ignorable fleet-id actions))
+                     common-lisp:&key fleet-id actions location)
+   (common-lisp:declare (common-lisp:ignorable fleet-id actions location))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-start-fleet-actions-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -8991,8 +10101,8 @@
  (common-lisp:defun stop-fleet-actions
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key fleet-id actions)
-   (common-lisp:declare (common-lisp:ignorable fleet-id actions))
+                     common-lisp:&key fleet-id actions location)
+   (common-lisp:declare (common-lisp:ignorable fleet-id actions location))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-stop-fleet-actions-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -9163,9 +10273,10 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key fleet-id desired-instances min-size
-                     max-size)
+                     max-size location)
    (common-lisp:declare
-    (common-lisp:ignorable fleet-id desired-instances min-size max-size))
+    (common-lisp:ignorable fleet-id desired-instances min-size max-size
+     location))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-update-fleet-capacity-input
                                          aws-sdk-cl/generator/operation::args)))
@@ -9270,10 +10381,13 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key name timeout-in-seconds
-                     player-latency-policies destinations)
+                     player-latency-policies destinations filter-configuration
+                     priority-configuration custom-event-data
+                     notification-target)
    (common-lisp:declare
     (common-lisp:ignorable name timeout-in-seconds player-latency-policies
-     destinations))
+     destinations filter-configuration priority-configuration custom-event-data
+     notification-target))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-update-game-session-queue-input
                                          aws-sdk-cl/generator/operation::args)))

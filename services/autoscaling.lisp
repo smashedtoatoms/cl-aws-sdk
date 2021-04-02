@@ -7,6 +7,24 @@
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/autoscaling)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (active-instance-refresh-not-found-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'active-instance-refresh-not-found-fault
+                    'make-active-instance-refresh-not-found-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          active-instance-refresh-not-found-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:deftype activities () '(trivial-types:proper-list activity))
  (common-lisp:defun |make-activities|
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
@@ -192,6 +210,22 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list alarm))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (already-exists-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'already-exists-fault 'make-already-exists-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          already-exists-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype ascii-string-max-len255 () 'common-lisp:string)
 (common-lisp:deftype associate-public-ip-address () 'common-lisp:boolean)
 (common-lisp:progn
@@ -883,6 +917,15 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'auto-scaling-group-name))))))
 (common-lisp:deftype capacity-rebalance-enabled () 'common-lisp:boolean)
+(common-lisp:deftype checkpoint-delay () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:deftype checkpoint-percentages ()
+   '(trivial-types:proper-list non-zero-int-percent))
+ (common-lisp:defun |make-checkpoint-percentages|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list non-zero-int-percent))
+   aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
  (common-lisp:deftype classic-link-vpcsecurity-groups ()
    '(trivial-types:proper-list xml-string-max-len255))
@@ -2780,6 +2823,24 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list xml-string-max-len255))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (instance-refresh-in-progress-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'instance-refresh-in-progress-fault
+                    'make-instance-refresh-in-progress-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          instance-refresh-in-progress-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype instance-refresh-status () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype instance-refreshes ()
@@ -2849,6 +2910,22 @@
                                                    'spot-max-price))))))
 (common-lisp:deftype instances-to-update () 'common-lisp:integer)
 (common-lisp:deftype int-percent () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-next-token (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-next-token 'make-invalid-next-token))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-next-token))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (launch-configuration (:copier common-lisp:nil))
    (launch-configuration-name-type
@@ -3336,6 +3413,22 @@
 (common-lisp:deftype lifecycle-state () 'common-lisp:string)
 (common-lisp:deftype lifecycle-transition () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-fault 'make-limit-exceeded-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:deftype load-balancer-names ()
    '(trivial-types:proper-list xml-string-max-len255))
  (common-lisp:defun |make-load-balancer-names|
@@ -3534,6 +3627,7 @@
                                                    'instances-distribution))))))
 (common-lisp:deftype monitoring-enabled () 'common-lisp:boolean)
 (common-lisp:deftype no-device () 'common-lisp:boolean)
+(common-lisp:deftype non-zero-int-percent () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct (notification-configuration (:copier common-lisp:nil))
    (auto-scaling-group-name-type common-lisp:nil :type
@@ -4069,7 +4163,11 @@
    (min-healthy-percentage-type common-lisp:nil :type
     (common-lisp:or int-percent common-lisp:null))
    (instance-warmup-type common-lisp:nil :type
-    (common-lisp:or refresh-instance-warmup common-lisp:null)))
+    (common-lisp:or refresh-instance-warmup common-lisp:null))
+   (checkpoint-percentages-type common-lisp:nil :type
+    (common-lisp:or checkpoint-percentages common-lisp:null))
+   (checkpoint-delay-type common-lisp:nil :type
+    (common-lisp:or checkpoint-delay common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'refresh-preferences 'make-refresh-preferences))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -4086,9 +4184,70 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'instance-warmup))))))
+                                                   'instance-warmup)))
+    (aws-sdk-cl/generator/shape::to-query-params "CheckpointPercentages"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'checkpoint-percentages)))
+    (aws-sdk-cl/generator/shape::to-query-params "CheckpointDelay"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'checkpoint-delay))))))
 (common-lisp:deftype refresh-strategy () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (resource-contention-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-contention-fault
+                    'make-resource-contention-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-contention-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (resource-in-use-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-in-use-fault 'make-resource-in-use-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-in-use-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype resource-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (scaling-activity-in-progress-fault (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'scaling-activity-in-progress-fault
+                    'make-scaling-activity-in-progress-fault))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          scaling-activity-in-progress-fault))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype scaling-activity-status-code () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype scaling-policies ()
@@ -4446,6 +4605,23 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list xml-string))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (service-linked-role-failure (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or xml-string-max-len255 common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-linked-role-failure
+                    'make-service-linked-role-failure))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-linked-role-failure))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (set-desired-capacity-type (:copier common-lisp:nil))
    (auto-scaling-group-name-type

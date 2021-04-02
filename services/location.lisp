@@ -6,6 +6,22 @@
   (:import-from #:aws-sdk-cl/generator/operation)
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/location)
+(common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype arn-list () '(trivial-types:proper-list arn))
@@ -605,6 +621,22 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list double))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype country-code () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype country-code-list ()
@@ -622,7 +654,9 @@
    (description-type common-lisp:nil :type
     (common-lisp:or resource-description common-lisp:null))
    (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
-    (common-lisp:or pricing-plan common-lisp:null)))
+    (common-lisp:or pricing-plan common-lisp:null))
+   (pricing-plan-data-source-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-geofence-collection-request
                     'make-create-geofence-collection-request))
@@ -645,7 +679,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'pricing-plan))))))
+                                                   'pricing-plan)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlanDataSource"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan-data-source))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-geofence-collection-response (:copier common-lisp:nil))
@@ -827,6 +866,8 @@
     (common-lisp:or resource-description common-lisp:null))
    (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
     (common-lisp:or pricing-plan common-lisp:null))
+   (pricing-plan-data-source-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (tracker-name-type (common-lisp:error ":tracker-name is required") :type
     (common-lisp:or resource-name common-lisp:null)))
  (common-lisp:export
@@ -846,6 +887,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'pricing-plan)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlanDataSource"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan-data-source)))
     (aws-sdk-cl/generator/shape::to-query-params "TrackerName"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1034,6 +1080,10 @@
     (common-lisp:or timestamp common-lisp:null))
    (description-type (common-lisp:error ":description is required") :type
     (common-lisp:or resource-description common-lisp:null))
+   (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
+    (common-lisp:or pricing-plan common-lisp:null))
+   (pricing-plan-data-source-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (update-time-type (common-lisp:error ":update-time is required") :type
     (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
@@ -1064,6 +1114,16 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'description)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlan"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlanDataSource"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan-data-source)))
     (aws-sdk-cl/generator/shape::to-query-params "UpdateTime"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1099,6 +1159,8 @@
     (common-lisp:or arn common-lisp:null))
    (map-name-type (common-lisp:error ":map-name is required") :type
     (common-lisp:or resource-name common-lisp:null))
+   (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
+    (common-lisp:or pricing-plan common-lisp:null))
    (update-time-type (common-lisp:error ":update-time is required") :type
     (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
@@ -1138,6 +1200,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'map-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlan"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan)))
     (aws-sdk-cl/generator/shape::to-query-params "UpdateTime"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1177,6 +1244,8 @@
     (common-lisp:or arn common-lisp:null))
    (index-name-type (common-lisp:error ":index-name is required") :type
     (common-lisp:or resource-name common-lisp:null))
+   (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
+    (common-lisp:or pricing-plan common-lisp:null))
    (update-time-type (common-lisp:error ":update-time is required") :type
     (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
@@ -1217,6 +1286,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'index-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlan"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan)))
     (aws-sdk-cl/generator/shape::to-query-params "UpdateTime"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1244,6 +1318,10 @@
     (common-lisp:or timestamp common-lisp:null))
    (description-type (common-lisp:error ":description is required") :type
     (common-lisp:or resource-description common-lisp:null))
+   (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
+    (common-lisp:or pricing-plan common-lisp:null))
+   (pricing-plan-data-source-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (tracker-arn-type (common-lisp:error ":tracker-arn is required") :type
     (common-lisp:or arn common-lisp:null))
    (tracker-name-type (common-lisp:error ":tracker-name is required") :type
@@ -1268,6 +1346,16 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'description)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlan"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlanDataSource"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan-data-source)))
     (aws-sdk-cl/generator/shape::to-query-params "TrackerArn"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1815,6 +1903,23 @@
 (common-lisp:deftype id () 'common-lisp:string)
 (common-lisp:deftype intended-use () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (internal-server-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-exception
+                    'make-internal-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:deftype linear-ring () '(trivial-types:proper-list position))
  (common-lisp:defun |make-linear-ring|
                     (common-lisp:&rest aws-sdk-cl/generator/shape::members)
@@ -1891,6 +1996,10 @@
     (common-lisp:or timestamp common-lisp:null))
    (description-type (common-lisp:error ":description is required") :type
     (common-lisp:or resource-description common-lisp:null))
+   (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
+    (common-lisp:or pricing-plan common-lisp:null))
+   (pricing-plan-data-source-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (update-time-type (common-lisp:error ":update-time is required") :type
     (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
@@ -1916,6 +2025,16 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'description)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlan"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlanDataSource"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan-data-source)))
     (aws-sdk-cl/generator/shape::to-query-params "UpdateTime"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2087,6 +2206,8 @@
     (common-lisp:or resource-description common-lisp:null))
    (map-name-type (common-lisp:error ":map-name is required") :type
     (common-lisp:or resource-name common-lisp:null))
+   (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
+    (common-lisp:or pricing-plan common-lisp:null))
    (update-time-type (common-lisp:error ":update-time is required") :type
     (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
@@ -2116,6 +2237,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'map-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlan"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan)))
     (aws-sdk-cl/generator/shape::to-query-params "UpdateTime"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2192,6 +2318,8 @@
     (common-lisp:or resource-description common-lisp:null))
    (index-name-type (common-lisp:error ":index-name is required") :type
     (common-lisp:or resource-name common-lisp:null))
+   (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
+    (common-lisp:or pricing-plan common-lisp:null))
    (update-time-type (common-lisp:error ":update-time is required") :type
     (common-lisp:or timestamp common-lisp:null)))
  (common-lisp:export
@@ -2222,6 +2350,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'index-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlan"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan)))
     (aws-sdk-cl/generator/shape::to-query-params "UpdateTime"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2352,6 +2485,10 @@
     (common-lisp:or timestamp common-lisp:null))
    (description-type (common-lisp:error ":description is required") :type
     (common-lisp:or resource-description common-lisp:null))
+   (pricing-plan-type (common-lisp:error ":pricing-plan is required") :type
+    (common-lisp:or pricing-plan common-lisp:null))
+   (pricing-plan-data-source-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
    (tracker-name-type (common-lisp:error ":tracker-name is required") :type
     (common-lisp:or resource-name common-lisp:null))
    (update-time-type (common-lisp:error ":update-time is required") :type
@@ -2374,6 +2511,16 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'description)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlan"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan)))
+    (aws-sdk-cl/generator/shape::to-query-params "PricingPlanDataSource"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'pricing-plan-data-source)))
     (aws-sdk-cl/generator/shape::to-query-params "TrackerName"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -2565,6 +2712,24 @@
                                                    'update-time))))))
 (common-lisp:deftype resource-description () 'common-lisp:string)
 (common-lisp:deftype resource-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (search-for-position-result (:copier common-lisp:nil))
    (place-type (common-lisp:error ":place is required") :type
@@ -2849,8 +3014,88 @@
   'common-lisp:string)
 (common-lisp:deftype synthetic-search-place-index-for-text-summary-string ()
   'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (throttling-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'make-throttling-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          throttling-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:deftype token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil))
+   (field-list-type (common-lisp:error ":field-list is required") :type
+    (common-lisp:or validation-exception-field-list common-lisp:null))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null))
+   (reason-type (common-lisp:error ":reason is required") :type
+    (common-lisp:or validation-exception-reason common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FieldList"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'field-list)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "Reason"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'reason))))))
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception-field (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception-field
+                    'make-validation-exception-field))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception-field))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:deftype validation-exception-field-list ()
+   '(trivial-types:proper-list validation-exception-field))
+ (common-lisp:defun |make-validation-exception-field-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            validation-exception-field))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype validation-exception-reason () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defun associate-tracker-consumer
                     (
@@ -2967,9 +3212,11 @@
  (common-lisp:defun create-geofence-collection
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key collection-name description pricing-plan)
+                     common-lisp:&key collection-name description pricing-plan
+                     pricing-plan-data-source)
    (common-lisp:declare
-    (common-lisp:ignorable collection-name description pricing-plan))
+    (common-lisp:ignorable collection-name description pricing-plan
+     pricing-plan-data-source))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply
                        'make-create-geofence-collection-request
@@ -3028,9 +3275,11 @@
  (common-lisp:defun create-tracker
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key description pricing-plan tracker-name)
+                     common-lisp:&key description pricing-plan
+                     pricing-plan-data-source tracker-name)
    (common-lisp:declare
-    (common-lisp:ignorable description pricing-plan tracker-name))
+    (common-lisp:ignorable description pricing-plan pricing-plan-data-source
+     tracker-name))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-tracker-request
                                          aws-sdk-cl/generator/operation::args)))

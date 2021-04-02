@@ -109,8 +109,69 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'is-enabled))))))
+(common-lisp:progn
+ (common-lisp:defstruct (aws-lambda-transformation (:copier common-lisp:nil))
+   (function-arn-type (common-lisp:error ":function-arn is required") :type
+    (common-lisp:or function-arn-string common-lisp:null))
+   (function-payload-type common-lisp:nil :type
+    (common-lisp:or aws-lambda-transformation-payload common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'aws-lambda-transformation
+                    'make-aws-lambda-transformation))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          aws-lambda-transformation))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FunctionArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'function-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "FunctionPayload"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'function-payload))))))
+(common-lisp:deftype aws-lambda-transformation-payload () 'common-lisp:string)
 (common-lisp:deftype aws-org-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct (bucket-already-exists (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'bucket-already-exists 'make-bucket-already-exists))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bucket-already-exists))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (bucket-already-owned-by-you (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'bucket-already-owned-by-you
+                    'make-bucket-already-owned-by-you))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bucket-already-owned-by-you))
+   (common-lisp:append)))
 (common-lisp:deftype bucket-canned-acl () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (bucket-level (:copier common-lisp:nil))
@@ -146,6 +207,56 @@
 (common-lisp:deftype confirm-remove-self-bucket-access () 'common-lisp:boolean)
 (common-lisp:deftype confirmation-required () 'common-lisp:boolean)
 (common-lisp:deftype continuation-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-access-point-for-object-lambda-request (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null))
+   (configuration-type (common-lisp:error ":configuration is required") :type
+    (common-lisp:or object-lambda-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-access-point-for-object-lambda-request
+                    'make-create-access-point-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-access-point-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Configuration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'configuration))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-access-point-for-object-lambda-result (:copier common-lisp:nil))
+   (object-lambda-access-point-arn-type common-lisp:nil :type
+    (common-lisp:or object-lambda-access-point-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-access-point-for-object-lambda-result
+                    'make-create-access-point-for-object-lambda-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-access-point-for-object-lambda-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ObjectLambdaAccessPointArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object-lambda-access-point-arn))))))
 (common-lisp:progn
  (common-lisp:defstruct (create-access-point-request (:copier common-lisp:nil))
    (account-id-type (common-lisp:error ":account-id is required") :type
@@ -425,6 +536,57 @@
 (common-lisp:deftype date () 'common-lisp:string)
 (common-lisp:deftype days () 'common-lisp:integer)
 (common-lisp:deftype days-after-initiation () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-access-point-for-object-lambda-request (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-access-point-for-object-lambda-request
+                    'make-delete-access-point-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-access-point-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-access-point-policy-for-object-lambda-request
+      (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-access-point-policy-for-object-lambda-request
+                    'make-delete-access-point-policy-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-access-point-policy-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (delete-access-point-policy-request (:copier common-lisp:nil))
@@ -726,6 +888,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'job))))))
+(common-lisp:deftype exception-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (exclude (:copier common-lisp:nil))
    (buckets-type common-lisp:nil :type
@@ -750,6 +913,153 @@
 (common-lisp:deftype expired-object-delete-marker () 'common-lisp:boolean)
 (common-lisp:deftype format () 'common-lisp:string)
 (common-lisp:deftype function-arn-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-access-point-configuration-for-object-lambda-request
+      (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-access-point-configuration-for-object-lambda-request
+                    'make-get-access-point-configuration-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-access-point-configuration-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-access-point-configuration-for-object-lambda-result
+      (:copier common-lisp:nil))
+   (configuration-type common-lisp:nil :type
+    (common-lisp:or object-lambda-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-access-point-configuration-for-object-lambda-result
+                    'make-get-access-point-configuration-for-object-lambda-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-access-point-configuration-for-object-lambda-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Configuration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'configuration))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-access-point-for-object-lambda-request (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-access-point-for-object-lambda-request
+                    'make-get-access-point-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-access-point-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-access-point-for-object-lambda-result (:copier common-lisp:nil))
+   (name-type common-lisp:nil :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null))
+   (public-access-block-configuration-type common-lisp:nil :type
+    (common-lisp:or public-access-block-configuration common-lisp:null))
+   (creation-date-type common-lisp:nil :type
+    (common-lisp:or creation-date common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-access-point-for-object-lambda-result
+                    'make-get-access-point-for-object-lambda-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-access-point-for-object-lambda-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "PublicAccessBlockConfiguration"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'public-access-block-configuration)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationDate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-date))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-access-point-policy-for-object-lambda-request
+      (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-access-point-policy-for-object-lambda-request
+                    'make-get-access-point-policy-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-access-point-policy-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-access-point-policy-for-object-lambda-result
+      (:copier common-lisp:nil))
+   (policy-type common-lisp:nil :type
+    (common-lisp:or object-lambda-policy common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-access-point-policy-for-object-lambda-result
+                    'make-get-access-point-policy-for-object-lambda-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-access-point-policy-for-object-lambda-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Policy"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'policy))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-access-point-policy-request (:copier common-lisp:nil))
@@ -793,6 +1103,51 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'policy))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-access-point-policy-status-for-object-lambda-request
+      (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-access-point-policy-status-for-object-lambda-request
+                    'make-get-access-point-policy-status-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-access-point-policy-status-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-access-point-policy-status-for-object-lambda-result
+      (:copier common-lisp:nil))
+   (policy-status-type common-lisp:nil :type
+    (common-lisp:or policy-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-access-point-policy-status-for-object-lambda-result
+                    'make-get-access-point-policy-status-for-object-lambda-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-access-point-policy-status-for-object-lambda-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "PolicyStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'policy-status))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-access-point-policy-status-request (:copier common-lisp:nil))
@@ -1254,6 +1609,22 @@
 (common-lisp:deftype iamrole-arn () 'common-lisp:string)
 (common-lisp:deftype id () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (idempotency-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'idempotency-exception 'make-idempotency-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          idempotency-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (include (:copier common-lisp:nil))
    (buckets-type common-lisp:nil :type
     (common-lisp:or buckets common-lisp:null))
@@ -1273,6 +1644,58 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'regions))))))
+(common-lisp:progn
+ (common-lisp:defstruct (internal-service-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-service-exception
+                    'make-internal-service-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-service-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-next-token-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-next-token-exception
+                    'make-invalid-next-token-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-next-token-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-request-exception
+                    'make-invalid-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype is-enabled () 'common-lisp:boolean)
 (common-lisp:deftype is-public () 'common-lisp:boolean)
 (common-lisp:deftype job-arn () 'common-lisp:string)
@@ -1725,6 +2148,22 @@
 (common-lisp:deftype job-report-scope () 'common-lisp:string)
 (common-lisp:deftype job-status () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (job-status-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'job-status-exception 'make-job-status-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          job-status-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:deftype job-status-list ()
    '(trivial-types:proper-list job-status))
  (common-lisp:defun |make-job-status-list|
@@ -1916,6 +2355,63 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list lifecycle-rule))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-access-points-for-object-lambda-request (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or non-empty-max-length1024string common-lisp:null))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-access-points-for-object-lambda-request
+                    'make-list-access-points-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-access-points-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-access-points-for-object-lambda-result (:copier common-lisp:nil))
+   (object-lambda-access-point-list-type common-lisp:nil :type
+    (common-lisp:or object-lambda-access-point-list common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or non-empty-max-length1024string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-access-points-for-object-lambda-result
+                    'make-list-access-points-for-object-lambda-result))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-access-points-for-object-lambda-result))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ObjectLambdaAccessPointList"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object-lambda-access-point-list)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-access-points-request (:copier common-lisp:nil))
    (account-id-type (common-lisp:error ":account-id is required") :type
@@ -2192,6 +2688,27 @@
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype min-storage-bytes-percentage () 'common-lisp:double-float)
 (common-lisp:deftype network-origin () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (no-such-public-access-block-configuration (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or no-such-public-access-block-configuration-message
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'no-such-public-access-block-configuration
+                    'make-no-such-public-access-block-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          no-such-public-access-block-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype no-such-public-access-block-configuration-message ()
+  'common-lisp:string)
 (common-lisp:deftype non-empty-max-length1024string () 'common-lisp:string)
 (common-lisp:deftype non-empty-max-length2048string () 'common-lisp:string)
 (common-lisp:deftype non-empty-max-length256string () 'common-lisp:string)
@@ -2247,6 +2764,179 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list
                             noncurrent-version-transition))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (object-lambda-access-point (:copier common-lisp:nil))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null))
+   (object-lambda-access-point-arn-type common-lisp:nil :type
+    (common-lisp:or object-lambda-access-point-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'object-lambda-access-point
+                    'make-object-lambda-access-point))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          object-lambda-access-point))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ObjectLambdaAccessPointArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object-lambda-access-point-arn))))))
+(common-lisp:deftype object-lambda-access-point-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype object-lambda-access-point-list ()
+   '(trivial-types:proper-list object-lambda-access-point))
+ (common-lisp:defun |make-object-lambda-access-point-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            object-lambda-access-point))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype object-lambda-access-point-name () 'common-lisp:string)
+(common-lisp:deftype object-lambda-allowed-feature () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype object-lambda-allowed-features-list ()
+   '(trivial-types:proper-list object-lambda-allowed-feature))
+ (common-lisp:defun |make-object-lambda-allowed-features-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            object-lambda-allowed-feature))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (object-lambda-configuration (:copier common-lisp:nil))
+   (supporting-access-point-type
+    (common-lisp:error ":supporting-access-point is required") :type
+    (common-lisp:or object-lambda-supporting-access-point-arn
+                    common-lisp:null))
+   (cloud-watch-metrics-enabled-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (allowed-features-type common-lisp:nil :type
+    (common-lisp:or object-lambda-allowed-features-list common-lisp:null))
+   (transformation-configurations-type
+    (common-lisp:error ":transformation-configurations is required") :type
+    (common-lisp:or object-lambda-transformation-configurations-list
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'object-lambda-configuration
+                    'make-object-lambda-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          object-lambda-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SupportingAccessPoint"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'supporting-access-point)))
+    (aws-sdk-cl/generator/shape::to-query-params "CloudWatchMetricsEnabled"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cloud-watch-metrics-enabled)))
+    (aws-sdk-cl/generator/shape::to-query-params "AllowedFeatures"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'allowed-features)))
+    (aws-sdk-cl/generator/shape::to-query-params "TransformationConfigurations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'transformation-configurations))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (object-lambda-content-transformation (:copier common-lisp:nil))
+   (aws-lambda-type common-lisp:nil :type
+    (common-lisp:or aws-lambda-transformation common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'object-lambda-content-transformation
+                    'make-object-lambda-content-transformation))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          object-lambda-content-transformation))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AwsLambda"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'aws-lambda))))))
+(common-lisp:deftype object-lambda-policy () 'common-lisp:string)
+(common-lisp:deftype object-lambda-supporting-access-point-arn ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (object-lambda-transformation-configuration (:copier common-lisp:nil))
+   (actions-type (common-lisp:error ":actions is required") :type
+    (common-lisp:or object-lambda-transformation-configuration-actions-list
+                    common-lisp:null))
+   (content-transformation-type
+    (common-lisp:error ":content-transformation is required") :type
+    (common-lisp:or object-lambda-content-transformation common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'object-lambda-transformation-configuration
+                    'make-object-lambda-transformation-configuration))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          object-lambda-transformation-configuration))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Actions"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'actions)))
+    (aws-sdk-cl/generator/shape::to-query-params "ContentTransformation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'content-transformation))))))
+(common-lisp:deftype object-lambda-transformation-configuration-action ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype object-lambda-transformation-configuration-actions-list
+                      ()
+   '(trivial-types:proper-list
+     object-lambda-transformation-configuration-action))
+ (common-lisp:defun |make-object-lambda-transformation-configuration-actions-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            object-lambda-transformation-configuration-action))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:deftype object-lambda-transformation-configurations-list ()
+   '(trivial-types:proper-list object-lambda-transformation-configuration))
+ (common-lisp:defun |make-object-lambda-transformation-configurations-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            object-lambda-transformation-configuration))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype object-lock-enabled-for-bucket () 'common-lisp:boolean)
 (common-lisp:deftype operation-name () 'common-lisp:string)
@@ -2344,6 +3034,72 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'restrict-public-buckets))))))
 (common-lisp:deftype public-access-block-enabled () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-access-point-configuration-for-object-lambda-request
+      (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null))
+   (configuration-type (common-lisp:error ":configuration is required") :type
+    (common-lisp:or object-lambda-configuration common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-access-point-configuration-for-object-lambda-request
+                    'make-put-access-point-configuration-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          put-access-point-configuration-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Configuration"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'configuration))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-access-point-policy-for-object-lambda-request
+      (:copier common-lisp:nil))
+   (account-id-type (common-lisp:error ":account-id is required") :type
+    (common-lisp:or account-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or object-lambda-access-point-name common-lisp:null))
+   (policy-type (common-lisp:error ":policy is required") :type
+    (common-lisp:or object-lambda-policy common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-access-point-policy-for-object-lambda-request
+                    'make-put-access-point-policy-for-object-lambda-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          put-access-point-policy-for-object-lambda-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AccountId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'account-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Policy"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'policy))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (put-access-point-policy-request (:copier common-lisp:nil))
@@ -3496,6 +4252,39 @@
                                                    'tag-set))))))
 (common-lisp:deftype time-stamp () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (too-many-requests-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-requests-exception
+                    'make-too-many-requests-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-requests-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (too-many-tags-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-tags-exception 'make-too-many-tags-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-tags-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (transition (:copier common-lisp:nil))
    (date-type common-lisp:nil :type (common-lisp:or date common-lisp:null))
    (days-type common-lisp:nil :type (common-lisp:or days common-lisp:null))
@@ -3689,6 +4478,26 @@
       "CreateAccessPointResult" common-lisp:nil)))
  (common-lisp:export 'create-access-point))
 (common-lisp:progn
+ (common-lisp:defun create-access-point-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id name configuration)
+   (common-lisp:declare (common-lisp:ignorable account-id name configuration))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-access-point-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"CreateAccessPointForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateAccessPointForObjectLambdaResult" common-lisp:nil)))
+ (common-lisp:export 'create-access-point-for-object-lambda))
+(common-lisp:progn
  (common-lisp:defun create-bucket
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -3752,6 +4561,26 @@
       common-lisp:nil common-lisp:nil)))
  (common-lisp:export 'delete-access-point))
 (common-lisp:progn
+ (common-lisp:defun delete-access-point-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id name)
+   (common-lisp:declare (common-lisp:ignorable account-id name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-access-point-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :delete :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"DeleteAccessPointForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      common-lisp:nil common-lisp:nil)))
+ (common-lisp:export 'delete-access-point-for-object-lambda))
+(common-lisp:progn
  (common-lisp:defun delete-access-point-policy
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -3770,6 +4599,26 @@
                                     aws-sdk-cl/generator/operation::input)))
       common-lisp:nil common-lisp:nil)))
  (common-lisp:export 'delete-access-point-policy))
+(common-lisp:progn
+ (common-lisp:defun delete-access-point-policy-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id name)
+   (common-lisp:declare (common-lisp:ignorable account-id name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-access-point-policy-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :delete :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"DeleteAccessPointPolicyForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      common-lisp:nil common-lisp:nil)))
+ (common-lisp:export 'delete-access-point-policy-for-object-lambda))
 (common-lisp:progn
  (common-lisp:defun delete-bucket
                     (
@@ -3958,6 +4807,46 @@
       "GetAccessPointResult" common-lisp:nil)))
  (common-lisp:export 'get-access-point))
 (common-lisp:progn
+ (common-lisp:defun get-access-point-configuration-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id name)
+   (common-lisp:declare (common-lisp:ignorable account-id name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-access-point-configuration-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"GetAccessPointConfigurationForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetAccessPointConfigurationForObjectLambdaResult" common-lisp:nil)))
+ (common-lisp:export 'get-access-point-configuration-for-object-lambda))
+(common-lisp:progn
+ (common-lisp:defun get-access-point-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id name)
+   (common-lisp:declare (common-lisp:ignorable account-id name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-access-point-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"GetAccessPointForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetAccessPointForObjectLambdaResult" common-lisp:nil)))
+ (common-lisp:export 'get-access-point-for-object-lambda))
+(common-lisp:progn
  (common-lisp:defun get-access-point-policy
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -3975,6 +4864,26 @@
                                     aws-sdk-cl/generator/operation::input)))
       "GetAccessPointPolicyResult" common-lisp:nil)))
  (common-lisp:export 'get-access-point-policy))
+(common-lisp:progn
+ (common-lisp:defun get-access-point-policy-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id name)
+   (common-lisp:declare (common-lisp:ignorable account-id name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-access-point-policy-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"GetAccessPointPolicyForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetAccessPointPolicyForObjectLambdaResult" common-lisp:nil)))
+ (common-lisp:export 'get-access-point-policy-for-object-lambda))
 (common-lisp:progn
  (common-lisp:defun get-access-point-policy-status
                     (
@@ -3994,6 +4903,26 @@
                                     aws-sdk-cl/generator/operation::input)))
       "GetAccessPointPolicyStatusResult" common-lisp:nil)))
  (common-lisp:export 'get-access-point-policy-status))
+(common-lisp:progn
+ (common-lisp:defun get-access-point-policy-status-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id name)
+   (common-lisp:declare (common-lisp:ignorable account-id name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-access-point-policy-status-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"GetAccessPointPolicyStatusForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetAccessPointPolicyStatusForObjectLambdaResult" common-lisp:nil)))
+ (common-lisp:export 'get-access-point-policy-status-for-object-lambda))
 (common-lisp:progn
  (common-lisp:defun get-bucket
                     (
@@ -4163,6 +5092,27 @@
       "ListAccessPointsResult" common-lisp:nil)))
  (common-lisp:export 'list-access-points))
 (common-lisp:progn
+ (common-lisp:defun list-access-points-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id next-token max-results)
+   (common-lisp:declare
+    (common-lisp:ignorable account-id next-token max-results))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-access-points-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :get :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"ListAccessPointsForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListAccessPointsForObjectLambdaResult" common-lisp:nil)))
+ (common-lisp:export 'list-access-points-for-object-lambda))
+(common-lisp:progn
  (common-lisp:defun list-jobs
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -4223,6 +5173,26 @@
       "ListStorageLensConfigurationsResult" common-lisp:nil)))
  (common-lisp:export 'list-storage-lens-configurations))
 (common-lisp:progn
+ (common-lisp:defun put-access-point-configuration-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id name configuration)
+   (common-lisp:declare (common-lisp:ignorable account-id name configuration))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-put-access-point-configuration-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"PutAccessPointConfigurationForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      common-lisp:nil common-lisp:nil)))
+ (common-lisp:export 'put-access-point-configuration-for-object-lambda))
+(common-lisp:progn
  (common-lisp:defun put-access-point-policy
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -4240,6 +5210,26 @@
                                     aws-sdk-cl/generator/operation::input)))
       common-lisp:nil common-lisp:nil)))
  (common-lisp:export 'put-access-point-policy))
+(common-lisp:progn
+ (common-lisp:defun put-access-point-policy-for-object-lambda
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key account-id name policy)
+   (common-lisp:declare (common-lisp:ignorable account-id name policy))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-put-access-point-policy-for-object-lambda-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "s3control" :method :put :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"PutAccessPointPolicyForObjectLambda")
+                                     ("Version" ,@"2018-08-20"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      common-lisp:nil common-lisp:nil)))
+ (common-lisp:export 'put-access-point-policy-for-object-lambda))
 (common-lisp:progn
  (common-lisp:defun put-bucket-lifecycle-configuration
                     (

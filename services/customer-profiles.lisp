@@ -8,6 +8,22 @@
 (common-lisp:in-package #:aws-sdk-cl/services/customer-profiles)
 (common-lisp:deftype |name| () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |message| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (add-profile-key-request (:copier common-lisp:nil))
    (profile-id-type (common-lisp:error ":profile-id is required") :type
     (common-lisp:or |uuid| common-lisp:null))
@@ -149,6 +165,69 @@
       (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
+(common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |message| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype bucket-name () 'common-lisp:string)
+(common-lisp:deftype bucket-prefix () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (connector-operator (:copier common-lisp:nil))
+   (marketo-type common-lisp:nil :type
+    (common-lisp:or marketo-connector-operator common-lisp:null))
+   (s3type common-lisp:nil :type
+    (common-lisp:or s3connector-operator common-lisp:null))
+   (salesforce-type common-lisp:nil :type
+    (common-lisp:or salesforce-connector-operator common-lisp:null))
+   (service-now-type common-lisp:nil :type
+    (common-lisp:or service-now-connector-operator common-lisp:null))
+   (zendesk-type common-lisp:nil :type
+    (common-lisp:or zendesk-connector-operator common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'connector-operator 'make-connector-operator))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          connector-operator))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Marketo"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'marketo)))
+    (aws-sdk-cl/generator/shape::to-query-params "S3"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   's3)))
+    (aws-sdk-cl/generator/shape::to-query-params "Salesforce"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'salesforce)))
+    (aws-sdk-cl/generator/shape::to-query-params "ServiceNow"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'service-now)))
+    (aws-sdk-cl/generator/shape::to-query-params "Zendesk"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'zendesk))))))
+(common-lisp:deftype connector-profile-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (create-domain-request (:copier common-lisp:nil))
    (domain-name-type (common-lisp:error ":domain-name is required") :type
@@ -429,6 +508,9 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'profile-id))))))
+(common-lisp:deftype data-pull-mode () 'common-lisp:string)
+(common-lisp:deftype date () 'common-lisp:string)
+(common-lisp:deftype datetime-type-field-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (delete-domain-request (:copier common-lisp:nil))
    (domain-name-type (common-lisp:error ":domain-name is required") :type
@@ -697,6 +779,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'message))))))
+(common-lisp:deftype destination-field () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype domain-list ()
    '(trivial-types:proper-list list-domain-item))
@@ -753,6 +836,57 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list |name|))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (flow-definition (:copier common-lisp:nil))
+   (description-type common-lisp:nil :type
+    (common-lisp:or flow-description common-lisp:null))
+   (flow-name-type (common-lisp:error ":flow-name is required") :type
+    (common-lisp:or flow-name common-lisp:null))
+   (kms-arn-type (common-lisp:error ":kms-arn is required") :type
+    (common-lisp:or kms-arn common-lisp:null))
+   (source-flow-config-type
+    (common-lisp:error ":source-flow-config is required") :type
+    (common-lisp:or source-flow-config common-lisp:null))
+   (tasks-type (common-lisp:error ":tasks is required") :type
+    (common-lisp:or tasks common-lisp:null))
+   (trigger-config-type (common-lisp:error ":trigger-config is required") :type
+    (common-lisp:or trigger-config common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'flow-definition 'make-flow-definition))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape flow-definition))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Description"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'description)))
+    (aws-sdk-cl/generator/shape::to-query-params "FlowName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'flow-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "KmsArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'kms-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceFlowConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-flow-config)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tasks"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tasks)))
+    (aws-sdk-cl/generator/shape::to-query-params "TriggerConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'trigger-config))))))
+(common-lisp:deftype flow-description () 'common-lisp:string)
+(common-lisp:deftype flow-name () 'common-lisp:string)
 (common-lisp:deftype gender () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (get-domain-request (:copier common-lisp:nil))
@@ -1089,6 +1223,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'keys))))))
 (common-lisp:progn
+ (common-lisp:defstruct (incremental-pull-config (:copier common-lisp:nil))
+   (datetime-type-field-name-type common-lisp:nil :type
+    (common-lisp:or datetime-type-field-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'incremental-pull-config 'make-incremental-pull-config))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          incremental-pull-config))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "DatetimeTypeFieldName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'datetime-type-field-name))))))
+(common-lisp:progn
  (common-lisp:deftype integration-list ()
    '(trivial-types:proper-list list-integration-item))
  (common-lisp:defun |make-integration-list|
@@ -1096,12 +1246,30 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list list-integration-item))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |message| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-exception
+                    'make-internal-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:defstruct
     (key-map
      (:constructor |make-key-map|
       (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
+(common-lisp:deftype kms-arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (list-account-integrations-request (:copier common-lisp:nil))
@@ -1665,6 +1833,25 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tags))))))
+(common-lisp:deftype marketo-connector-operator () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (marketo-source-properties (:copier common-lisp:nil))
+   (object-type (common-lisp:error ":object is required") :type
+    (common-lisp:or object common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'marketo-source-properties
+                    'make-marketo-source-properties))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          marketo-source-properties))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Object"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object))))))
+(common-lisp:deftype object () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (object-type-field (:copier common-lisp:nil))
    (source-type common-lisp:nil :type (common-lisp:or |text| common-lisp:null))
@@ -1719,6 +1906,7 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list object-type-key))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype operator-properties-keys () 'common-lisp:string)
 (common-lisp:deftype party-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (profile (:copier common-lisp:nil))
@@ -1913,15 +2101,18 @@
                            (trivial-types:proper-list
                             list-profile-object-type-template-item))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype property () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (put-integration-request (:copier common-lisp:nil))
    (domain-name-type (common-lisp:error ":domain-name is required") :type
     (common-lisp:or |name| common-lisp:null))
-   (uri-type (common-lisp:error ":uri is required") :type
+   (uri-type common-lisp:nil :type
     (common-lisp:or |string1To255| common-lisp:null))
    (object-type-name-type (common-lisp:error ":object-type-name is required")
     :type (common-lisp:or |typeName| common-lisp:null))
-   (tags-type common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+   (tags-type common-lisp:nil :type (common-lisp:or tag-map common-lisp:null))
+   (flow-definition-type common-lisp:nil :type
+    (common-lisp:or flow-definition common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'put-integration-request 'make-put-integration-request))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -1948,7 +2139,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'tags))))))
+                                                   'tags)))
+    (aws-sdk-cl/generator/shape::to-query-params "FlowDefinition"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'flow-definition))))))
 (common-lisp:progn
  (common-lisp:defstruct (put-integration-response (:copier common-lisp:nil))
    (domain-name-type (common-lisp:error ":domain-name is required") :type
@@ -2213,6 +2409,144 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tags))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |message| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype s3connector-operator () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (s3source-properties (:copier common-lisp:nil))
+   (bucket-name-type (common-lisp:error ":bucket-name is required") :type
+    (common-lisp:or bucket-name common-lisp:null))
+   (bucket-prefix-type common-lisp:nil :type
+    (common-lisp:or bucket-prefix common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 's3source-properties 'make-s3source-properties))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          s3source-properties))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "BucketName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'bucket-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "BucketPrefix"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'bucket-prefix))))))
+(common-lisp:deftype salesforce-connector-operator () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (salesforce-source-properties (:copier common-lisp:nil))
+   (object-type (common-lisp:error ":object is required") :type
+    (common-lisp:or object common-lisp:null))
+   (enable-dynamic-field-update-type common-lisp:nil :type
+    (common-lisp:or common-lisp:boolean common-lisp:null))
+   (include-deleted-records-type common-lisp:nil :type
+    (common-lisp:or common-lisp:boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'salesforce-source-properties
+                    'make-salesforce-source-properties))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          salesforce-source-properties))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Object"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object)))
+    (aws-sdk-cl/generator/shape::to-query-params "EnableDynamicFieldUpdate"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'enable-dynamic-field-update)))
+    (aws-sdk-cl/generator/shape::to-query-params "IncludeDeletedRecords"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'include-deleted-records))))))
+(common-lisp:deftype schedule-expression () 'common-lisp:string)
+(common-lisp:deftype schedule-offset () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (scheduled-trigger-properties (:copier common-lisp:nil))
+   (schedule-expression-type
+    (common-lisp:error ":schedule-expression is required") :type
+    (common-lisp:or schedule-expression common-lisp:null))
+   (data-pull-mode-type common-lisp:nil :type
+    (common-lisp:or data-pull-mode common-lisp:null))
+   (schedule-start-time-type common-lisp:nil :type
+    (common-lisp:or date common-lisp:null))
+   (schedule-end-time-type common-lisp:nil :type
+    (common-lisp:or date common-lisp:null))
+   (timezone-type common-lisp:nil :type
+    (common-lisp:or timezone common-lisp:null))
+   (schedule-offset-type common-lisp:nil :type
+    (common-lisp:or schedule-offset common-lisp:null))
+   (first-execution-from-type common-lisp:nil :type
+    (common-lisp:or date common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'scheduled-trigger-properties
+                    'make-scheduled-trigger-properties))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          scheduled-trigger-properties))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ScheduleExpression"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'schedule-expression)))
+    (aws-sdk-cl/generator/shape::to-query-params "DataPullMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'data-pull-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "ScheduleStartTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'schedule-start-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "ScheduleEndTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'schedule-end-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "Timezone"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'timezone)))
+    (aws-sdk-cl/generator/shape::to-query-params "ScheduleOffset"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'schedule-offset)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirstExecutionFrom"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'first-execution-from))))))
+(common-lisp:progn
  (common-lisp:defstruct (search-profiles-request (:copier common-lisp:nil))
    (next-token-type common-lisp:nil :type
     (common-lisp:or |token| common-lisp:null))
@@ -2279,6 +2613,117 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
+(common-lisp:deftype service-now-connector-operator () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (service-now-source-properties (:copier common-lisp:nil))
+   (object-type (common-lisp:error ":object is required") :type
+    (common-lisp:or object common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-now-source-properties
+                    'make-service-now-source-properties))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-now-source-properties))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Object"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object))))))
+(common-lisp:progn
+ (common-lisp:defstruct (source-connector-properties (:copier common-lisp:nil))
+   (marketo-type common-lisp:nil :type
+    (common-lisp:or marketo-source-properties common-lisp:null))
+   (s3type common-lisp:nil :type
+    (common-lisp:or s3source-properties common-lisp:null))
+   (salesforce-type common-lisp:nil :type
+    (common-lisp:or salesforce-source-properties common-lisp:null))
+   (service-now-type common-lisp:nil :type
+    (common-lisp:or service-now-source-properties common-lisp:null))
+   (zendesk-type common-lisp:nil :type
+    (common-lisp:or zendesk-source-properties common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'source-connector-properties
+                    'make-source-connector-properties))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          source-connector-properties))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Marketo"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'marketo)))
+    (aws-sdk-cl/generator/shape::to-query-params "S3"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   's3)))
+    (aws-sdk-cl/generator/shape::to-query-params "Salesforce"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'salesforce)))
+    (aws-sdk-cl/generator/shape::to-query-params "ServiceNow"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'service-now)))
+    (aws-sdk-cl/generator/shape::to-query-params "Zendesk"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'zendesk))))))
+(common-lisp:deftype source-connector-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype source-fields ()
+   '(trivial-types:proper-list |stringTo2048|))
+ (common-lisp:defun |make-source-fields|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list |stringTo2048|))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (source-flow-config (:copier common-lisp:nil))
+   (connector-profile-name-type common-lisp:nil :type
+    (common-lisp:or connector-profile-name common-lisp:null))
+   (connector-type-type (common-lisp:error ":connector-type is required") :type
+    (common-lisp:or source-connector-type common-lisp:null))
+   (incremental-pull-config-type common-lisp:nil :type
+    (common-lisp:or incremental-pull-config common-lisp:null))
+   (source-connector-properties-type
+    (common-lisp:error ":source-connector-properties is required") :type
+    (common-lisp:or source-connector-properties common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'source-flow-config 'make-source-flow-config))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          source-flow-config))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ConnectorProfileName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connector-profile-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ConnectorType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connector-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "IncrementalPullConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'incremental-pull-config)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceConnectorProperties"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-connector-properties))))))
 (common-lisp:deftype standard-identifier () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype standard-identifier-list ()
@@ -2336,6 +2781,115 @@
                           tag-resource-response))
    (common-lisp:append)))
 (common-lisp:deftype tag-value () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (task (:copier common-lisp:nil))
+   (connector-operator-type common-lisp:nil :type
+    (common-lisp:or connector-operator common-lisp:null))
+   (destination-field-type common-lisp:nil :type
+    (common-lisp:or destination-field common-lisp:null))
+   (source-fields-type (common-lisp:error ":source-fields is required") :type
+    (common-lisp:or source-fields common-lisp:null))
+   (task-properties-type common-lisp:nil :type
+    (common-lisp:or task-properties-map common-lisp:null))
+   (task-type-type (common-lisp:error ":task-type is required") :type
+    (common-lisp:or task-type common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'task 'make-task))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape task))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ConnectorOperator"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connector-operator)))
+    (aws-sdk-cl/generator/shape::to-query-params "DestinationField"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'destination-field)))
+    (aws-sdk-cl/generator/shape::to-query-params "SourceFields"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'source-fields)))
+    (aws-sdk-cl/generator/shape::to-query-params "TaskProperties"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'task-properties)))
+    (aws-sdk-cl/generator/shape::to-query-params "TaskType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'task-type))))))
+(common-lisp:defstruct
+    (task-properties-map
+     (:constructor |make-task-properties-map|
+      (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
+  aws-sdk-cl/generator/shape::key
+  aws-sdk-cl/generator/shape::value)
+(common-lisp:deftype task-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype tasks () '(trivial-types:proper-list task))
+ (common-lisp:defun |make-tasks|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list task))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (throttling-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |message| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'make-throttling-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          throttling-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype timezone () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (trigger-config (:copier common-lisp:nil))
+   (trigger-type-type (common-lisp:error ":trigger-type is required") :type
+    (common-lisp:or trigger-type common-lisp:null))
+   (trigger-properties-type common-lisp:nil :type
+    (common-lisp:or trigger-properties common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'trigger-config 'make-trigger-config))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape trigger-config))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "TriggerType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'trigger-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "TriggerProperties"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'trigger-properties))))))
+(common-lisp:progn
+ (common-lisp:defstruct (trigger-properties (:copier common-lisp:nil))
+   (scheduled-type common-lisp:nil :type
+    (common-lisp:or scheduled-trigger-properties common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'trigger-properties 'make-trigger-properties))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          trigger-properties))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Scheduled"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'scheduled))))))
+(common-lisp:deftype trigger-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (untag-resource-request (:copier common-lisp:nil))
    (resource-arn-type (common-lisp:error ":resourcearn is required") :type
@@ -2735,6 +3289,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'profile-id))))))
+(common-lisp:deftype zendesk-connector-operator () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (zendesk-source-properties (:copier common-lisp:nil))
+   (object-type (common-lisp:error ":object is required") :type
+    (common-lisp:or object common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'zendesk-source-properties
+                    'make-zendesk-source-properties))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          zendesk-source-properties))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Object"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'object))))))
 common-lisp:nil
 (common-lisp:deftype |encryptionKey| () 'common-lisp:string)
 (common-lisp:deftype |expirationDaysInteger| () 'common-lisp:integer)
@@ -2754,6 +3326,7 @@ common-lisp:nil
 (common-lisp:deftype |string0To255| () 'common-lisp:string)
 (common-lisp:deftype |string1To1000| () 'common-lisp:string)
 (common-lisp:deftype |string1To255| () 'common-lisp:string)
+(common-lisp:deftype |stringTo2048| () 'common-lisp:string)
 (common-lisp:deftype |stringifiedJson| () 'common-lisp:string)
 (common-lisp:deftype |text| () 'common-lisp:string)
 common-lisp:nil
@@ -3176,9 +3749,11 @@ common-lisp:nil
  (common-lisp:defun put-integration
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
-                     common-lisp:&key domain-name uri object-type-name tags)
+                     common-lisp:&key domain-name uri object-type-name tags
+                     flow-definition)
    (common-lisp:declare
-    (common-lisp:ignorable domain-name uri object-type-name tags))
+    (common-lisp:ignorable domain-name uri object-type-name tags
+     flow-definition))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-put-integration-request
                                          aws-sdk-cl/generator/operation::args)))

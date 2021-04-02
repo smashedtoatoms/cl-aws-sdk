@@ -3400,6 +3400,7 @@
 (common-lisp:deftype ec2instance-id () 'common-lisp:string)
 (common-lisp:deftype ec2instance-region () 'common-lisp:string)
 (common-lisp:deftype endpoint-type () 'common-lisp:string)
+(common-lisp:deftype error-code () 'common-lisp:string)
 (common-lisp:deftype file-share-arn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype file-share-arnlist ()
@@ -3583,6 +3584,54 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list initiator))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-error (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or storage-gateway-error common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-error 'make-internal-server-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-gateway-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or storage-gateway-error common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-gateway-request-exception
+                    'make-invalid-gateway-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-gateway-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error))))))
 (common-lisp:deftype iqn-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (join-domain-input (:copier common-lisp:nil))
@@ -4904,6 +4953,30 @@
 (common-lisp:deftype smbguest-password () 'common-lisp:string)
 (common-lisp:deftype smbsecurity-strategy () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (service-unavailable-error (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or common-lisp:string common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or storage-gateway-error common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-unavailable-error
+                    'make-service-unavailable-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-unavailable-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error))))))
+(common-lisp:progn
  (common-lisp:defstruct
      (set-local-console-password-input (:copier common-lisp:nil))
    (gateway-arntype (common-lisp:error ":gateway-arn is required") :type
@@ -5094,6 +5167,29 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'gateway-arn))))))
 (common-lisp:deftype storage-class () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (storage-gateway-error (:copier common-lisp:nil))
+   (error-code-type common-lisp:nil :type
+    (common-lisp:or error-code common-lisp:null))
+   (error-details-type common-lisp:nil :type
+    (common-lisp:or |errorDetails| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'storage-gateway-error 'make-storage-gateway-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          storage-gateway-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "errorCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "errorDetails"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-details))))))
 (common-lisp:progn
  (common-lisp:defstruct (storedi-scsivolume (:copier common-lisp:nil))
    (volume-arntype common-lisp:nil :type
@@ -6658,6 +6754,12 @@
                                                    'chap-enabled))))))
 common-lisp:nil
 common-lisp:nil
+(common-lisp:defstruct
+    (|errorDetails|
+     (:constructor |make-errordetails|
+      (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
+  aws-sdk-cl/generator/shape::key
+  aws-sdk-cl/generator/shape::value)
 common-lisp:nil
 common-lisp:nil
 common-lisp:nil

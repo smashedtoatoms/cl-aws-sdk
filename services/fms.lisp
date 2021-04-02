@@ -257,6 +257,7 @@
      (aws-sdk-cl/generator/shape:shape-to-params
       (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
                               'possible-security-group-remediation-actions))))))
+(common-lisp:deftype basic-integer () 'common-lisp:integer)
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:deftype cidr () 'common-lisp:string)
 (common-lisp:progn
@@ -395,6 +396,119 @@
                          (aws-sdk-cl/generator/shape::shape
                           disassociate-admin-account-request))
    (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (dns-duplicate-rule-group-violation (:copier common-lisp:nil))
+   (violation-target-type common-lisp:nil :type
+    (common-lisp:or violation-target common-lisp:null))
+   (violation-target-description-type common-lisp:nil :type
+    (common-lisp:or length-bounded-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dns-duplicate-rule-group-violation
+                    'make-dns-duplicate-rule-group-violation))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          dns-duplicate-rule-group-violation))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ViolationTarget"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'violation-target)))
+    (aws-sdk-cl/generator/shape::to-query-params "ViolationTargetDescription"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'violation-target-description))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (dns-rule-group-limit-exceeded-violation (:copier common-lisp:nil))
+   (violation-target-type common-lisp:nil :type
+    (common-lisp:or violation-target common-lisp:null))
+   (violation-target-description-type common-lisp:nil :type
+    (common-lisp:or length-bounded-string common-lisp:null))
+   (number-of-rule-groups-already-associated-type common-lisp:nil :type
+    (common-lisp:or basic-integer common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dns-rule-group-limit-exceeded-violation
+                    'make-dns-rule-group-limit-exceeded-violation))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          dns-rule-group-limit-exceeded-violation))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ViolationTarget"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'violation-target)))
+    (aws-sdk-cl/generator/shape::to-query-params "ViolationTargetDescription"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'violation-target-description)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "NumberOfRuleGroupsAlreadyAssociated"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'number-of-rule-groups-already-associated))))))
+(common-lisp:progn
+ (common-lisp:deftype dns-rule-group-priorities ()
+   '(trivial-types:proper-list dns-rule-group-priority))
+ (common-lisp:defun |make-dns-rule-group-priorities|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list dns-rule-group-priority))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype dns-rule-group-priority () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (dns-rule-group-priority-conflict-violation (:copier common-lisp:nil))
+   (violation-target-type common-lisp:nil :type
+    (common-lisp:or violation-target common-lisp:null))
+   (violation-target-description-type common-lisp:nil :type
+    (common-lisp:or length-bounded-string common-lisp:null))
+   (conflicting-priority-type common-lisp:nil :type
+    (common-lisp:or dns-rule-group-priority common-lisp:null))
+   (conflicting-policy-id-type common-lisp:nil :type
+    (common-lisp:or policy-id common-lisp:null))
+   (unavailable-priorities-type common-lisp:nil :type
+    (common-lisp:or dns-rule-group-priorities common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dns-rule-group-priority-conflict-violation
+                    'make-dns-rule-group-priority-conflict-violation))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          dns-rule-group-priority-conflict-violation))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ViolationTarget"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'violation-target)))
+    (aws-sdk-cl/generator/shape::to-query-params "ViolationTargetDescription"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'violation-target-description)))
+    (aws-sdk-cl/generator/shape::to-query-params "ConflictingPriority"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'conflicting-priority)))
+    (aws-sdk-cl/generator/shape::to-query-params "ConflictingPolicyId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'conflicting-policy-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "UnavailablePriorities"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'unavailable-priorities))))))
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (evaluation-result (:copier common-lisp:nil))
    (compliance-status-type common-lisp:nil :type
@@ -826,6 +940,71 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'violation-detail))))))
 (common-lisp:deftype ipport-number () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-error-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-error-exception 'make-internal-error-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-error-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-input-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-input-exception 'make-invalid-input-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-input-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-operation-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-operation-exception
+                    'make-invalid-operation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-operation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-type-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-type-exception 'make-invalid-type-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-type-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:defstruct
     (issue-info-map
      (:constructor |make-issue-info-map|
@@ -833,6 +1012,22 @@
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
 (common-lisp:deftype length-bounded-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-apps-lists-request (:copier common-lisp:nil))
    (default-lists-type common-lisp:nil :type
@@ -1961,6 +2156,24 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype resource-name () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (resource-tag (:copier common-lisp:nil))
    (key-type (common-lisp:error ":key is required") :type
     (common-lisp:or resource-tag-key common-lisp:null))
@@ -2018,7 +2231,14 @@
                     common-lisp:null))
    (network-firewall-policy-modified-violation-type common-lisp:nil :type
     (common-lisp:or network-firewall-policy-modified-violation
-                    common-lisp:null)))
+                    common-lisp:null))
+   (dns-rule-group-priority-conflict-violation-type common-lisp:nil :type
+    (common-lisp:or dns-rule-group-priority-conflict-violation
+                    common-lisp:null))
+   (dns-duplicate-rule-group-violation-type common-lisp:nil :type
+    (common-lisp:or dns-duplicate-rule-group-violation common-lisp:null))
+   (dns-rule-group-limit-exceeded-violation-type common-lisp:nil :type
+    (common-lisp:or dns-rule-group-limit-exceeded-violation common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'resource-violation 'make-resource-violation))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -2060,7 +2280,22 @@
      "NetworkFirewallPolicyModifiedViolation"
      (aws-sdk-cl/generator/shape:shape-to-params
       (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
-                              'network-firewall-policy-modified-violation))))))
+                              'network-firewall-policy-modified-violation)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "DnsRuleGroupPriorityConflictViolation"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'dns-rule-group-priority-conflict-violation)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "DnsDuplicateRuleGroupViolation"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'dns-duplicate-rule-group-violation)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "DnsRuleGroupLimitExceededViolation"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'dns-rule-group-limit-exceeded-violation))))))
 (common-lisp:progn
  (common-lisp:deftype resource-violations ()
    '(trivial-types:proper-list resource-violation))

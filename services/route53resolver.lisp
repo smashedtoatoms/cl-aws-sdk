@@ -6,8 +6,105 @@
   (:import-from #:aws-sdk-cl/generator/operation)
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/route53resolver)
+(common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype account-id () 'common-lisp:string)
+(common-lisp:deftype action () 'common-lisp:string)
 (common-lisp:deftype arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (associate-firewall-rule-group-request (:copier common-lisp:nil))
+   (creator-request-id-type
+    (common-lisp:error ":creator-request-id is required") :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (firewall-rule-group-id-type
+    (common-lisp:error ":firewall-rule-group-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (vpc-id-type (common-lisp:error ":vpc-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (priority-type (common-lisp:error ":priority is required") :type
+    (common-lisp:or priority common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or name common-lisp:null))
+   (mutation-protection-type common-lisp:nil :type
+    (common-lisp:or mutation-protection-status common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associate-firewall-rule-group-request
+                    'make-associate-firewall-rule-group-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          associate-firewall-rule-group-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "VpcId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vpc-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Priority"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "MutationProtection"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mutation-protection)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (associate-firewall-rule-group-response (:copier common-lisp:nil))
+   (firewall-rule-group-association-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-association common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'associate-firewall-rule-group-response
+                    'make-associate-firewall-rule-group-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          associate-firewall-rule-group-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupAssociation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-association))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (associate-resolver-endpoint-ip-address-request (:copier common-lisp:nil))
@@ -146,8 +243,232 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'resolver-rule-association))))))
+(common-lisp:deftype block-override-dns-type () 'common-lisp:string)
+(common-lisp:deftype block-override-domain () 'common-lisp:string)
+(common-lisp:deftype block-override-ttl () 'common-lisp:integer)
+(common-lisp:deftype block-response () 'common-lisp:string)
 (common-lisp:deftype boolean () 'common-lisp:boolean)
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype count () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-firewall-domain-list-request (:copier common-lisp:nil))
+   (creator-request-id-type
+    (common-lisp:error ":creator-request-id is required") :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or name common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-firewall-domain-list-request
+                    'make-create-firewall-domain-list-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-firewall-domain-list-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-firewall-domain-list-response (:copier common-lisp:nil))
+   (firewall-domain-list-type common-lisp:nil :type
+    (common-lisp:or firewall-domain-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-firewall-domain-list-response
+                    'make-create-firewall-domain-list-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-firewall-domain-list-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainList"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-firewall-rule-group-request (:copier common-lisp:nil))
+   (creator-request-id-type
+    (common-lisp:error ":creator-request-id is required") :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or name common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-firewall-rule-group-request
+                    'make-create-firewall-rule-group-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-firewall-rule-group-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-firewall-rule-group-response (:copier common-lisp:nil))
+   (firewall-rule-group-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-firewall-rule-group-response
+                    'make-create-firewall-rule-group-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-firewall-rule-group-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroup"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-firewall-rule-request (:copier common-lisp:nil))
+   (creator-request-id-type
+    (common-lisp:error ":creator-request-id is required") :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (firewall-rule-group-id-type
+    (common-lisp:error ":firewall-rule-group-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (firewall-domain-list-id-type
+    (common-lisp:error ":firewall-domain-list-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (priority-type (common-lisp:error ":priority is required") :type
+    (common-lisp:or priority common-lisp:null))
+   (action-type (common-lisp:error ":action is required") :type
+    (common-lisp:or action common-lisp:null))
+   (block-response-type common-lisp:nil :type
+    (common-lisp:or block-response common-lisp:null))
+   (block-override-domain-type common-lisp:nil :type
+    (common-lisp:or block-override-domain common-lisp:null))
+   (block-override-dns-type-type common-lisp:nil :type
+    (common-lisp:or block-override-dns-type common-lisp:null))
+   (block-override-ttl-type common-lisp:nil :type
+    (common-lisp:or block-override-ttl common-lisp:null))
+   (name-type (common-lisp:error ":name is required") :type
+    (common-lisp:or name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-firewall-rule-request
+                    'make-create-firewall-rule-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-firewall-rule-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainListId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Priority"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority)))
+    (aws-sdk-cl/generator/shape::to-query-params "Action"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'action)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockResponse"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-response)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockOverrideDomain"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-override-domain)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockOverrideDnsType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-override-dns-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockOverrideTtl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-override-ttl)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-firewall-rule-response (:copier common-lisp:nil))
+   (firewall-rule-type common-lisp:nil :type
+    (common-lisp:or firewall-rule common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-firewall-rule-response
+                    'make-create-firewall-rule-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-firewall-rule-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRule"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-resolver-endpoint-request (:copier common-lisp:nil))
@@ -359,6 +680,125 @@
 (common-lisp:deftype creator-request-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
+     (delete-firewall-domain-list-request (:copier common-lisp:nil))
+   (firewall-domain-list-id-type
+    (common-lisp:error ":firewall-domain-list-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-firewall-domain-list-request
+                    'make-delete-firewall-domain-list-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-firewall-domain-list-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainListId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-firewall-domain-list-response (:copier common-lisp:nil))
+   (firewall-domain-list-type common-lisp:nil :type
+    (common-lisp:or firewall-domain-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-firewall-domain-list-response
+                    'make-delete-firewall-domain-list-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-firewall-domain-list-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainList"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-firewall-rule-group-request (:copier common-lisp:nil))
+   (firewall-rule-group-id-type
+    (common-lisp:error ":firewall-rule-group-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-firewall-rule-group-request
+                    'make-delete-firewall-rule-group-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-firewall-rule-group-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-firewall-rule-group-response (:copier common-lisp:nil))
+   (firewall-rule-group-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-firewall-rule-group-response
+                    'make-delete-firewall-rule-group-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-firewall-rule-group-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroup"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-firewall-rule-request (:copier common-lisp:nil))
+   (firewall-rule-group-id-type
+    (common-lisp:error ":firewall-rule-group-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (firewall-domain-list-id-type
+    (common-lisp:error ":firewall-domain-list-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-firewall-rule-request
+                    'make-delete-firewall-rule-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-firewall-rule-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainListId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (delete-firewall-rule-response (:copier common-lisp:nil))
+   (firewall-rule-type common-lisp:nil :type
+    (common-lisp:or firewall-rule common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-firewall-rule-response
+                    'make-delete-firewall-rule-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-firewall-rule-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRule"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (delete-resolver-endpoint-request (:copier common-lisp:nil))
    (resolver-endpoint-id-type
     (common-lisp:error ":resolver-endpoint-id is required") :type
@@ -468,6 +908,43 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'resolver-rule))))))
 (common-lisp:deftype destination-arn () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disassociate-firewall-rule-group-request (:copier common-lisp:nil))
+   (firewall-rule-group-association-id-type
+    (common-lisp:error ":firewall-rule-group-association-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disassociate-firewall-rule-group-request
+                    'make-disassociate-firewall-rule-group-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          disassociate-firewall-rule-group-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params
+     "FirewallRuleGroupAssociationId"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'firewall-rule-group-association-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (disassociate-firewall-rule-group-response (:copier common-lisp:nil))
+   (firewall-rule-group-association-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-association common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disassociate-firewall-rule-group-response
+                    'make-disassociate-firewall-rule-group-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          disassociate-firewall-rule-group-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupAssociation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-association))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (disassociate-resolver-endpoint-ip-address-request
@@ -602,7 +1079,9 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'resolver-rule-association))))))
+(common-lisp:deftype domain-list-file-url () 'common-lisp:string)
 (common-lisp:deftype domain-name () 'common-lisp:string)
+(common-lisp:deftype exception-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (filter (:copier common-lisp:nil))
    (name-type common-lisp:nil :type
@@ -640,6 +1119,726 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list filter))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (firewall-config (:copier common-lisp:nil))
+   (id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (resource-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (owner-id-type common-lisp:nil :type
+    (common-lisp:or account-id common-lisp:null))
+   (firewall-fail-open-type common-lisp:nil :type
+    (common-lisp:or firewall-fail-open-status common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'firewall-config 'make-firewall-config))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape firewall-config))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Id"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "OwnerId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'owner-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallFailOpen"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-fail-open))))))
+(common-lisp:progn
+ (common-lisp:deftype firewall-config-list ()
+   '(trivial-types:proper-list firewall-config))
+ (common-lisp:defun |make-firewall-config-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list firewall-config))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype firewall-domain-import-operation () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (firewall-domain-list (:copier common-lisp:nil))
+   (id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (arn-type common-lisp:nil :type (common-lisp:or arn common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (domain-count-type common-lisp:nil :type
+    (common-lisp:or unsigned common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or firewall-domain-list-status common-lisp:null))
+   (status-message-type common-lisp:nil :type
+    (common-lisp:or status-message common-lisp:null))
+   (managed-owner-name-type common-lisp:nil :type
+    (common-lisp:or service-principle common-lisp:null))
+   (creator-request-id-type common-lisp:nil :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or rfc3339time-string common-lisp:null))
+   (modification-time-type common-lisp:nil :type
+    (common-lisp:or rfc3339time-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'firewall-domain-list 'make-firewall-domain-list))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          firewall-domain-list))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Id"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "DomainCount"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'domain-count)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status)))
+    (aws-sdk-cl/generator/shape::to-query-params "StatusMessage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status-message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ManagedOwnerName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'managed-owner-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "ModificationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'modification-time))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (firewall-domain-list-metadata (:copier common-lisp:nil))
+   (id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (arn-type common-lisp:nil :type (common-lisp:or arn common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (creator-request-id-type common-lisp:nil :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (managed-owner-name-type common-lisp:nil :type
+    (common-lisp:or service-principle common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'firewall-domain-list-metadata
+                    'make-firewall-domain-list-metadata))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          firewall-domain-list-metadata))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Id"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ManagedOwnerName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'managed-owner-name))))))
+(common-lisp:progn
+ (common-lisp:deftype firewall-domain-list-metadata-list ()
+   '(trivial-types:proper-list firewall-domain-list-metadata))
+ (common-lisp:defun |make-firewall-domain-list-metadata-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            firewall-domain-list-metadata))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype firewall-domain-list-status () 'common-lisp:string)
+(common-lisp:deftype firewall-domain-name () 'common-lisp:string)
+(common-lisp:deftype firewall-domain-update-operation () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype firewall-domains ()
+   '(trivial-types:proper-list firewall-domain-name))
+ (common-lisp:defun |make-firewall-domains|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list firewall-domain-name))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype firewall-fail-open-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (firewall-rule (:copier common-lisp:nil))
+   (firewall-rule-group-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (firewall-domain-list-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (priority-type common-lisp:nil :type
+    (common-lisp:or priority common-lisp:null))
+   (action-type common-lisp:nil :type (common-lisp:or action common-lisp:null))
+   (block-response-type common-lisp:nil :type
+    (common-lisp:or block-response common-lisp:null))
+   (block-override-domain-type common-lisp:nil :type
+    (common-lisp:or block-override-domain common-lisp:null))
+   (block-override-dns-type-type common-lisp:nil :type
+    (common-lisp:or block-override-dns-type common-lisp:null))
+   (block-override-ttl-type common-lisp:nil :type
+    (common-lisp:or unsigned common-lisp:null))
+   (creator-request-id-type common-lisp:nil :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or rfc3339time-string common-lisp:null))
+   (modification-time-type common-lisp:nil :type
+    (common-lisp:or rfc3339time-string common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'firewall-rule 'make-firewall-rule))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape firewall-rule))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainListId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Priority"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority)))
+    (aws-sdk-cl/generator/shape::to-query-params "Action"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'action)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockResponse"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-response)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockOverrideDomain"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-override-domain)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockOverrideDnsType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-override-dns-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockOverrideTtl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-override-ttl)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "ModificationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'modification-time))))))
+(common-lisp:progn
+ (common-lisp:defstruct (firewall-rule-group (:copier common-lisp:nil))
+   (id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (arn-type common-lisp:nil :type (common-lisp:or arn common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (rule-count-type common-lisp:nil :type
+    (common-lisp:or unsigned common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-status common-lisp:null))
+   (status-message-type common-lisp:nil :type
+    (common-lisp:or status-message common-lisp:null))
+   (owner-id-type common-lisp:nil :type
+    (common-lisp:or account-id common-lisp:null))
+   (creator-request-id-type common-lisp:nil :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (share-status-type common-lisp:nil :type
+    (common-lisp:or share-status common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or rfc3339time-string common-lisp:null))
+   (modification-time-type common-lisp:nil :type
+    (common-lisp:or rfc3339time-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'firewall-rule-group 'make-firewall-rule-group))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          firewall-rule-group))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Id"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "RuleCount"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'rule-count)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status)))
+    (aws-sdk-cl/generator/shape::to-query-params "StatusMessage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status-message)))
+    (aws-sdk-cl/generator/shape::to-query-params "OwnerId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'owner-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ShareStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'share-status)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "ModificationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'modification-time))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (firewall-rule-group-association (:copier common-lisp:nil))
+   (id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (arn-type common-lisp:nil :type (common-lisp:or arn common-lisp:null))
+   (firewall-rule-group-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (vpc-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (priority-type common-lisp:nil :type
+    (common-lisp:or priority common-lisp:null))
+   (mutation-protection-type common-lisp:nil :type
+    (common-lisp:or mutation-protection-status common-lisp:null))
+   (managed-owner-name-type common-lisp:nil :type
+    (common-lisp:or service-principle common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-association-status common-lisp:null))
+   (status-message-type common-lisp:nil :type
+    (common-lisp:or status-message common-lisp:null))
+   (creator-request-id-type common-lisp:nil :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (creation-time-type common-lisp:nil :type
+    (common-lisp:or rfc3339time-string common-lisp:null))
+   (modification-time-type common-lisp:nil :type
+    (common-lisp:or rfc3339time-string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'firewall-rule-group-association
+                    'make-firewall-rule-group-association))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          firewall-rule-group-association))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Id"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "VpcId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vpc-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Priority"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority)))
+    (aws-sdk-cl/generator/shape::to-query-params "MutationProtection"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mutation-protection)))
+    (aws-sdk-cl/generator/shape::to-query-params "ManagedOwnerName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'managed-owner-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status)))
+    (aws-sdk-cl/generator/shape::to-query-params "StatusMessage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status-message)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creation-time)))
+    (aws-sdk-cl/generator/shape::to-query-params "ModificationTime"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'modification-time))))))
+(common-lisp:deftype firewall-rule-group-association-status ()
+  'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype firewall-rule-group-associations ()
+   '(trivial-types:proper-list firewall-rule-group-association))
+ (common-lisp:defun |make-firewall-rule-group-associations|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            firewall-rule-group-association))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (firewall-rule-group-metadata (:copier common-lisp:nil))
+   (id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (arn-type common-lisp:nil :type (common-lisp:or arn common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (owner-id-type common-lisp:nil :type
+    (common-lisp:or account-id common-lisp:null))
+   (creator-request-id-type common-lisp:nil :type
+    (common-lisp:or creator-request-id common-lisp:null))
+   (share-status-type common-lisp:nil :type
+    (common-lisp:or share-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'firewall-rule-group-metadata
+                    'make-firewall-rule-group-metadata))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          firewall-rule-group-metadata))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Id"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "OwnerId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'owner-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "CreatorRequestId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'creator-request-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ShareStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'share-status))))))
+(common-lisp:progn
+ (common-lisp:deftype firewall-rule-group-metadata-list ()
+   '(trivial-types:proper-list firewall-rule-group-metadata))
+ (common-lisp:defun |make-firewall-rule-group-metadata-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            firewall-rule-group-metadata))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype firewall-rule-group-policy () 'common-lisp:string)
+(common-lisp:deftype firewall-rule-group-status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:deftype firewall-rules ()
+   '(trivial-types:proper-list firewall-rule))
+ (common-lisp:defun |make-firewall-rules|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list firewall-rule))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (get-firewall-config-request (:copier common-lisp:nil))
+   (resource-id-type (common-lisp:error ":resource-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-config-request
+                    'make-get-firewall-config-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-config-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-firewall-config-response (:copier common-lisp:nil))
+   (firewall-config-type common-lisp:nil :type
+    (common-lisp:or firewall-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-config-response
+                    'make-get-firewall-config-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-config-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-config))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-firewall-domain-list-request (:copier common-lisp:nil))
+   (firewall-domain-list-id-type
+    (common-lisp:error ":firewall-domain-list-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-domain-list-request
+                    'make-get-firewall-domain-list-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-domain-list-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainListId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-firewall-domain-list-response (:copier common-lisp:nil))
+   (firewall-domain-list-type common-lisp:nil :type
+    (common-lisp:or firewall-domain-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-domain-list-response
+                    'make-get-firewall-domain-list-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-domain-list-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainList"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-firewall-rule-group-association-request (:copier common-lisp:nil))
+   (firewall-rule-group-association-id-type
+    (common-lisp:error ":firewall-rule-group-association-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-rule-group-association-request
+                    'make-get-firewall-rule-group-association-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-rule-group-association-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params
+     "FirewallRuleGroupAssociationId"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'firewall-rule-group-association-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-firewall-rule-group-association-response (:copier common-lisp:nil))
+   (firewall-rule-group-association-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-association common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-rule-group-association-response
+                    'make-get-firewall-rule-group-association-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-rule-group-association-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupAssociation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-association))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-firewall-rule-group-policy-request (:copier common-lisp:nil))
+   (arn-type (common-lisp:error ":arn is required") :type
+    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-rule-group-policy-request
+                    'make-get-firewall-rule-group-policy-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-rule-group-policy-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-firewall-rule-group-policy-response (:copier common-lisp:nil))
+   (firewall-rule-group-policy-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-policy common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-rule-group-policy-response
+                    'make-get-firewall-rule-group-policy-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-rule-group-policy-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupPolicy"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-policy))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-firewall-rule-group-request (:copier common-lisp:nil))
+   (firewall-rule-group-id-type
+    (common-lisp:error ":firewall-rule-group-id is required") :type
+    (common-lisp:or resource-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-rule-group-request
+                    'make-get-firewall-rule-group-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-rule-group-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-firewall-rule-group-response (:copier common-lisp:nil))
+   (firewall-rule-group-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-firewall-rule-group-response
+                    'make-get-firewall-rule-group-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-firewall-rule-group-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroup"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-resolver-dnssec-config-request (:copier common-lisp:nil))
@@ -932,6 +2131,186 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'resolver-rule))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (import-firewall-domains-request (:copier common-lisp:nil))
+   (firewall-domain-list-id-type
+    (common-lisp:error ":firewall-domain-list-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (operation-type (common-lisp:error ":operation is required") :type
+    (common-lisp:or firewall-domain-import-operation common-lisp:null))
+   (domain-file-url-type (common-lisp:error ":domain-file-url is required")
+    :type (common-lisp:or domain-list-file-url common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'import-firewall-domains-request
+                    'make-import-firewall-domains-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          import-firewall-domains-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainListId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "DomainFileUrl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'domain-file-url))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (import-firewall-domains-response (:copier common-lisp:nil))
+   (id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or firewall-domain-list-status common-lisp:null))
+   (status-message-type common-lisp:nil :type
+    (common-lisp:or status-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'import-firewall-domains-response
+                    'make-import-firewall-domains-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          import-firewall-domains-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Id"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status)))
+    (aws-sdk-cl/generator/shape::to-query-params "StatusMessage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status-message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (internal-service-error-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-service-error-exception
+                    'make-internal-service-error-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-service-error-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-next-token-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-next-token-exception
+                    'make-invalid-next-token-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-next-token-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-parameter-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or exception-message common-lisp:null))
+   (field-name-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-parameter-exception
+                    'make-invalid-parameter-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-parameter-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "FieldName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'field-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-policy-document (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-policy-document 'make-invalid-policy-document))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-policy-document))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-request-exception
+                    'make-invalid-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (invalid-tag-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-tag-exception 'make-invalid-tag-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-tag-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype ip () 'common-lisp:string)
 (common-lisp:deftype ip-address-count () 'common-lisp:integer)
 (common-lisp:progn
@@ -1057,6 +2436,387 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list ip-address-response))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (resource-type-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-type))))))
+(common-lisp:deftype list-domain-max-results () 'common-lisp:integer)
+(common-lisp:deftype list-firewall-configs-max-result () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-configs-request (:copier common-lisp:nil))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or list-firewall-configs-max-result common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-configs-request
+                    'make-list-firewall-configs-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-configs-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-configs-response (:copier common-lisp:nil))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (firewall-configs-type common-lisp:nil :type
+    (common-lisp:or firewall-config-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-configs-response
+                    'make-list-firewall-configs-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-configs-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallConfigs"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-configs))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-domain-lists-request (:copier common-lisp:nil))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-domain-lists-request
+                    'make-list-firewall-domain-lists-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-domain-lists-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-domain-lists-response (:copier common-lisp:nil))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (firewall-domain-lists-type common-lisp:nil :type
+    (common-lisp:or firewall-domain-list-metadata-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-domain-lists-response
+                    'make-list-firewall-domain-lists-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-domain-lists-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainLists"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-lists))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-domains-request (:copier common-lisp:nil))
+   (firewall-domain-list-id-type
+    (common-lisp:error ":firewall-domain-list-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or list-domain-max-results common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-domains-request
+                    'make-list-firewall-domains-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-domains-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainListId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-domains-response (:copier common-lisp:nil))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (domains-type common-lisp:nil :type
+    (common-lisp:or firewall-domains common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-domains-response
+                    'make-list-firewall-domains-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-domains-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "Domains"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'domains))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-rule-group-associations-request (:copier common-lisp:nil))
+   (firewall-rule-group-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (vpc-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (priority-type common-lisp:nil :type
+    (common-lisp:or priority common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-association-status common-lisp:null))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-rule-group-associations-request
+                    'make-list-firewall-rule-group-associations-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-rule-group-associations-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "VpcId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'vpc-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Priority"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status)))
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-rule-group-associations-response (:copier common-lisp:nil))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (firewall-rule-group-associations-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-associations common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-rule-group-associations-response
+                    'make-list-firewall-rule-group-associations-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-rule-group-associations-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params
+     "FirewallRuleGroupAssociations"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'firewall-rule-group-associations))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-rule-groups-request (:copier common-lisp:nil))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-rule-groups-request
+                    'make-list-firewall-rule-groups-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-rule-groups-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-rule-groups-response (:copier common-lisp:nil))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (firewall-rule-groups-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-metadata-list common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-rule-groups-response
+                    'make-list-firewall-rule-groups-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-rule-groups-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroups"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-groups))))))
+(common-lisp:progn
+ (common-lisp:defstruct (list-firewall-rules-request (:copier common-lisp:nil))
+   (firewall-rule-group-id-type
+    (common-lisp:error ":firewall-rule-group-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (priority-type common-lisp:nil :type
+    (common-lisp:or priority common-lisp:null))
+   (action-type common-lisp:nil :type (common-lisp:or action common-lisp:null))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or max-results common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-rules-request
+                    'make-list-firewall-rules-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-rules-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Priority"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority)))
+    (aws-sdk-cl/generator/shape::to-query-params "Action"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'action)))
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (list-firewall-rules-response (:copier common-lisp:nil))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or next-token common-lisp:null))
+   (firewall-rules-type common-lisp:nil :type
+    (common-lisp:or firewall-rules common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-firewall-rules-response
+                    'make-list-firewall-rules-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-firewall-rules-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRules"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rules))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-resolver-dnssec-configs-request (:copier common-lisp:nil))
@@ -1600,9 +3360,55 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
 (common-lisp:deftype max-results () 'common-lisp:integer)
+(common-lisp:deftype mutation-protection-status () 'common-lisp:string)
 (common-lisp:deftype name () 'common-lisp:string)
 (common-lisp:deftype next-token () 'common-lisp:string)
 (common-lisp:deftype port () 'common-lisp:integer)
+(common-lisp:deftype priority () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-firewall-rule-group-policy-request (:copier common-lisp:nil))
+   (arn-type (common-lisp:error ":arn is required") :type
+    (common-lisp:or arn common-lisp:null))
+   (firewall-rule-group-policy-type
+    (common-lisp:error ":firewall-rule-group-policy is required") :type
+    (common-lisp:or firewall-rule-group-policy common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-firewall-rule-group-policy-request
+                    'make-put-firewall-rule-group-policy-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          put-firewall-rule-group-policy-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupPolicy"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-policy))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (put-firewall-rule-group-policy-response (:copier common-lisp:nil))
+   (return-value-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'put-firewall-rule-group-policy-response
+                    'make-put-firewall-rule-group-policy-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          put-firewall-rule-group-policy-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ReturnValue"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'return-value))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (put-resolver-query-log-config-policy-request (:copier common-lisp:nil))
@@ -2207,7 +4013,105 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list resolver-rule))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (resource-exists-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (resource-type-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-exists-exception
+                    'make-resource-exists-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-exists-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-type))))))
 (common-lisp:deftype resource-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (resource-in-use-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (resource-type-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-in-use-exception
+                    'make-resource-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-in-use-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-type))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (resource-type-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-type))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-unavailable-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (resource-type-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-unavailable-exception
+                    'make-resource-unavailable-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-unavailable-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-type))))))
 (common-lisp:deftype rfc3339time-string () 'common-lisp:string)
 (common-lisp:deftype rule-type-option () 'common-lisp:string)
 (common-lisp:progn
@@ -2218,10 +4122,12 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list resource-id))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype service-principle () 'common-lisp:string)
 (common-lisp:deftype share-status () 'common-lisp:string)
 (common-lisp:deftype sort-by-key () 'common-lisp:string)
 (common-lisp:deftype sort-order () 'common-lisp:string)
 (common-lisp:deftype status-message () 'common-lisp:string)
+(common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:deftype subnet-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (tag (:copier common-lisp:nil))
@@ -2319,6 +4225,40 @@
                            (trivial-types:proper-list target-address))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (throttling-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'make-throttling-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          throttling-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (unknown-resource-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'unknown-resource-exception
+                    'make-unknown-resource-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unknown-resource-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype unsigned () 'common-lisp:integer)
+(common-lisp:progn
  (common-lisp:defstruct (untag-resource-request (:copier common-lisp:nil))
    (resource-arn-type (common-lisp:error ":resource-arn is required") :type
     (common-lisp:or arn common-lisp:null))
@@ -2350,6 +4290,271 @@
                          (aws-sdk-cl/generator/shape::shape
                           untag-resource-response))
    (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-firewall-config-request (:copier common-lisp:nil))
+   (resource-id-type (common-lisp:error ":resource-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (firewall-fail-open-type
+    (common-lisp:error ":firewall-fail-open is required") :type
+    (common-lisp:or firewall-fail-open-status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-firewall-config-request
+                    'make-update-firewall-config-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-firewall-config-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallFailOpen"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-fail-open))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-firewall-config-response (:copier common-lisp:nil))
+   (firewall-config-type common-lisp:nil :type
+    (common-lisp:or firewall-config common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-firewall-config-response
+                    'make-update-firewall-config-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-firewall-config-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-config))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-firewall-domains-request (:copier common-lisp:nil))
+   (firewall-domain-list-id-type
+    (common-lisp:error ":firewall-domain-list-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (operation-type (common-lisp:error ":operation is required") :type
+    (common-lisp:or firewall-domain-update-operation common-lisp:null))
+   (domains-type (common-lisp:error ":domains is required") :type
+    (common-lisp:or firewall-domains common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-firewall-domains-request
+                    'make-update-firewall-domains-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-firewall-domains-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainListId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Domains"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'domains))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-firewall-domains-response (:copier common-lisp:nil))
+   (id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or firewall-domain-list-status common-lisp:null))
+   (status-message-type common-lisp:nil :type
+    (common-lisp:or status-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-firewall-domains-response
+                    'make-update-firewall-domains-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-firewall-domains-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Id"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status)))
+    (aws-sdk-cl/generator/shape::to-query-params "StatusMessage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status-message))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-firewall-rule-group-association-request (:copier common-lisp:nil))
+   (firewall-rule-group-association-id-type
+    (common-lisp:error ":firewall-rule-group-association-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (priority-type common-lisp:nil :type
+    (common-lisp:or priority common-lisp:null))
+   (mutation-protection-type common-lisp:nil :type
+    (common-lisp:or mutation-protection-status common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-firewall-rule-group-association-request
+                    'make-update-firewall-rule-group-association-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-firewall-rule-group-association-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params
+     "FirewallRuleGroupAssociationId"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'firewall-rule-group-association-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Priority"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority)))
+    (aws-sdk-cl/generator/shape::to-query-params "MutationProtection"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'mutation-protection)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-firewall-rule-group-association-response
+      (:copier common-lisp:nil))
+   (firewall-rule-group-association-type common-lisp:nil :type
+    (common-lisp:or firewall-rule-group-association common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-firewall-rule-group-association-response
+                    'make-update-firewall-rule-group-association-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-firewall-rule-group-association-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupAssociation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-association))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-firewall-rule-request (:copier common-lisp:nil))
+   (firewall-rule-group-id-type
+    (common-lisp:error ":firewall-rule-group-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (firewall-domain-list-id-type
+    (common-lisp:error ":firewall-domain-list-id is required") :type
+    (common-lisp:or resource-id common-lisp:null))
+   (priority-type common-lisp:nil :type
+    (common-lisp:or priority common-lisp:null))
+   (action-type common-lisp:nil :type (common-lisp:or action common-lisp:null))
+   (block-response-type common-lisp:nil :type
+    (common-lisp:or block-response common-lisp:null))
+   (block-override-domain-type common-lisp:nil :type
+    (common-lisp:or block-override-domain common-lisp:null))
+   (block-override-dns-type-type common-lisp:nil :type
+    (common-lisp:or block-override-dns-type common-lisp:null))
+   (block-override-ttl-type common-lisp:nil :type
+    (common-lisp:or block-override-ttl common-lisp:null))
+   (name-type common-lisp:nil :type (common-lisp:or name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-firewall-rule-request
+                    'make-update-firewall-rule-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-firewall-rule-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRuleGroupId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule-group-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallDomainListId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-domain-list-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Priority"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'priority)))
+    (aws-sdk-cl/generator/shape::to-query-params "Action"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'action)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockResponse"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-response)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockOverrideDomain"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-override-domain)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockOverrideDnsType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-override-dns-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "BlockOverrideTtl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'block-override-ttl)))
+    (aws-sdk-cl/generator/shape::to-query-params "Name"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'name))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-firewall-rule-response (:copier common-lisp:nil))
+   (firewall-rule-type common-lisp:nil :type
+    (common-lisp:or firewall-rule common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-firewall-rule-response
+                    'make-update-firewall-rule-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-firewall-rule-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "FirewallRule"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'firewall-rule))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-resolver-dnssec-config-request (:copier common-lisp:nil))
@@ -2481,6 +4686,45 @@
                                                    'resolver-rule))))))
 (common-lisp:deftype validation () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defun associate-firewall-rule-group
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key creator-request-id firewall-rule-group-id
+                     vpc-id priority name mutation-protection tags)
+   (common-lisp:declare
+    (common-lisp:ignorable creator-request-id firewall-rule-group-id vpc-id
+     priority name mutation-protection tags))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-associate-firewall-rule-group-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"AssociateFirewallRuleGroup")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "AssociateFirewallRuleGroupResponse" common-lisp:nil)))
+ (common-lisp:export 'associate-firewall-rule-group))
+(common-lisp:progn
  (common-lisp:defun associate-resolver-endpoint-ip-address
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -2543,6 +4787,71 @@
                                     aws-sdk-cl/generator/operation::input)))
       "AssociateResolverRuleResponse" common-lisp:nil)))
  (common-lisp:export 'associate-resolver-rule))
+(common-lisp:progn
+ (common-lisp:defun create-firewall-domain-list
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key creator-request-id name tags)
+   (common-lisp:declare (common-lisp:ignorable creator-request-id name tags))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-firewall-domain-list-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateFirewallDomainList")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateFirewallDomainListResponse" common-lisp:nil)))
+ (common-lisp:export 'create-firewall-domain-list))
+(common-lisp:progn
+ (common-lisp:defun create-firewall-rule
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key creator-request-id firewall-rule-group-id
+                     firewall-domain-list-id priority action block-response
+                     block-override-domain block-override-dns-type
+                     block-override-ttl name)
+   (common-lisp:declare
+    (common-lisp:ignorable creator-request-id firewall-rule-group-id
+     firewall-domain-list-id priority action block-response
+     block-override-domain block-override-dns-type block-override-ttl name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-create-firewall-rule-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateFirewallRule")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateFirewallRuleResponse" common-lisp:nil)))
+ (common-lisp:export 'create-firewall-rule))
+(common-lisp:progn
+ (common-lisp:defun create-firewall-rule-group
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key creator-request-id name tags)
+   (common-lisp:declare (common-lisp:ignorable creator-request-id name tags))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-create-firewall-rule-group-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"CreateFirewallRuleGroup")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "CreateFirewallRuleGroupResponse" common-lisp:nil)))
+ (common-lisp:export 'create-firewall-rule-group))
 (common-lisp:progn
  (common-lisp:defun create-resolver-endpoint
                     (
@@ -2611,6 +4920,67 @@
       "CreateResolverRuleResponse" common-lisp:nil)))
  (common-lisp:export 'create-resolver-rule))
 (common-lisp:progn
+ (common-lisp:defun delete-firewall-domain-list
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-domain-list-id)
+   (common-lisp:declare (common-lisp:ignorable firewall-domain-list-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-firewall-domain-list-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteFirewallDomainList")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteFirewallDomainListResponse" common-lisp:nil)))
+ (common-lisp:export 'delete-firewall-domain-list))
+(common-lisp:progn
+ (common-lisp:defun delete-firewall-rule
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-rule-group-id
+                     firewall-domain-list-id)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-rule-group-id firewall-domain-list-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-delete-firewall-rule-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteFirewallRule")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteFirewallRuleResponse" common-lisp:nil)))
+ (common-lisp:export 'delete-firewall-rule))
+(common-lisp:progn
+ (common-lisp:defun delete-firewall-rule-group
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-rule-group-id)
+   (common-lisp:declare (common-lisp:ignorable firewall-rule-group-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-delete-firewall-rule-group-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"DeleteFirewallRuleGroup")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DeleteFirewallRuleGroupResponse" common-lisp:nil)))
+ (common-lisp:export 'delete-firewall-rule-group))
+(common-lisp:progn
  (common-lisp:defun delete-resolver-endpoint
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -2669,6 +5039,28 @@
                                     aws-sdk-cl/generator/operation::input)))
       "DeleteResolverRuleResponse" common-lisp:nil)))
  (common-lisp:export 'delete-resolver-rule))
+(common-lisp:progn
+ (common-lisp:defun disassociate-firewall-rule-group
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-rule-group-association-id)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-rule-group-association-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-disassociate-firewall-rule-group-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"DisassociateFirewallRuleGroup")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "DisassociateFirewallRuleGroupResponse" common-lisp:nil)))
+ (common-lisp:export 'disassociate-firewall-rule-group))
 (common-lisp:progn
  (common-lisp:defun disassociate-resolver-endpoint-ip-address
                     (
@@ -2733,6 +5125,105 @@
                                     aws-sdk-cl/generator/operation::input)))
       "DisassociateResolverRuleResponse" common-lisp:nil)))
  (common-lisp:export 'disassociate-resolver-rule))
+(common-lisp:progn
+ (common-lisp:defun get-firewall-config
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key resource-id)
+   (common-lisp:declare (common-lisp:ignorable resource-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-get-firewall-config-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"GetFirewallConfig")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetFirewallConfigResponse" common-lisp:nil)))
+ (common-lisp:export 'get-firewall-config))
+(common-lisp:progn
+ (common-lisp:defun get-firewall-domain-list
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-domain-list-id)
+   (common-lisp:declare (common-lisp:ignorable firewall-domain-list-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-get-firewall-domain-list-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"GetFirewallDomainList")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetFirewallDomainListResponse" common-lisp:nil)))
+ (common-lisp:export 'get-firewall-domain-list))
+(common-lisp:progn
+ (common-lisp:defun get-firewall-rule-group
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-rule-group-id)
+   (common-lisp:declare (common-lisp:ignorable firewall-rule-group-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-get-firewall-rule-group-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"GetFirewallRuleGroup")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetFirewallRuleGroupResponse" common-lisp:nil)))
+ (common-lisp:export 'get-firewall-rule-group))
+(common-lisp:progn
+ (common-lisp:defun get-firewall-rule-group-association
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-rule-group-association-id)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-rule-group-association-id))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-firewall-rule-group-association-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"GetFirewallRuleGroupAssociation")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetFirewallRuleGroupAssociationResponse" common-lisp:nil)))
+ (common-lisp:export 'get-firewall-rule-group-association))
+(common-lisp:progn
+ (common-lisp:defun get-firewall-rule-group-policy
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key arn)
+   (common-lisp:declare (common-lisp:ignorable arn))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-get-firewall-rule-group-policy-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"GetFirewallRuleGroupPolicy")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "GetFirewallRuleGroupPolicyResponse" common-lisp:nil)))
+ (common-lisp:export 'get-firewall-rule-group-policy))
 (common-lisp:progn
  (common-lisp:defun get-resolver-dnssec-config
                     (
@@ -2893,6 +5384,153 @@
                                     aws-sdk-cl/generator/operation::input)))
       "GetResolverRulePolicyResponse" common-lisp:nil)))
  (common-lisp:export 'get-resolver-rule-policy))
+(common-lisp:progn
+ (common-lisp:defun import-firewall-domains
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-domain-list-id operation
+                     domain-file-url)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-domain-list-id operation domain-file-url))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-import-firewall-domains-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ImportFirewallDomains")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ImportFirewallDomainsResponse" common-lisp:nil)))
+ (common-lisp:export 'import-firewall-domains))
+(common-lisp:progn
+ (common-lisp:defun list-firewall-configs
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:declare (common-lisp:ignorable max-results next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-list-firewall-configs-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListFirewallConfigs")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListFirewallConfigsResponse" common-lisp:nil)))
+ (common-lisp:export 'list-firewall-configs))
+(common-lisp:progn
+ (common-lisp:defun list-firewall-domain-lists
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:declare (common-lisp:ignorable max-results next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-firewall-domain-lists-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListFirewallDomainLists")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListFirewallDomainListsResponse" common-lisp:nil)))
+ (common-lisp:export 'list-firewall-domain-lists))
+(common-lisp:progn
+ (common-lisp:defun list-firewall-domains
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-domain-list-id max-results
+                     next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-domain-list-id max-results next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-list-firewall-domains-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListFirewallDomains")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListFirewallDomainsResponse" common-lisp:nil)))
+ (common-lisp:export 'list-firewall-domains))
+(common-lisp:progn
+ (common-lisp:defun list-firewall-rule-group-associations
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-rule-group-id vpc-id priority
+                     status max-results next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-rule-group-id vpc-id priority status
+     max-results next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-firewall-rule-group-associations-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"ListFirewallRuleGroupAssociations")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListFirewallRuleGroupAssociationsResponse" common-lisp:nil)))
+ (common-lisp:export 'list-firewall-rule-group-associations))
+(common-lisp:progn
+ (common-lisp:defun list-firewall-rule-groups
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:declare (common-lisp:ignorable max-results next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-list-firewall-rule-groups-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListFirewallRuleGroups")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListFirewallRuleGroupsResponse" common-lisp:nil)))
+ (common-lisp:export 'list-firewall-rule-groups))
+(common-lisp:progn
+ (common-lisp:defun list-firewall-rules
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-rule-group-id priority action
+                     max-results next-token)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-rule-group-id priority action max-results
+     next-token))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-list-firewall-rules-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"ListFirewallRules")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "ListFirewallRulesResponse" common-lisp:nil)))
+ (common-lisp:export 'list-firewall-rules))
 (common-lisp:progn
  (common-lisp:defun list-resolver-dnssec-configs
                     (
@@ -3061,6 +5699,26 @@
       "ListTagsForResourceResponse" common-lisp:nil)))
  (common-lisp:export 'list-tags-for-resource))
 (common-lisp:progn
+ (common-lisp:defun put-firewall-rule-group-policy
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key arn firewall-rule-group-policy)
+   (common-lisp:declare (common-lisp:ignorable arn firewall-rule-group-policy))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-put-firewall-rule-group-policy-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"PutFirewallRuleGroupPolicy")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "PutFirewallRuleGroupPolicyResponse" common-lisp:nil)))
+ (common-lisp:export 'put-firewall-rule-group-policy))
+(common-lisp:progn
  (common-lisp:defun put-resolver-query-log-config-policy
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
@@ -3139,6 +5797,95 @@
                                     aws-sdk-cl/generator/operation::input)))
       "UntagResourceResponse" common-lisp:nil)))
  (common-lisp:export 'untag-resource))
+(common-lisp:progn
+ (common-lisp:defun update-firewall-config
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key resource-id firewall-fail-open)
+   (common-lisp:declare (common-lisp:ignorable resource-id firewall-fail-open))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-update-firewall-config-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"UpdateFirewallConfig")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "UpdateFirewallConfigResponse" common-lisp:nil)))
+ (common-lisp:export 'update-firewall-config))
+(common-lisp:progn
+ (common-lisp:defun update-firewall-domains
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-domain-list-id operation
+                     domains)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-domain-list-id operation domains))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-update-firewall-domains-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"UpdateFirewallDomains")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "UpdateFirewallDomainsResponse" common-lisp:nil)))
+ (common-lisp:export 'update-firewall-domains))
+(common-lisp:progn
+ (common-lisp:defun update-firewall-rule
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-rule-group-id
+                     firewall-domain-list-id priority action block-response
+                     block-override-domain block-override-dns-type
+                     block-override-ttl name)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-rule-group-id firewall-domain-list-id
+     priority action block-response block-override-domain
+     block-override-dns-type block-override-ttl name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-update-firewall-rule-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"UpdateFirewallRule")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "UpdateFirewallRuleResponse" common-lisp:nil)))
+ (common-lisp:export 'update-firewall-rule))
+(common-lisp:progn
+ (common-lisp:defun update-firewall-rule-group-association
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key firewall-rule-group-association-id
+                     priority mutation-protection name)
+   (common-lisp:declare
+    (common-lisp:ignorable firewall-rule-group-association-id priority
+     mutation-protection name))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply
+                       'make-update-firewall-rule-group-association-request
+                       aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "route53resolver" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action"
+                                      ,@"UpdateFirewallRuleGroupAssociation")
+                                     ("Version" ,@"2018-04-01"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "UpdateFirewallRuleGroupAssociationResponse" common-lisp:nil)))
+ (common-lisp:export 'update-firewall-rule-group-association))
 (common-lisp:progn
  (common-lisp:defun update-resolver-dnssec-config
                     (

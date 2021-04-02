@@ -56,6 +56,29 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'unprocessed-scram-secrets))))))
+(common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil))
+   (invalid-parameter-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InvalidParameter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'invalid-parameter)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype broker-azdistribution () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (broker-ebsvolume-info (:copier common-lisp:nil))
@@ -289,22 +312,20 @@
     (common-lisp:or |__timestampIso8601| common-lisp:null))
    (current-broker-software-info-type common-lisp:nil :type
     (common-lisp:or broker-software-info common-lisp:null))
+   (logging-info-type common-lisp:nil :type
+    (common-lisp:or logging-info common-lisp:null))
    (current-version-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (encryption-info-type common-lisp:nil :type
     (common-lisp:or encryption-info common-lisp:null))
    (enhanced-monitoring-type common-lisp:nil :type
     (common-lisp:or enhanced-monitoring common-lisp:null))
-   (open-monitoring-type common-lisp:nil :type
-    (common-lisp:or open-monitoring common-lisp:null))
-   (logging-info-type common-lisp:nil :type
-    (common-lisp:or logging-info common-lisp:null))
    (number-of-broker-nodes-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
+   (open-monitoring-type common-lisp:nil :type
+    (common-lisp:or open-monitoring common-lisp:null))
    (state-type common-lisp:nil :type
     (common-lisp:or cluster-state common-lisp:null))
-   (state-info-type common-lisp:nil :type
-    (common-lisp:or state-info common-lisp:null))
    (tags-type common-lisp:nil :type
     (common-lisp:or |__mapOf__string| common-lisp:null))
    (zookeeper-connect-string-type common-lisp:nil :type
@@ -350,6 +371,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'current-broker-software-info)))
+    (aws-sdk-cl/generator/shape::to-query-params "LoggingInfo"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'logging-info)))
     (aws-sdk-cl/generator/shape::to-query-params "CurrentVersion"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -365,31 +391,21 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'enhanced-monitoring)))
-    (aws-sdk-cl/generator/shape::to-query-params "OpenMonitoring"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'open-monitoring)))
-    (aws-sdk-cl/generator/shape::to-query-params "LoggingInfo"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'logging-info)))
     (aws-sdk-cl/generator/shape::to-query-params "NumberOfBrokerNodes"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'number-of-broker-nodes)))
+    (aws-sdk-cl/generator/shape::to-query-params "OpenMonitoring"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'open-monitoring)))
     (aws-sdk-cl/generator/shape::to-query-params "State"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'state)))
-    (aws-sdk-cl/generator/shape::to-query-params "StateInfo"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'state-info)))
     (aws-sdk-cl/generator/shape::to-query-params "Tags"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -417,12 +433,12 @@
     (common-lisp:or |__timestampIso8601| common-lisp:null))
    (error-info-type common-lisp:nil :type
     (common-lisp:or error-info common-lisp:null))
+   (operation-steps-type common-lisp:nil :type
+    (common-lisp:or |__listOfClusterOperationStep| common-lisp:null))
    (operation-arn-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (operation-state-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
-   (operation-steps-type common-lisp:nil :type
-    (common-lisp:or |__listOfClusterOperationStep| common-lisp:null))
    (operation-type-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (source-cluster-info-type common-lisp:nil :type
@@ -461,6 +477,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'error-info)))
+    (aws-sdk-cl/generator/shape::to-query-params "OperationSteps"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation-steps)))
     (aws-sdk-cl/generator/shape::to-query-params "OperationArn"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -471,11 +492,6 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'operation-state)))
-    (aws-sdk-cl/generator/shape::to-query-params "OperationSteps"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'operation-steps)))
     (aws-sdk-cl/generator/shape::to-query-params "OperationType"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -665,6 +681,29 @@
                                                    'revision))))))
 (common-lisp:deftype configuration-state () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (invalid-parameter-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InvalidParameter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'invalid-parameter)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (create-cluster-request (:copier common-lisp:nil))
    (broker-node-group-info-type
     (common-lisp:error ":broker-node-group-info is required") :type
@@ -679,8 +718,6 @@
     (common-lisp:or encryption-info common-lisp:null))
    (enhanced-monitoring-type common-lisp:nil :type
     (common-lisp:or enhanced-monitoring common-lisp:null))
-   (open-monitoring-type common-lisp:nil :type
-    (common-lisp:or open-monitoring-info common-lisp:null))
    (kafka-version-type (common-lisp:error ":kafka-version is required") :type
     (common-lisp:or |__stringMin1Max128| common-lisp:null))
    (logging-info-type common-lisp:nil :type
@@ -688,6 +725,8 @@
    (number-of-broker-nodes-type
     (common-lisp:error ":number-of-broker-nodes is required") :type
     (common-lisp:or |__integerMin1Max15| common-lisp:null))
+   (open-monitoring-type common-lisp:nil :type
+    (common-lisp:or open-monitoring-info common-lisp:null))
    (tags-type common-lisp:nil :type
     (common-lisp:or |__mapOf__string| common-lisp:null)))
  (common-lisp:export
@@ -727,11 +766,6 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'enhanced-monitoring)))
-    (aws-sdk-cl/generator/shape::to-query-params "OpenMonitoring"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'open-monitoring)))
     (aws-sdk-cl/generator/shape::to-query-params "KafkaVersion"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -747,6 +781,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'number-of-broker-nodes)))
+    (aws-sdk-cl/generator/shape::to-query-params "OpenMonitoring"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'open-monitoring)))
     (aws-sdk-cl/generator/shape::to-query-params "Tags"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1300,25 +1339,25 @@
                                                    'encryption-in-transit))))))
 (common-lisp:deftype enhanced-monitoring () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct (error-info (:copier common-lisp:nil))
-   (error-code-type common-lisp:nil :type
+ (common-lisp:defstruct (error (:copier common-lisp:nil))
+   (invalid-parameter-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
-   (error-string-type common-lisp:nil :type
+   (message-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null)))
- (common-lisp:export (common-lisp:list 'error-info 'make-error-info))
+ (common-lisp:export (common-lisp:list 'error 'make-error))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape error-info))
+                        ((aws-sdk-cl/generator/shape::shape error))
    (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "ErrorCode"
+    (aws-sdk-cl/generator/shape::to-query-params "InvalidParameter"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'error-code)))
-    (aws-sdk-cl/generator/shape::to-query-params "ErrorString"
+                                                   'invalid-parameter)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'error-string))))))
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (firehose (:copier common-lisp:nil))
    (delivery-stream-type common-lisp:nil :type
@@ -1339,6 +1378,49 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'enabled))))))
+(common-lisp:progn
+ (common-lisp:defstruct (error-info (:copier common-lisp:nil))
+   (error-code-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-string-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'error-info 'make-error-info))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape error-info))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ErrorCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "ErrorString"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error-string))))))
+(common-lisp:progn
+ (common-lisp:defstruct (forbidden-exception (:copier common-lisp:nil))
+   (invalid-parameter-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'forbidden-exception 'make-forbidden-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          forbidden-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InvalidParameter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'invalid-parameter)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-bootstrap-brokers-request (:copier common-lisp:nil))
@@ -1425,6 +1507,31 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'compatible-kafka-versions))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (internal-server-error-exception (:copier common-lisp:nil))
+   (invalid-parameter-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-error-exception
+                    'make-internal-server-error-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-error-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InvalidParameter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'invalid-parameter)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (kafka-version (:copier common-lisp:nil))
    (version-type common-lisp:nil :type
@@ -1877,10 +1984,10 @@
     (common-lisp:or configuration-info common-lisp:null))
    (number-of-broker-nodes-type common-lisp:nil :type
     (common-lisp:or |__integer| common-lisp:null))
-   (enhanced-monitoring-type common-lisp:nil :type
-    (common-lisp:or enhanced-monitoring common-lisp:null))
    (open-monitoring-type common-lisp:nil :type
     (common-lisp:or open-monitoring common-lisp:null))
+   (enhanced-monitoring-type common-lisp:nil :type
+    (common-lisp:or enhanced-monitoring common-lisp:null))
    (kafka-version-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
    (logging-info-type common-lisp:nil :type
@@ -1909,16 +2016,16 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'number-of-broker-nodes)))
-    (aws-sdk-cl/generator/shape::to-query-params "EnhancedMonitoring"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'enhanced-monitoring)))
     (aws-sdk-cl/generator/shape::to-query-params "OpenMonitoring"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'open-monitoring)))
+    (aws-sdk-cl/generator/shape::to-query-params "EnhancedMonitoring"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'enhanced-monitoring)))
     (aws-sdk-cl/generator/shape::to-query-params "KafkaVersion"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1934,229 +2041,6 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'instance-type))))))
-(common-lisp:progn
- (common-lisp:defstruct (node-exporter (:copier common-lisp:nil))
-   (enabled-in-broker-type (common-lisp:error ":enabled-in-broker is required")
-    :type (common-lisp:or |__boolean| common-lisp:null)))
- (common-lisp:export (common-lisp:list 'node-exporter 'make-node-exporter))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape node-exporter))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "EnabledInBroker"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'enabled-in-broker))))))
-(common-lisp:progn
- (common-lisp:defstruct (node-exporter-info (:copier common-lisp:nil))
-   (enabled-in-broker-type (common-lisp:error ":enabled-in-broker is required")
-    :type (common-lisp:or |__boolean| common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'node-exporter-info 'make-node-exporter-info))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        (
-                         (aws-sdk-cl/generator/shape::shape
-                          node-exporter-info))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "EnabledInBroker"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'enabled-in-broker))))))
-(common-lisp:progn
- (common-lisp:defstruct (jmx-exporter (:copier common-lisp:nil))
-   (enabled-in-broker-type (common-lisp:error ":enabled-in-broker is required")
-    :type (common-lisp:or |__boolean| common-lisp:null)))
- (common-lisp:export (common-lisp:list 'jmx-exporter 'make-jmx-exporter))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape jmx-exporter))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "EnabledInBroker"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'enabled-in-broker))))))
-(common-lisp:progn
- (common-lisp:defstruct (jmx-exporter-info (:copier common-lisp:nil))
-   (enabled-in-broker-type (common-lisp:error ":enabled-in-broker is required")
-    :type (common-lisp:or |__boolean| common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'jmx-exporter-info 'make-jmx-exporter-info))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape jmx-exporter-info))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "EnabledInBroker"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'enabled-in-broker))))))
-(common-lisp:progn
- (common-lisp:defstruct (open-monitoring (:copier common-lisp:nil))
-   (prometheus-type (common-lisp:error ":prometheus is required") :type
-    (common-lisp:or prometheus common-lisp:null)))
- (common-lisp:export (common-lisp:list 'open-monitoring 'make-open-monitoring))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape open-monitoring))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "Prometheus"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'prometheus))))))
-(common-lisp:progn
- (common-lisp:defstruct (open-monitoring-info (:copier common-lisp:nil))
-   (prometheus-type (common-lisp:error ":prometheus is required") :type
-    (common-lisp:or prometheus-info common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'open-monitoring-info 'make-open-monitoring-info))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        (
-                         (aws-sdk-cl/generator/shape::shape
-                          open-monitoring-info))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "Prometheus"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'prometheus))))))
-(common-lisp:progn
- (common-lisp:defstruct (prometheus (:copier common-lisp:nil))
-   (jmx-exporter-type common-lisp:nil :type
-    (common-lisp:or jmx-exporter common-lisp:null))
-   (node-exporter-type common-lisp:nil :type
-    (common-lisp:or node-exporter common-lisp:null)))
- (common-lisp:export (common-lisp:list 'prometheus 'make-prometheus))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape prometheus))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "JmxExporter"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'jmx-exporter)))
-    (aws-sdk-cl/generator/shape::to-query-params "NodeExporter"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'node-exporter))))))
-(common-lisp:progn
- (common-lisp:defstruct (prometheus-info (:copier common-lisp:nil))
-   (jmx-exporter-type common-lisp:nil :type
-    (common-lisp:or jmx-exporter-info common-lisp:null))
-   (node-exporter-type common-lisp:nil :type
-    (common-lisp:or node-exporter-info common-lisp:null)))
- (common-lisp:export (common-lisp:list 'prometheus-info 'make-prometheus-info))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape prometheus-info))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "JmxExporter"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'jmx-exporter)))
-    (aws-sdk-cl/generator/shape::to-query-params "NodeExporter"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'node-exporter))))))
-(common-lisp:progn
- (common-lisp:defstruct (reboot-broker-request (:copier common-lisp:nil))
-   (broker-ids-type (common-lisp:error ":broker-ids is required") :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (cluster-arn-type (common-lisp:error ":cluster-arn is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'reboot-broker-request 'make-reboot-broker-request))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        (
-                         (aws-sdk-cl/generator/shape::shape
-                          reboot-broker-request))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "BrokerIds"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'broker-ids)))
-    (aws-sdk-cl/generator/shape::to-query-params "ClusterArn"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'cluster-arn))))))
-(common-lisp:progn
- (common-lisp:defstruct (reboot-broker-response (:copier common-lisp:nil))
-   (cluster-arn-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (cluster-operation-arn-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'reboot-broker-response 'make-reboot-broker-response))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        (
-                         (aws-sdk-cl/generator/shape::shape
-                          reboot-broker-response))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "ClusterArn"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'cluster-arn)))
-    (aws-sdk-cl/generator/shape::to-query-params "ClusterOperationArn"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'cluster-operation-arn))))))
-(common-lisp:progn
- (common-lisp:defstruct (s3 (:copier common-lisp:nil))
-   (bucket-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (enabled-type (common-lisp:error ":enabled is required") :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (prefix-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
- (common-lisp:export (common-lisp:list 's3 'make-s3))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape s3))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "Bucket"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'bucket)))
-    (aws-sdk-cl/generator/shape::to-query-params "Enabled"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'enabled)))
-    (aws-sdk-cl/generator/shape::to-query-params "Prefix"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'prefix))))))
-(common-lisp:progn
- (common-lisp:defstruct (sasl (:copier common-lisp:nil))
-   (scram-type common-lisp:nil :type (common-lisp:or scram common-lisp:null)))
- (common-lisp:export (common-lisp:list 'sasl 'make-sasl))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape sasl))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "Scram"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'scram))))))
-(common-lisp:progn
- (common-lisp:defstruct (scram (:copier common-lisp:nil))
-   (enabled-type common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
- (common-lisp:export (common-lisp:list 'scram 'make-scram))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        ((aws-sdk-cl/generator/shape::shape scram))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "Enabled"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'enabled))))))
 (common-lisp:progn
  (common-lisp:defstruct (node-info (:copier common-lisp:nil))
    (added-to-cluster-time-type common-lisp:nil :type
@@ -2206,6 +2090,79 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'zookeeper-node-info))))))
 (common-lisp:deftype node-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil))
+   (invalid-parameter-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InvalidParameter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'invalid-parameter)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (sasl (:copier common-lisp:nil))
+   (scram-type common-lisp:nil :type (common-lisp:or scram common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'sasl 'make-sasl))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape sasl))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Scram"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'scram))))))
+(common-lisp:progn
+ (common-lisp:defstruct (scram (:copier common-lisp:nil))
+   (enabled-type common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'scram 'make-scram))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape scram))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Enabled"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'enabled))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (service-unavailable-exception (:copier common-lisp:nil))
+   (invalid-parameter-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'service-unavailable-exception
+                    'make-service-unavailable-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          service-unavailable-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InvalidParameter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'invalid-parameter)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (state-info (:copier common-lisp:nil))
    (code-type common-lisp:nil :type
@@ -2276,6 +2233,53 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'certificate-authority-arn-list))))))
 (common-lisp:progn
+ (common-lisp:defstruct (too-many-requests-exception (:copier common-lisp:nil))
+   (invalid-parameter-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-requests-exception
+                    'make-too-many-requests-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-requests-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InvalidParameter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'invalid-parameter)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (unauthorized-exception (:copier common-lisp:nil))
+   (invalid-parameter-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'unauthorized-exception 'make-unauthorized-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          unauthorized-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "InvalidParameter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'invalid-parameter)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (unprocessed-scram-secret (:copier common-lisp:nil))
    (error-code-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
@@ -2329,6 +2333,62 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tag-keys))))))
 (common-lisp:progn
+ (common-lisp:defstruct (update-broker-type-request (:copier common-lisp:nil))
+   (cluster-arn-type (common-lisp:error ":cluster-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (current-version-type (common-lisp:error ":current-version is required")
+    :type (common-lisp:or |__string| common-lisp:null))
+   (target-instance-type-type
+    (common-lisp:error ":target-instance-type is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-broker-type-request
+                    'make-update-broker-type-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-broker-type-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ClusterArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cluster-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "CurrentVersion"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'current-version)))
+    (aws-sdk-cl/generator/shape::to-query-params "TargetInstanceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'target-instance-type))))))
+(common-lisp:progn
+ (common-lisp:defstruct (update-broker-type-response (:copier common-lisp:nil))
+   (cluster-arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (cluster-operation-arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-broker-type-response
+                    'make-update-broker-type-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-broker-type-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ClusterArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cluster-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ClusterOperationArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cluster-operation-arn))))))
+(common-lisp:progn
  (common-lisp:defstruct (update-broker-count-request (:copier common-lisp:nil))
    (cluster-arn-type (common-lisp:error ":cluster-arn is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -2374,62 +2434,6 @@
                         (
                          (aws-sdk-cl/generator/shape::shape
                           update-broker-count-response))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "ClusterArn"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'cluster-arn)))
-    (aws-sdk-cl/generator/shape::to-query-params "ClusterOperationArn"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'cluster-operation-arn))))))
-(common-lisp:progn
- (common-lisp:defstruct (update-broker-type-request (:copier common-lisp:nil))
-   (cluster-arn-type (common-lisp:error ":cluster-arn is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (current-version-type (common-lisp:error ":current-version is required")
-    :type (common-lisp:or |__string| common-lisp:null))
-   (target-instance-type-type
-    (common-lisp:error ":target-instance-type is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'update-broker-type-request
-                    'make-update-broker-type-request))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        (
-                         (aws-sdk-cl/generator/shape::shape
-                          update-broker-type-request))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "ClusterArn"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'cluster-arn)))
-    (aws-sdk-cl/generator/shape::to-query-params "CurrentVersion"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'current-version)))
-    (aws-sdk-cl/generator/shape::to-query-params "TargetInstanceType"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'target-instance-type))))))
-(common-lisp:progn
- (common-lisp:defstruct (update-broker-type-response (:copier common-lisp:nil))
-   (cluster-arn-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (cluster-operation-arn-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'update-broker-type-response
-                    'make-update-broker-type-response))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        (
-                         (aws-sdk-cl/generator/shape::shape
-                          update-broker-type-response))
    (common-lisp:append
     (aws-sdk-cl/generator/shape::to-query-params "ClusterArn"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
@@ -2623,6 +2627,63 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'cluster-operation-arn))))))
 (common-lisp:progn
+ (common-lisp:defstruct
+     (update-configuration-request (:copier common-lisp:nil))
+   (arn-type (common-lisp:error ":arn is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (description-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (server-properties-type (common-lisp:error ":server-properties is required")
+    :type (common-lisp:or |__blob| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-configuration-request
+                    'make-update-configuration-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-configuration-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "Description"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'description)))
+    (aws-sdk-cl/generator/shape::to-query-params "ServerProperties"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'server-properties))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-configuration-response (:copier common-lisp:nil))
+   (arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (latest-revision-type common-lisp:nil :type
+    (common-lisp:or configuration-revision common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-configuration-response
+                    'make-update-configuration-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-configuration-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Arn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "LatestRevision"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'latest-revision))))))
+(common-lisp:progn
  (common-lisp:defstruct (update-monitoring-request (:copier common-lisp:nil))
    (cluster-arn-type (common-lisp:error ":cluster-arn is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -2692,63 +2753,6 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'cluster-operation-arn))))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configuration-request (:copier common-lisp:nil))
-   (arn-type (common-lisp:error ":arn is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (description-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (server-properties-type (common-lisp:error ":server-properties is required")
-    :type (common-lisp:or |__blob| common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'update-configuration-request
-                    'make-update-configuration-request))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        (
-                         (aws-sdk-cl/generator/shape::shape
-                          update-configuration-request))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "Arn"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'arn)))
-    (aws-sdk-cl/generator/shape::to-query-params "Description"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'description)))
-    (aws-sdk-cl/generator/shape::to-query-params "ServerProperties"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'server-properties))))))
-(common-lisp:progn
- (common-lisp:defstruct
-     (update-configuration-response (:copier common-lisp:nil))
-   (arn-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (latest-revision-type common-lisp:nil :type
-    (common-lisp:or configuration-revision common-lisp:null)))
- (common-lisp:export
-  (common-lisp:list 'update-configuration-response
-                    'make-update-configuration-response))
- (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
-                        (
-                         (aws-sdk-cl/generator/shape::shape
-                          update-configuration-response))
-   (common-lisp:append
-    (aws-sdk-cl/generator/shape::to-query-params "Arn"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'arn)))
-    (aws-sdk-cl/generator/shape::to-query-params "LatestRevision"
-                                                 (aws-sdk-cl/generator/shape:shape-to-params
-                                                  (common-lisp:slot-value
-                                                   aws-sdk-cl/generator/shape::shape
-                                                   'latest-revision))))))
-(common-lisp:progn
  (common-lisp:defstruct (zookeeper-node-info (:copier common-lisp:nil))
    (attached-eniid-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
@@ -2792,6 +2796,204 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'zookeeper-version))))))
+(common-lisp:progn
+ (common-lisp:defstruct (open-monitoring (:copier common-lisp:nil))
+   (prometheus-type (common-lisp:error ":prometheus is required") :type
+    (common-lisp:or prometheus common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'open-monitoring 'make-open-monitoring))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape open-monitoring))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Prometheus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'prometheus))))))
+(common-lisp:progn
+ (common-lisp:defstruct (open-monitoring-info (:copier common-lisp:nil))
+   (prometheus-type (common-lisp:error ":prometheus is required") :type
+    (common-lisp:or prometheus-info common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'open-monitoring-info 'make-open-monitoring-info))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          open-monitoring-info))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Prometheus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'prometheus))))))
+(common-lisp:progn
+ (common-lisp:defstruct (prometheus (:copier common-lisp:nil))
+   (jmx-exporter-type common-lisp:nil :type
+    (common-lisp:or jmx-exporter common-lisp:null))
+   (node-exporter-type common-lisp:nil :type
+    (common-lisp:or node-exporter common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'prometheus 'make-prometheus))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape prometheus))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "JmxExporter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'jmx-exporter)))
+    (aws-sdk-cl/generator/shape::to-query-params "NodeExporter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'node-exporter))))))
+(common-lisp:progn
+ (common-lisp:defstruct (prometheus-info (:copier common-lisp:nil))
+   (jmx-exporter-type common-lisp:nil :type
+    (common-lisp:or jmx-exporter-info common-lisp:null))
+   (node-exporter-type common-lisp:nil :type
+    (common-lisp:or node-exporter-info common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'prometheus-info 'make-prometheus-info))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape prometheus-info))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "JmxExporter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'jmx-exporter)))
+    (aws-sdk-cl/generator/shape::to-query-params "NodeExporter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'node-exporter))))))
+(common-lisp:progn
+ (common-lisp:defstruct (reboot-broker-request (:copier common-lisp:nil))
+   (broker-ids-type (common-lisp:error ":broker-ids is required") :type
+    (common-lisp:or |__listOf__string| common-lisp:null))
+   (cluster-arn-type (common-lisp:error ":cluster-arn is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'reboot-broker-request 'make-reboot-broker-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          reboot-broker-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "BrokerIds"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'broker-ids)))
+    (aws-sdk-cl/generator/shape::to-query-params "ClusterArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cluster-arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct (reboot-broker-response (:copier common-lisp:nil))
+   (cluster-arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (cluster-operation-arn-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'reboot-broker-response 'make-reboot-broker-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          reboot-broker-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ClusterArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cluster-arn)))
+    (aws-sdk-cl/generator/shape::to-query-params "ClusterOperationArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'cluster-operation-arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct (s3 (:copier common-lisp:nil))
+   (bucket-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (enabled-type (common-lisp:error ":enabled is required") :type
+    (common-lisp:or |__boolean| common-lisp:null))
+   (prefix-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 's3 'make-s3))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape s3))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Bucket"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'bucket)))
+    (aws-sdk-cl/generator/shape::to-query-params "Enabled"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'enabled)))
+    (aws-sdk-cl/generator/shape::to-query-params "Prefix"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'prefix))))))
+(common-lisp:progn
+ (common-lisp:defstruct (jmx-exporter (:copier common-lisp:nil))
+   (enabled-in-broker-type (common-lisp:error ":enabled-in-broker is required")
+    :type (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'jmx-exporter 'make-jmx-exporter))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape jmx-exporter))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "EnabledInBroker"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'enabled-in-broker))))))
+(common-lisp:progn
+ (common-lisp:defstruct (jmx-exporter-info (:copier common-lisp:nil))
+   (enabled-in-broker-type (common-lisp:error ":enabled-in-broker is required")
+    :type (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'jmx-exporter-info 'make-jmx-exporter-info))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape jmx-exporter-info))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "EnabledInBroker"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'enabled-in-broker))))))
+(common-lisp:progn
+ (common-lisp:defstruct (node-exporter (:copier common-lisp:nil))
+   (enabled-in-broker-type (common-lisp:error ":enabled-in-broker is required")
+    :type (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'node-exporter 'make-node-exporter))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape node-exporter))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "EnabledInBroker"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'enabled-in-broker))))))
+(common-lisp:progn
+ (common-lisp:defstruct (node-exporter-info (:copier common-lisp:nil))
+   (enabled-in-broker-type (common-lisp:error ":enabled-in-broker is required")
+    :type (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'node-exporter-info 'make-node-exporter-info))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          node-exporter-info))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "EnabledInBroker"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'enabled-in-broker))))))
 (common-lisp:deftype |__boolean| () 'common-lisp:boolean)
 (common-lisp:deftype |__blob| ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
@@ -2926,12 +3128,12 @@
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key broker-node-group-info
                      client-authentication cluster-name configuration-info
-                     encryption-info enhanced-monitoring open-monitoring
-                     kafka-version logging-info number-of-broker-nodes tags)
+                     encryption-info enhanced-monitoring kafka-version
+                     logging-info number-of-broker-nodes open-monitoring tags)
    (common-lisp:declare
     (common-lisp:ignorable broker-node-group-info client-authentication
      cluster-name configuration-info encryption-info enhanced-monitoring
-     open-monitoring kafka-version logging-info number-of-broker-nodes tags))
+     kafka-version logging-info number-of-broker-nodes open-monitoring tags))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-cluster-request
                                          aws-sdk-cl/generator/operation::args)))

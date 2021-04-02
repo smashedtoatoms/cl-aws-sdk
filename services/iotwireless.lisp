@@ -46,6 +46,22 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'session-keys))))))
+(common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype account-linked () 'common-lisp:boolean)
 (common-lisp:deftype add-gw-metadata () 'common-lisp:boolean)
 (common-lisp:deftype amazon-id () 'common-lisp:string)
@@ -233,11 +249,65 @@
                           associate-wireless-gateway-with-thing-response))
    (common-lisp:append)))
 (common-lisp:deftype auto-create-tasks () 'common-lisp:boolean)
+(common-lisp:deftype battery-level () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (certificate-list (:copier common-lisp:nil))
+   (signing-alg-type (common-lisp:error ":signing-alg is required") :type
+    (common-lisp:or signing-alg common-lisp:null))
+   (value-type (common-lisp:error ":value is required") :type
+    (common-lisp:or certificate-value common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'certificate-list 'make-certificate-list))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape certificate-list))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SigningAlg"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'signing-alg)))
+    (aws-sdk-cl/generator/shape::to-query-params "Value"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'value))))))
 (common-lisp:deftype certificate-pem () 'common-lisp:string)
+(common-lisp:deftype certificate-value () 'common-lisp:string)
 (common-lisp:deftype channel-mask () 'common-lisp:string)
 (common-lisp:deftype class-btimeout () 'common-lisp:integer)
 (common-lisp:deftype class-ctimeout () 'common-lisp:integer)
 (common-lisp:deftype client-request-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null))
+   (resource-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (resource-type-type common-lisp:nil :type
+    (common-lisp:or resource-type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-type))))))
+(common-lisp:deftype connection-status () 'common-lisp:string)
 (common-lisp:deftype crc () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct (create-destination-request (:copier common-lisp:nil))
@@ -461,7 +531,9 @@
    (client-request-token-type common-lisp:nil :type
     (common-lisp:or client-request-token common-lisp:null))
    (lo-ra-wantype common-lisp:nil :type
-    (common-lisp:or lo-ra-wandevice common-lisp:null)))
+    (common-lisp:or lo-ra-wandevice common-lisp:null))
+   (tags-type common-lisp:nil :type
+    (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-wireless-device-request
                     'make-create-wireless-device-request))
@@ -499,7 +571,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'lo-ra-wan))))))
+                                                   'lo-ra-wan)))
+    (aws-sdk-cl/generator/shape::to-query-params "Tags"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'tags))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-wireless-device-response (:copier common-lisp:nil))
@@ -987,6 +1064,14 @@
 (common-lisp:deftype dev-eui () 'common-lisp:string)
 (common-lisp:deftype dev-status-req-freq () 'common-lisp:integer)
 (common-lisp:progn
+ (common-lisp:deftype device-certificate-list ()
+   '(trivial-types:proper-list certificate-list))
+ (common-lisp:defun |make-device-certificate-list|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list certificate-list))
+   aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
  (common-lisp:defstruct (device-profile (:copier common-lisp:nil))
    (arn-type common-lisp:nil :type
     (common-lisp:or device-profile-arn common-lisp:null))
@@ -1024,6 +1109,7 @@
                            (trivial-types:proper-list device-profile))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype device-profile-name () 'common-lisp:string)
+(common-lisp:deftype device-state () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (disassociate-aws-account-from-partner-account-request
@@ -1163,6 +1249,7 @@
 (common-lisp:deftype dr-max () 'common-lisp:integer)
 (common-lisp:deftype dr-min () 'common-lisp:integer)
 (common-lisp:deftype end-point () 'common-lisp:string)
+(common-lisp:deftype event () 'common-lisp:string)
 (common-lisp:deftype expression () 'common-lisp:string)
 (common-lisp:deftype expression-type () 'common-lisp:string)
 (common-lisp:deftype fnwk-sint-key () 'common-lisp:string)
@@ -1499,7 +1586,9 @@
    (thing-arn-type common-lisp:nil :type
     (common-lisp:or thing-arn common-lisp:null))
    (lo-ra-wantype common-lisp:nil :type
-    (common-lisp:or lo-ra-wandevice common-lisp:null)))
+    (common-lisp:or lo-ra-wandevice common-lisp:null))
+   (sidewalk-type common-lisp:nil :type
+    (common-lisp:or sidewalk-device common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-wireless-device-response
                     'make-get-wireless-device-response))
@@ -1552,7 +1641,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'lo-ra-wan))))))
+                                                   'lo-ra-wan)))
+    (aws-sdk-cl/generator/shape::to-query-params "Sidewalk"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'sidewalk))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-wireless-device-statistics-request (:copier common-lisp:nil))
@@ -1580,7 +1674,9 @@
    (last-uplink-received-at-type common-lisp:nil :type
     (common-lisp:or isodate-time-string common-lisp:null))
    (lo-ra-wantype common-lisp:nil :type
-    (common-lisp:or lo-ra-wandevice-metadata common-lisp:null)))
+    (common-lisp:or lo-ra-wandevice-metadata common-lisp:null))
+   (sidewalk-type common-lisp:nil :type
+    (common-lisp:or sidewalk-device-metadata common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-wireless-device-statistics-response
                     'make-get-wireless-device-statistics-response))
@@ -1603,7 +1699,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'lo-ra-wan))))))
+                                                   'lo-ra-wan)))
+    (aws-sdk-cl/generator/shape::to-query-params "Sidewalk"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'sidewalk))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-wireless-gateway-certificate-request (:copier common-lisp:nil))
@@ -1795,7 +1896,9 @@
    (wireless-gateway-id-type common-lisp:nil :type
     (common-lisp:or wireless-gateway-id common-lisp:null))
    (last-uplink-received-at-type common-lisp:nil :type
-    (common-lisp:or isodate-time-string common-lisp:null)))
+    (common-lisp:or isodate-time-string common-lisp:null))
+   (connection-status-type common-lisp:nil :type
+    (common-lisp:or connection-status common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'get-wireless-gateway-statistics-response
                     'make-get-wireless-gateway-statistics-response))
@@ -1813,7 +1916,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'last-uplink-received-at))))))
+                                                   'last-uplink-received-at)))
+    (aws-sdk-cl/generator/shape::to-query-params "ConnectionStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'connection-status))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (get-wireless-gateway-task-definition-request (:copier common-lisp:nil))
@@ -1939,6 +2047,23 @@
 (common-lisp:deftype isodate-time-string () 'common-lisp:string)
 (common-lisp:deftype identifier () 'common-lisp:string)
 (common-lisp:deftype integer () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-exception
+                    'make-internal-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype iot-certificate-id () 'common-lisp:string)
 (common-lisp:deftype join-eui () 'common-lisp:string)
 (common-lisp:progn
@@ -2996,6 +3121,7 @@
 (common-lisp:deftype max-duty-cycle () 'common-lisp:integer)
 (common-lisp:deftype max-eirp () 'common-lisp:integer)
 (common-lisp:deftype max-results () 'common-lisp:integer)
+(common-lisp:deftype message () 'common-lisp:string)
 (common-lisp:deftype message-id () 'common-lisp:string)
 (common-lisp:deftype min-gw-diversity () 'common-lisp:integer)
 (common-lisp:deftype model () 'common-lisp:string)
@@ -3065,6 +3191,40 @@
 (common-lisp:deftype reg-params-revision () 'common-lisp:string)
 (common-lisp:deftype report-dev-status-battery () 'common-lisp:boolean)
 (common-lisp:deftype report-dev-status-margin () 'common-lisp:boolean)
+(common-lisp:deftype resource-id () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null))
+   (resource-id-type common-lisp:nil :type
+    (common-lisp:or resource-id common-lisp:null))
+   (resource-type-type common-lisp:nil :type
+    (common-lisp:or resource-type common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-type))))))
+(common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:deftype result () 'common-lisp:string)
 (common-lisp:deftype rf-region () 'common-lisp:string)
 (common-lisp:deftype role-arn () 'common-lisp:string)
@@ -3294,9 +3454,78 @@
                             sidewalk-account-info-with-fingerprint))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (sidewalk-device (:copier common-lisp:nil))
+   (sidewalk-id-type common-lisp:nil :type
+    (common-lisp:or sidewalk-id common-lisp:null))
+   (sidewalk-manufacturing-sn-type common-lisp:nil :type
+    (common-lisp:or sidewalk-manufacturing-sn common-lisp:null))
+   (device-certificates-type common-lisp:nil :type
+    (common-lisp:or device-certificate-list common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'sidewalk-device 'make-sidewalk-device))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape sidewalk-device))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "SidewalkId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'sidewalk-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "SidewalkManufacturingSn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'sidewalk-manufacturing-sn)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceCertificates"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-certificates))))))
+(common-lisp:progn
+ (common-lisp:defstruct (sidewalk-device-metadata (:copier common-lisp:nil))
+   (rssi-type common-lisp:nil :type (common-lisp:or integer common-lisp:null))
+   (battery-level-type common-lisp:nil :type
+    (common-lisp:or battery-level common-lisp:null))
+   (event-type common-lisp:nil :type (common-lisp:or event common-lisp:null))
+   (device-state-type common-lisp:nil :type
+    (common-lisp:or device-state common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'sidewalk-device-metadata 'make-sidewalk-device-metadata))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          sidewalk-device-metadata))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Rssi"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'rssi)))
+    (aws-sdk-cl/generator/shape::to-query-params "BatteryLevel"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'battery-level)))
+    (aws-sdk-cl/generator/shape::to-query-params "Event"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceState"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-state))))))
+(common-lisp:deftype sidewalk-id () 'common-lisp:string)
+(common-lisp:progn
  (common-lisp:defstruct (sidewalk-list-device (:copier common-lisp:nil))
    (amazon-id-type common-lisp:nil :type
-    (common-lisp:or amazon-id common-lisp:null)))
+    (common-lisp:or amazon-id common-lisp:null))
+   (sidewalk-id-type common-lisp:nil :type
+    (common-lisp:or sidewalk-id common-lisp:null))
+   (sidewalk-manufacturing-sn-type common-lisp:nil :type
+    (common-lisp:or sidewalk-manufacturing-sn common-lisp:null))
+   (device-certificates-type common-lisp:nil :type
+    (common-lisp:or device-certificate-list common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'sidewalk-list-device 'make-sidewalk-list-device))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -3308,7 +3537,23 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'amazon-id))))))
+                                                   'amazon-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "SidewalkId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'sidewalk-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "SidewalkManufacturingSn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'sidewalk-manufacturing-sn)))
+    (aws-sdk-cl/generator/shape::to-query-params "DeviceCertificates"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'device-certificates))))))
+(common-lisp:deftype sidewalk-manufacturing-sn () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
      (sidewalk-send-data-to-device (:copier common-lisp:nil))
@@ -3342,6 +3587,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'app-server-private-key))))))
+(common-lisp:deftype signing-alg () 'common-lisp:string)
 (common-lisp:deftype station () 'common-lisp:string)
 (common-lisp:deftype supports32bit-fcnt () 'common-lisp:boolean)
 (common-lisp:deftype supports-class-b () 'common-lisp:boolean)
@@ -3454,6 +3700,45 @@
                                                    'result))))))
 (common-lisp:deftype thing-arn () 'common-lisp:string)
 (common-lisp:deftype thing-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (throttling-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'make-throttling-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          throttling-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (too-many-tags-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null))
+   (resource-name-type common-lisp:nil :type
+    (common-lisp:or amazon-resource-name common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-tags-exception 'make-too-many-tags-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-tags-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
 (common-lisp:deftype transmit-mode () 'common-lisp:integer)
 (common-lisp:deftype ul-bucket-size () 'common-lisp:integer)
 (common-lisp:deftype ul-rate () 'common-lisp:integer)
@@ -3756,6 +4041,22 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype wireless-device-arn () 'common-lisp:string)
 (common-lisp:deftype wireless-device-id () 'common-lisp:string)
 (common-lisp:deftype wireless-device-id-type () 'common-lisp:string)
@@ -4084,10 +4385,10 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key type name description destination-name
-                     client-request-token lo-ra-wan)
+                     client-request-token lo-ra-wan tags)
    (common-lisp:declare
     (common-lisp:ignorable type name description destination-name
-     client-request-token lo-ra-wan))
+     client-request-token lo-ra-wan tags))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-wireless-device-request
                                          aws-sdk-cl/generator/operation::args)))

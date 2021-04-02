@@ -8,6 +8,15 @@
 (common-lisp:in-package #:aws-sdk-cl/services/cloud9)
 (common-lisp:deftype automatic-stop-time-minutes () 'common-lisp:integer)
 (common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:deftype bounded-environment-id-list ()
    '(trivial-types:proper-list environment-id))
  (common-lisp:defun |make-bounded-environment-id-list|
@@ -16,6 +25,26 @@
                            (trivial-types:proper-list environment-id))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype client-request-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (concurrent-access-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'concurrent-access-exception
+                    'make-concurrent-access-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          concurrent-access-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append)))
 (common-lisp:deftype connection-type () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -30,6 +59,8 @@
     (common-lisp:or instance-type common-lisp:null))
    (subnet-id-type common-lisp:nil :type
     (common-lisp:or subnet-id common-lisp:null))
+   (image-id-type common-lisp:nil :type
+    (common-lisp:or image-id common-lisp:null))
    (automatic-stop-time-minutes-type common-lisp:nil :type
     (common-lisp:or automatic-stop-time-minutes common-lisp:null))
    (owner-arn-type common-lisp:nil :type
@@ -70,6 +101,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'subnet-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "imageId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'image-id)))
     (aws-sdk-cl/generator/shape::to-query-params "automaticStopTimeMinutes"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -143,7 +179,7 @@
 (common-lisp:progn
  (common-lisp:defstruct
      (create-environment-membership-result (:copier common-lisp:nil))
-   (membership-type common-lisp:nil :type
+   (membership-type (common-lisp:error ":membership is required") :type
     (common-lisp:or environment-member common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-environment-membership-result
@@ -313,9 +349,9 @@
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-environment-status-result (:copier common-lisp:nil))
-   (status-type common-lisp:nil :type
+   (status-type (common-lisp:error ":status is required") :type
     (common-lisp:or environment-status common-lisp:null))
-   (message-type common-lisp:nil :type
+   (message-type (common-lisp:error ":message is required") :type
     (common-lisp:or string common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-environment-status-result
@@ -379,15 +415,18 @@
     (common-lisp:or environment-name common-lisp:null))
    (description-type common-lisp:nil :type
     (common-lisp:or environment-description common-lisp:null))
-   (type-type common-lisp:nil :type
+   (type-type (common-lisp:error ":type is required") :type
     (common-lisp:or environment-type common-lisp:null))
    (connection-type-type common-lisp:nil :type
     (common-lisp:or connection-type common-lisp:null))
-   (arn-type common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (owner-arn-type common-lisp:nil :type
+   (arn-type (common-lisp:error ":arn is required") :type
+    (common-lisp:or string common-lisp:null))
+   (owner-arn-type (common-lisp:error ":ownerarn is required") :type
     (common-lisp:or string common-lisp:null))
    (lifecycle-type common-lisp:nil :type
-    (common-lisp:or environment-lifecycle common-lisp:null)))
+    (common-lisp:or environment-lifecycle common-lisp:null))
+   (managed-credentials-status-type common-lisp:nil :type
+    (common-lisp:or managed-credentials-status common-lisp:null)))
  (common-lisp:export (common-lisp:list 'environment 'make-environment))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape environment))
@@ -431,7 +470,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'lifecycle))))))
+                                                   'lifecycle)))
+    (aws-sdk-cl/generator/shape::to-query-params "managedCredentialsStatus"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'managed-credentials-status))))))
 (common-lisp:deftype environment-arn () 'common-lisp:string)
 (common-lisp:deftype environment-description () 'common-lisp:string)
 (common-lisp:deftype environment-id () 'common-lisp:string)
@@ -483,13 +527,13 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct (environment-member (:copier common-lisp:nil))
-   (permissions-type common-lisp:nil :type
+   (permissions-type (common-lisp:error ":permissions is required") :type
     (common-lisp:or permissions common-lisp:null))
-   (user-id-type common-lisp:nil :type
+   (user-id-type (common-lisp:error ":userid is required") :type
     (common-lisp:or string common-lisp:null))
-   (user-arn-type common-lisp:nil :type
+   (user-arn-type (common-lisp:error ":userarn is required") :type
     (common-lisp:or user-arn common-lisp:null))
-   (environment-id-type common-lisp:nil :type
+   (environment-id-type (common-lisp:error ":environmentid is required") :type
     (common-lisp:or environment-id common-lisp:null))
    (last-access-type common-lisp:nil :type
     (common-lisp:or timestamp common-lisp:null)))
@@ -536,7 +580,37 @@
 (common-lisp:deftype environment-name () 'common-lisp:string)
 (common-lisp:deftype environment-status () 'common-lisp:string)
 (common-lisp:deftype environment-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (forbidden-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'forbidden-exception 'make-forbidden-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          forbidden-exception))
+   (common-lisp:append)))
+(common-lisp:deftype image-id () 'common-lisp:string)
 (common-lisp:deftype instance-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (internal-server-error-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-error-exception
+                    'make-internal-server-error-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-error-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (list-environments-request (:copier common-lisp:nil))
    (next-token-type common-lisp:nil :type
@@ -620,8 +694,18 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tags))))))
+(common-lisp:deftype managed-credentials-status () 'common-lisp:string)
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype member-permissions () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append)))
 (common-lisp:deftype permissions () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype permissions-list ()
@@ -702,6 +786,17 @@
    (common-lisp:append)))
 (common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:deftype timestamp () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (too-many-requests-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-requests-exception
+                    'make-too-many-requests-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-requests-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (untag-resource-request (:copier common-lisp:nil))
    (resource-arntype (common-lisp:error ":resource-arn is required") :type
@@ -831,11 +926,13 @@
                     (
                      common-lisp:&rest aws-sdk-cl/generator/operation::args
                      common-lisp:&key name description client-request-token
-                     instance-type subnet-id automatic-stop-time-minutes
-                     owner-arn tags connection-type)
+                     instance-type subnet-id image-id
+                     automatic-stop-time-minutes owner-arn tags
+                     connection-type)
    (common-lisp:declare
     (common-lisp:ignorable name description client-request-token instance-type
-     subnet-id automatic-stop-time-minutes owner-arn tags connection-type))
+     subnet-id image-id automatic-stop-time-minutes owner-arn tags
+     connection-type))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-environment-ec2request
                                          aws-sdk-cl/generator/operation::args)))

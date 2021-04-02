@@ -7,6 +7,22 @@
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/runtime.lex.v2)
 (common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (active-context (:copier common-lisp:nil))
    (name-type (common-lisp:error ":name is required") :type
     (common-lisp:or active-context-name common-lisp:null))
@@ -78,8 +94,92 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype attachment-title () 'common-lisp:string)
 (common-lisp:deftype attachment-url () 'common-lisp:string)
+(common-lisp:deftype audio-chunk ()
+  '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
+(common-lisp:progn
+ (common-lisp:defstruct (audio-input-event (:copier common-lisp:nil))
+   (audio-chunk-type common-lisp:nil :type
+    (common-lisp:or audio-chunk common-lisp:null))
+   (content-type-type (common-lisp:error ":contenttype is required") :type
+    (common-lisp:or non-empty-string common-lisp:null))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null))
+   (client-timestamp-millis-type common-lisp:nil :type
+    (common-lisp:or epoch-millis common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'audio-input-event 'make-audio-input-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape audio-input-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "audioChunk"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'audio-chunk)))
+    (aws-sdk-cl/generator/shape::to-query-params "contentType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'content-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "clientTimestampMillis"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-timestamp-millis))))))
+(common-lisp:progn
+ (common-lisp:defstruct (audio-response-event (:copier common-lisp:nil))
+   (audio-chunk-type common-lisp:nil :type
+    (common-lisp:or audio-chunk common-lisp:null))
+   (content-type-type common-lisp:nil :type
+    (common-lisp:or non-empty-string common-lisp:null))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'audio-response-event 'make-audio-response-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          audio-response-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "audioChunk"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'audio-chunk)))
+    (aws-sdk-cl/generator/shape::to-query-params "contentType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'content-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct (bad-gateway-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bad-gateway-exception 'make-bad-gateway-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-gateway-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype blob-stream ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
+(common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:deftype bot-alias-identifier () 'common-lisp:string)
 (common-lisp:deftype bot-identifier () 'common-lisp:string)
 (common-lisp:progn
@@ -124,7 +224,111 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'score))))))
+(common-lisp:progn
+ (common-lisp:defstruct (configuration-event (:copier common-lisp:nil))
+   (request-attributes-type common-lisp:nil :type
+    (common-lisp:or string-map common-lisp:null))
+   (response-content-type-type
+    (common-lisp:error ":responsecontenttype is required") :type
+    (common-lisp:or non-empty-string common-lisp:null))
+   (session-state-type common-lisp:nil :type
+    (common-lisp:or session-state common-lisp:null))
+   (welcome-messages-type common-lisp:nil :type
+    (common-lisp:or messages common-lisp:null))
+   (disable-playback-type common-lisp:nil :type
+    (common-lisp:or boolean common-lisp:null))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null))
+   (client-timestamp-millis-type common-lisp:nil :type
+    (common-lisp:or epoch-millis common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'configuration-event 'make-configuration-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          configuration-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "requestAttributes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-attributes)))
+    (aws-sdk-cl/generator/shape::to-query-params "responseContentType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'response-content-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "sessionState"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'session-state)))
+    (aws-sdk-cl/generator/shape::to-query-params "welcomeMessages"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'welcome-messages)))
+    (aws-sdk-cl/generator/shape::to-query-params "disablePlayback"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'disable-playback)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "clientTimestampMillis"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-timestamp-millis))))))
 (common-lisp:deftype confirmation-state () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype conversation-mode () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (dtmfinput-event (:copier common-lisp:nil))
+   (input-character-type (common-lisp:error ":inputcharacter is required")
+    :type (common-lisp:or dtmfregex common-lisp:null))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null))
+   (client-timestamp-millis-type common-lisp:nil :type
+    (common-lisp:or epoch-millis common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'dtmfinput-event 'make-dtmfinput-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape dtmfinput-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "inputCharacter"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'input-character)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "clientTimestampMillis"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-timestamp-millis))))))
+(common-lisp:deftype dtmfregex () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (delete-session-request (:copier common-lisp:nil))
    (bot-id-type (common-lisp:error ":botid is required") :type
@@ -200,6 +404,23 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'session-id))))))
 (common-lisp:progn
+ (common-lisp:defstruct (dependency-failed-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'dependency-failed-exception
+                    'make-dependency-failed-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          dependency-failed-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (dialog-action (:copier common-lisp:nil))
    (type-type (common-lisp:error ":type is required") :type
     (common-lisp:or dialog-action-type common-lisp:null))
@@ -220,7 +441,32 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'slot-to-elicit))))))
 (common-lisp:deftype dialog-action-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (disconnection-event (:copier common-lisp:nil))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null))
+   (client-timestamp-millis-type common-lisp:nil :type
+    (common-lisp:or epoch-millis common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'disconnection-event 'make-disconnection-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          disconnection-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "clientTimestampMillis"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-timestamp-millis))))))
 (common-lisp:deftype double () 'common-lisp:double-float)
+(common-lisp:deftype epoch-millis () 'common-lisp:integer)
+(common-lisp:deftype event-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (get-session-request (:copier common-lisp:nil))
    (bot-id-type (common-lisp:error ":botid is required") :type
@@ -296,6 +542,19 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'session-state))))))
 (common-lisp:progn
+ (common-lisp:defstruct (heartbeat-event (:copier common-lisp:nil))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'heartbeat-event 'make-heartbeat-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape heartbeat-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id))))))
+(common-lisp:progn
  (common-lisp:defstruct (image-response-card (:copier common-lisp:nil))
    (title-type (common-lisp:error ":title is required") :type
     (common-lisp:or attachment-title common-lisp:null))
@@ -332,6 +591,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'buttons))))))
+(common-lisp:deftype input-mode () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (intent (:copier common-lisp:nil))
    (name-type (common-lisp:error ":name is required") :type
@@ -365,7 +625,75 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'confirmation-state))))))
+(common-lisp:progn
+ (common-lisp:defstruct (intent-result-event (:copier common-lisp:nil))
+   (input-mode-type common-lisp:nil :type
+    (common-lisp:or input-mode common-lisp:null))
+   (interpretations-type common-lisp:nil :type
+    (common-lisp:or interpretations common-lisp:null))
+   (session-state-type common-lisp:nil :type
+    (common-lisp:or session-state common-lisp:null))
+   (request-attributes-type common-lisp:nil :type
+    (common-lisp:or string-map common-lisp:null))
+   (session-id-type common-lisp:nil :type
+    (common-lisp:or session-id common-lisp:null))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'intent-result-event 'make-intent-result-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          intent-result-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "inputMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'input-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "interpretations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'interpretations)))
+    (aws-sdk-cl/generator/shape::to-query-params "sessionState"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'session-state)))
+    (aws-sdk-cl/generator/shape::to-query-params "requestAttributes"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-attributes)))
+    (aws-sdk-cl/generator/shape::to-query-params "sessionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'session-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id))))))
 (common-lisp:deftype intent-state () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-exception
+                    'make-internal-server-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (interpretation (:copier common-lisp:nil))
    (nlu-confidence-type common-lisp:nil :type
@@ -438,6 +766,62 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype non-empty-string () 'common-lisp:string)
 (common-lisp:deftype parameter-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (playback-completion-event (:copier common-lisp:nil))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null))
+   (client-timestamp-millis-type common-lisp:nil :type
+    (common-lisp:or epoch-millis common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'playback-completion-event
+                    'make-playback-completion-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          playback-completion-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "clientTimestampMillis"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-timestamp-millis))))))
+(common-lisp:progn
+ (common-lisp:defstruct (playback-interruption-event (:copier common-lisp:nil))
+   (event-reason-type common-lisp:nil :type
+    (common-lisp:or playback-interruption-reason common-lisp:null))
+   (caused-by-event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'playback-interruption-event
+                    'make-playback-interruption-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          playback-interruption-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "eventReason"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-reason)))
+    (aws-sdk-cl/generator/shape::to-query-params "causedByEventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'caused-by-event-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id))))))
+(common-lisp:deftype playback-interruption-reason () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (put-session-request (:copier common-lisp:nil))
    (bot-id-type (common-lisp:error ":botid is required") :type
@@ -804,6 +1188,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'audio-stream))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype sensitive-non-empty-string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (sentiment-response (:copier common-lisp:nil))
@@ -921,6 +1323,239 @@
       (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
+(common-lisp:progn
+ (common-lisp:defstruct (start-conversation-request (:copier common-lisp:nil))
+   (bot-id-type (common-lisp:error ":botid is required") :type
+    (common-lisp:or bot-identifier common-lisp:null))
+   (bot-alias-id-type (common-lisp:error ":botaliasid is required") :type
+    (common-lisp:or bot-alias-identifier common-lisp:null))
+   (locale-id-type (common-lisp:error ":localeid is required") :type
+    (common-lisp:or locale-id common-lisp:null))
+   (session-id-type (common-lisp:error ":sessionid is required") :type
+    (common-lisp:or session-id common-lisp:null))
+   (conversation-mode-type common-lisp:nil :type
+    (common-lisp:or conversation-mode common-lisp:null))
+   (request-event-stream-type
+    (common-lisp:error ":requesteventstream is required") :type
+    (common-lisp:or start-conversation-request-event-stream common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-conversation-request
+                    'make-start-conversation-request))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          start-conversation-request))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "botId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'bot-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "botAliasId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'bot-alias-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "localeId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'locale-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "sessionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'session-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "conversationMode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'conversation-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "requestEventStream"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'request-event-stream))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-conversation-request-event-stream (:copier common-lisp:nil))
+   (configuration-event-type common-lisp:nil :type
+    (common-lisp:or configuration-event common-lisp:null))
+   (audio-input-event-type common-lisp:nil :type
+    (common-lisp:or audio-input-event common-lisp:null))
+   (dtmfinput-event-type common-lisp:nil :type
+    (common-lisp:or dtmfinput-event common-lisp:null))
+   (text-input-event-type common-lisp:nil :type
+    (common-lisp:or text-input-event common-lisp:null))
+   (playback-completion-event-type common-lisp:nil :type
+    (common-lisp:or playback-completion-event common-lisp:null))
+   (disconnection-event-type common-lisp:nil :type
+    (common-lisp:or disconnection-event common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-conversation-request-event-stream
+                    'make-start-conversation-request-event-stream))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          start-conversation-request-event-stream))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ConfigurationEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'configuration-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "AudioInputEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'audio-input-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "DTMFInputEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dtmfinput-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "TextInputEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'text-input-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "PlaybackCompletionEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'playback-completion-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "DisconnectionEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'disconnection-event))))))
+(common-lisp:progn
+ (common-lisp:defstruct (start-conversation-response (:copier common-lisp:nil))
+   (response-event-stream-type common-lisp:nil :type
+    (common-lisp:or start-conversation-response-event-stream
+                    common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-conversation-response
+                    'make-start-conversation-response))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          start-conversation-response))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "responseEventStream"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'response-event-stream))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (start-conversation-response-event-stream (:copier common-lisp:nil))
+   (playback-interruption-event-type common-lisp:nil :type
+    (common-lisp:or playback-interruption-event common-lisp:null))
+   (transcript-event-type common-lisp:nil :type
+    (common-lisp:or transcript-event common-lisp:null))
+   (intent-result-event-type common-lisp:nil :type
+    (common-lisp:or intent-result-event common-lisp:null))
+   (text-response-event-type common-lisp:nil :type
+    (common-lisp:or text-response-event common-lisp:null))
+   (audio-response-event-type common-lisp:nil :type
+    (common-lisp:or audio-response-event common-lisp:null))
+   (heartbeat-event-type common-lisp:nil :type
+    (common-lisp:or heartbeat-event common-lisp:null))
+   (access-denied-exception-type common-lisp:nil :type
+    (common-lisp:or access-denied-exception common-lisp:null))
+   (resource-not-found-exception-type common-lisp:nil :type
+    (common-lisp:or resource-not-found-exception common-lisp:null))
+   (validation-exception-type common-lisp:nil :type
+    (common-lisp:or validation-exception common-lisp:null))
+   (throttling-exception-type common-lisp:nil :type
+    (common-lisp:or throttling-exception common-lisp:null))
+   (internal-server-exception-type common-lisp:nil :type
+    (common-lisp:or internal-server-exception common-lisp:null))
+   (conflict-exception-type common-lisp:nil :type
+    (common-lisp:or conflict-exception common-lisp:null))
+   (dependency-failed-exception-type common-lisp:nil :type
+    (common-lisp:or dependency-failed-exception common-lisp:null))
+   (bad-gateway-exception-type common-lisp:nil :type
+    (common-lisp:or bad-gateway-exception common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'start-conversation-response-event-stream
+                    'make-start-conversation-response-event-stream))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          start-conversation-response-event-stream))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "PlaybackInterruptionEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'playback-interruption-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "TranscriptEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'transcript-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "IntentResultEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'intent-result-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "TextResponseEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'text-response-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "AudioResponseEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'audio-response-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "HeartbeatEvent"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'heartbeat-event)))
+    (aws-sdk-cl/generator/shape::to-query-params "AccessDeniedException"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'access-denied-exception)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceNotFoundException"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-not-found-exception)))
+    (aws-sdk-cl/generator/shape::to-query-params "ValidationException"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'validation-exception)))
+    (aws-sdk-cl/generator/shape::to-query-params "ThrottlingException"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'throttling-exception)))
+    (aws-sdk-cl/generator/shape::to-query-params "InternalServerException"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'internal-server-exception)))
+    (aws-sdk-cl/generator/shape::to-query-params "ConflictException"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'conflict-exception)))
+    (aws-sdk-cl/generator/shape::to-query-params "DependencyFailedException"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'dependency-failed-exception)))
+    (aws-sdk-cl/generator/shape::to-query-params "BadGatewayException"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'bad-gateway-exception))))))
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype string-list ()
@@ -937,6 +1572,110 @@
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
 (common-lisp:deftype text () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (text-input-event (:copier common-lisp:nil))
+   (text-type (common-lisp:error ":text is required") :type
+    (common-lisp:or text common-lisp:null))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null))
+   (client-timestamp-millis-type common-lisp:nil :type
+    (common-lisp:or epoch-millis common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'text-input-event 'make-text-input-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape text-input-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "text"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'text)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "clientTimestampMillis"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'client-timestamp-millis))))))
+(common-lisp:progn
+ (common-lisp:defstruct (text-response-event (:copier common-lisp:nil))
+   (messages-type common-lisp:nil :type
+    (common-lisp:or messages common-lisp:null))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'text-response-event 'make-text-response-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          text-response-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "messages"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'messages)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct (throttling-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'throttling-exception 'make-throttling-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          throttling-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (transcript-event (:copier common-lisp:nil))
+   (transcript-type common-lisp:nil :type
+    (common-lisp:or string common-lisp:null))
+   (event-id-type common-lisp:nil :type
+    (common-lisp:or event-id common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'transcript-event 'make-transcript-event))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape transcript-event))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "transcript"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'transcript)))
+    (aws-sdk-cl/generator/shape::to-query-params "eventId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'event-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil))
+   (message-type (common-lisp:error ":message is required") :type
+    (common-lisp:or string common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (value (:copier common-lisp:nil))
    (original-value-type common-lisp:nil :type
@@ -1073,3 +1812,25 @@
                                     aws-sdk-cl/generator/operation::input)))
       "RecognizeUtteranceResponse" common-lisp:nil)))
  (common-lisp:export 'recognize-utterance))
+(common-lisp:progn
+ (common-lisp:defun start-conversation
+                    (
+                     common-lisp:&rest aws-sdk-cl/generator/operation::args
+                     common-lisp:&key bot-id bot-alias-id locale-id session-id
+                     conversation-mode request-event-stream)
+   (common-lisp:declare
+    (common-lisp:ignorable bot-id bot-alias-id locale-id session-id
+     conversation-mode request-event-stream))
+   (common-lisp:let ((aws-sdk-cl/generator/operation::input
+                      (common-lisp:apply 'make-start-conversation-request
+                                         aws-sdk-cl/generator/operation::args)))
+     (aws-sdk-cl/generator/operation::parse-response
+      (aws-sdk-cl/api:aws-request :service "runtime.lex.v2" :method :post
+                                  :params
+                                  (common-lisp:append
+                                   `(("Action" ,@"StartConversation")
+                                     ("Version" ,@"2020-08-07"))
+                                   (aws-sdk-cl/generator/shape:shape-to-params
+                                    aws-sdk-cl/generator/operation::input)))
+      "StartConversationResponse" common-lisp:nil)))
+ (common-lisp:export 'start-conversation))

@@ -989,7 +989,9 @@
     (common-lisp:error ":last-modified-time is required") :type
     (common-lisp:or timestamp common-lisp:null))
    (failure-reason-type common-lisp:nil :type
-    (common-lisp:or auto-mlfailure-reason common-lisp:null)))
+    (common-lisp:or auto-mlfailure-reason common-lisp:null))
+   (candidate-properties-type common-lisp:nil :type
+    (common-lisp:or candidate-properties common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'auto-mlcandidate 'make-auto-mlcandidate))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -1044,7 +1046,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'failure-reason))))))
+                                                   'failure-reason)))
+    (aws-sdk-cl/generator/shape::to-query-params "CandidateProperties"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'candidate-properties))))))
 (common-lisp:progn
  (common-lisp:defstruct (auto-mlcandidate-step (:copier common-lisp:nil))
    (candidate-step-type-type
@@ -1303,7 +1310,9 @@
     (common-lisp:error ":last-modified-time is required") :type
     (common-lisp:or timestamp common-lisp:null))
    (failure-reason-type common-lisp:nil :type
-    (common-lisp:or auto-mlfailure-reason common-lisp:null)))
+    (common-lisp:or auto-mlfailure-reason common-lisp:null))
+   (partial-failure-reasons-type common-lisp:nil :type
+    (common-lisp:or auto-mlpartial-failure-reasons common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'auto-mljob-summary 'make-auto-mljob-summary))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -1350,7 +1359,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'failure-reason))))))
+                                                   'failure-reason)))
+    (aws-sdk-cl/generator/shape::to-query-params "PartialFailureReasons"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'partial-failure-reasons))))))
 (common-lisp:deftype auto-mlmax-results () 'common-lisp:integer)
 (common-lisp:deftype auto-mlmetric-enum () 'common-lisp:string)
 (common-lisp:deftype auto-mlname-contains () 'common-lisp:string)
@@ -1378,6 +1392,33 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    's3output-path))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (auto-mlpartial-failure-reason (:copier common-lisp:nil))
+   (partial-failure-message-type common-lisp:nil :type
+    (common-lisp:or auto-mlfailure-reason common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'auto-mlpartial-failure-reason
+                    'make-auto-mlpartial-failure-reason))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          auto-mlpartial-failure-reason))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "PartialFailureMessage"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'partial-failure-message))))))
+(common-lisp:progn
+ (common-lisp:deftype auto-mlpartial-failure-reasons ()
+   '(trivial-types:proper-list auto-mlpartial-failure-reason))
+ (common-lisp:defun |make-auto-mlpartial-failure-reasons|
+                    (common-lisp:&rest aws-sdk-cl/generator/shape::members)
+   (common-lisp:check-type aws-sdk-cl/generator/shape::members
+                           (trivial-types:proper-list
+                            auto-mlpartial-failure-reason))
+   aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
  (common-lisp:defstruct (auto-mls3data-source (:copier common-lisp:nil))
    (s3data-type-type (common-lisp:error ":s3data-type is required") :type
@@ -1516,9 +1557,43 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'source-pipeline-execution-arn))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (candidate-artifact-locations (:copier common-lisp:nil))
+   (explainability-type (common-lisp:error ":explainability is required") :type
+    (common-lisp:or explainability-location common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'candidate-artifact-locations
+                    'make-candidate-artifact-locations))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          candidate-artifact-locations))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Explainability"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'explainability))))))
 (common-lisp:deftype candidate-definition-notebook-location ()
   'common-lisp:string)
 (common-lisp:deftype candidate-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (candidate-properties (:copier common-lisp:nil))
+   (candidate-artifact-locations-type common-lisp:nil :type
+    (common-lisp:or candidate-artifact-locations common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'candidate-properties 'make-candidate-properties))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          candidate-properties))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "CandidateArtifactLocations"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'candidate-artifact-locations))))))
 (common-lisp:deftype candidate-sort-by () 'common-lisp:string)
 (common-lisp:deftype candidate-status () 'common-lisp:string)
 (common-lisp:deftype candidate-step-arn () 'common-lisp:string)
@@ -2085,6 +2160,22 @@
                                                    'outcome))))))
 (common-lisp:deftype config-key () 'common-lisp:string)
 (common-lisp:deftype config-value () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or failure-reason common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype container-argument () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype container-arguments ()
@@ -5152,7 +5243,9 @@
    (profiler-config-type common-lisp:nil :type
     (common-lisp:or profiler-config common-lisp:null))
    (profiler-rule-configurations-type common-lisp:nil :type
-    (common-lisp:or profiler-rule-configurations common-lisp:null)))
+    (common-lisp:or profiler-rule-configurations common-lisp:null))
+   (environment-type common-lisp:nil :type
+    (common-lisp:or training-environment-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'create-training-job-request
                     'make-create-training-job-request))
@@ -5260,7 +5353,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'profiler-rule-configurations))))))
+                                                   'profiler-rule-configurations)))
+    (aws-sdk-cl/generator/shape::to-query-params "Environment"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'environment))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-training-job-response (:copier common-lisp:nil))
@@ -7851,6 +7949,8 @@
     (common-lisp:or timestamp common-lisp:null))
    (failure-reason-type common-lisp:nil :type
     (common-lisp:or auto-mlfailure-reason common-lisp:null))
+   (partial-failure-reasons-type common-lisp:nil :type
+    (common-lisp:or auto-mlpartial-failure-reasons common-lisp:null))
    (best-candidate-type common-lisp:nil :type
     (common-lisp:or auto-mlcandidate common-lisp:null))
    (auto-mljob-status-type (common-lisp:error ":auto-mljob-status is required")
@@ -7932,6 +8032,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'failure-reason)))
+    (aws-sdk-cl/generator/shape::to-query-params "PartialFailureReasons"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'partial-failure-reasons)))
     (aws-sdk-cl/generator/shape::to-query-params "BestCandidate"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -11574,7 +11679,9 @@
    (profiler-rule-evaluation-statuses-type common-lisp:nil :type
     (common-lisp:or profiler-rule-evaluation-statuses common-lisp:null))
    (profiling-status-type common-lisp:nil :type
-    (common-lisp:or profiling-status common-lisp:null)))
+    (common-lisp:or profiling-status common-lisp:null))
+   (environment-type common-lisp:nil :type
+    (common-lisp:or training-environment-map common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'describe-training-job-response
                     'make-describe-training-job-response))
@@ -11772,7 +11879,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'profiling-status))))))
+                                                   'profiling-status)))
+    (aws-sdk-cl/generator/shape::to-query-params "Environment"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'environment))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (describe-transform-job-request (:copier common-lisp:nil))
@@ -13483,6 +13595,7 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'report))))))
+(common-lisp:deftype explainability-location () 'common-lisp:string)
 (common-lisp:deftype failure-reason () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (feature-definition (:copier common-lisp:nil))
@@ -15138,7 +15251,9 @@
  (common-lisp:defstruct (image-config (:copier common-lisp:nil))
    (repository-access-mode-type
     (common-lisp:error ":repository-access-mode is required") :type
-    (common-lisp:or repository-access-mode common-lisp:null)))
+    (common-lisp:or repository-access-mode common-lisp:null))
+   (repository-auth-config-type common-lisp:nil :type
+    (common-lisp:or repository-auth-config common-lisp:null)))
  (common-lisp:export (common-lisp:list 'image-config 'make-image-config))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
                         ((aws-sdk-cl/generator/shape::shape image-config))
@@ -15147,7 +15262,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'repository-access-mode))))))
+                                                   'repository-access-mode)))
+    (aws-sdk-cl/generator/shape::to-query-params "RepositoryAuthConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'repository-auth-config))))))
 (common-lisp:deftype image-container-image () 'common-lisp:string)
 (common-lisp:deftype image-delete-property () 'common-lisp:string)
 (common-lisp:progn
@@ -25327,6 +25447,25 @@
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype repository-access-mode () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (repository-auth-config (:copier common-lisp:nil))
+   (repository-credentials-provider-arn-type
+    (common-lisp:error ":repository-credentials-provider-arn is required")
+    :type
+    (common-lisp:or repository-credentials-provider-arn common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'repository-auth-config 'make-repository-auth-config))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          repository-auth-config))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params
+     "RepositoryCredentialsProviderArn"
+     (aws-sdk-cl/generator/shape:shape-to-params
+      (common-lisp:slot-value aws-sdk-cl/generator/shape::shape
+                              'repository-credentials-provider-arn))))))
+(common-lisp:deftype repository-credentials-provider-arn () 'common-lisp:string)
+(common-lisp:progn
  (common-lisp:defstruct (resolved-attributes (:copier common-lisp:nil))
    (auto-mljob-objective-type common-lisp:nil :type
     (common-lisp:or auto-mljob-objective common-lisp:null))
@@ -25393,6 +25532,35 @@
                                                    'volume-kms-key-id))))))
 (common-lisp:deftype resource-id () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct (resource-in-use (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or failure-reason common-lisp:null)))
+ (common-lisp:export (common-lisp:list 'resource-in-use 'make-resource-in-use))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape resource-in-use))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (resource-limit-exceeded (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or failure-reason common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-limit-exceeded 'make-resource-limit-exceeded))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-limit-exceeded))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
  (common-lisp:defstruct (resource-limits (:copier common-lisp:nil))
    (max-number-of-training-jobs-type
     (common-lisp:error ":max-number-of-training-jobs is required") :type
@@ -25414,6 +25582,22 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'max-parallel-training-jobs))))))
+(common-lisp:progn
+ (common-lisp:defstruct (resource-not-found (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or failure-reason common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found 'make-resource-not-found))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype resource-property-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (resource-spec (:copier common-lisp:nil))
@@ -26604,6 +26788,14 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'canary-size))))))
 (common-lisp:deftype traffic-routing-config-type () 'common-lisp:string)
+(common-lisp:deftype training-environment-key () 'common-lisp:string)
+(common-lisp:defstruct
+    (training-environment-map
+     (:constructor |make-training-environment-map|
+      (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
+  aws-sdk-cl/generator/shape::key
+  aws-sdk-cl/generator/shape::value)
+(common-lisp:deftype training-environment-value () 'common-lisp:string)
 (common-lisp:deftype training-input-mode () 'common-lisp:string)
 (common-lisp:deftype training-instance-count () 'common-lisp:integer)
 (common-lisp:deftype training-instance-type () 'common-lisp:string)
@@ -26685,6 +26877,8 @@
     (common-lisp:or tensor-board-output-config common-lisp:null))
    (debug-rule-evaluation-statuses-type common-lisp:nil :type
     (common-lisp:or debug-rule-evaluation-statuses common-lisp:null))
+   (environment-type common-lisp:nil :type
+    (common-lisp:or training-environment-map common-lisp:null))
    (tags-type common-lisp:nil :type
     (common-lisp:or tag-list common-lisp:null)))
  (common-lisp:export (common-lisp:list 'training-job 'make-training-job))
@@ -26861,6 +27055,11 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'debug-rule-evaluation-statuses)))
+    (aws-sdk-cl/generator/shape::to-query-params "Environment"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'environment)))
     (aws-sdk-cl/generator/shape::to-query-params "Tags"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -30905,7 +31104,7 @@
                      enable-managed-spot-training checkpoint-config
                      debug-hook-config debug-rule-configurations
                      tensor-board-output-config experiment-config
-                     profiler-config profiler-rule-configurations)
+                     profiler-config profiler-rule-configurations environment)
    (common-lisp:declare
     (common-lisp:ignorable training-job-name hyper-parameters
      algorithm-specification role-arn input-data-config output-data-config
@@ -30913,7 +31112,7 @@
      enable-network-isolation enable-inter-container-traffic-encryption
      enable-managed-spot-training checkpoint-config debug-hook-config
      debug-rule-configurations tensor-board-output-config experiment-config
-     profiler-config profiler-rule-configurations))
+     profiler-config profiler-rule-configurations environment))
    (common-lisp:let ((aws-sdk-cl/generator/operation::input
                       (common-lisp:apply 'make-create-training-job-request
                                          aws-sdk-cl/generator/operation::args)))

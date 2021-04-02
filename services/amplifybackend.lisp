@@ -97,6 +97,76 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'settings))))))
 (common-lisp:progn
+ (common-lisp:defstruct (backend-apicodegen-req-obj (:copier common-lisp:nil))
+   (resource-name-type (common-lisp:error ":resource-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'backend-apicodegen-req-obj
+                    'make-backend-apicodegen-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          backend-apicodegen-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (backend-apicodegen-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (operation-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'backend-apicodegen-resp-obj
+                    'make-backend-apicodegen-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          backend-apicodegen-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "JobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
+(common-lisp:progn
  (common-lisp:defstruct
      (backend-apiconflict-resolution (:copier common-lisp:nil))
    (resolution-strategy-type common-lisp:nil :type
@@ -114,6 +184,29 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'resolution-strategy))))))
+(common-lisp:progn
+ (common-lisp:defstruct (backend-apireq-obj (:copier common-lisp:nil))
+   (resource-config-type common-lisp:nil :type
+    (common-lisp:or backend-apiresource-config common-lisp:null))
+   (resource-name-type (common-lisp:error ":resource-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'backend-apireq-obj 'make-backend-apireq-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          backend-apireq-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-config)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
 (common-lisp:progn
  (common-lisp:defstruct (backend-apiresource-config (:copier common-lisp:nil))
    (additional-auth-types-type common-lisp:nil :type
@@ -167,6 +260,110 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'transform-schema))))))
 (common-lisp:progn
+ (common-lisp:defstruct (backend-apiresp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (operation-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'backend-apiresp-obj 'make-backend-apiresp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          backend-apiresp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "JobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
+(common-lisp:progn
+ (common-lisp:defstruct (backend-auth-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (operation-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'backend-auth-resp-obj 'make-backend-auth-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          backend-auth-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "JobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
+(common-lisp:progn
  (common-lisp:defstruct
      (backend-auth-social-provider-config (:copier common-lisp:nil))
    (client-id-type common-lisp:nil :type
@@ -191,6 +388,66 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'client-secret))))))
+(common-lisp:progn
+ (common-lisp:defstruct (backend-config-resp-obj (:copier common-lisp:nil))
+   (app-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-manager-app-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (login-auth-config-type common-lisp:nil :type
+    (common-lisp:or login-auth-config-req-obj common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'backend-config-resp-obj 'make-backend-config-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          backend-config-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendManagerAppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-manager-app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "LoginAuthConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'login-auth-config))))))
+(common-lisp:progn
+ (common-lisp:defstruct (backend-job-req-obj (:copier common-lisp:nil))
+   (operation-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'backend-job-req-obj 'make-backend-job-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          backend-job-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
 (common-lisp:progn
  (common-lisp:defstruct (backend-job-resp-obj (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
@@ -258,6 +515,39 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'update-time))))))
 (common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (clone-backend-req-obj (:copier common-lisp:nil))
+   (target-environment-name-type
+    (common-lisp:error ":target-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'clone-backend-req-obj 'make-clone-backend-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          clone-backend-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "TargetEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'target-environment-name))))))
+(common-lisp:progn
  (common-lisp:defstruct (clone-backend-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -289,6 +579,58 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'target-environment-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (clone-backend-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (operation-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'clone-backend-resp-obj 'make-clone-backend-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          clone-backend-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "JobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
 (common-lisp:progn
  (common-lisp:defstruct (clone-backend-response (:copier common-lisp:nil))
    (app-id-type common-lisp:nil :type
@@ -340,6 +682,38 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'status))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-backend-apireq-obj (:copier common-lisp:nil))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (resource-config-type (common-lisp:error ":resource-config is required")
+    :type (common-lisp:or backend-apiresource-config common-lisp:null))
+   (resource-name-type (common-lisp:error ":resource-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-backend-apireq-obj
+                    'make-create-backend-apireq-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-backend-apireq-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-config)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
 (common-lisp:progn
  (common-lisp:defstruct (create-backend-apirequest (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
@@ -596,6 +970,39 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'minimum-length))))))
 (common-lisp:progn
+ (common-lisp:defstruct (create-backend-auth-req-obj (:copier common-lisp:nil))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (resource-config-type (common-lisp:error ":resource-config is required")
+    :type
+    (common-lisp:or create-backend-auth-resource-config common-lisp:null))
+   (resource-name-type (common-lisp:error ":resource-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-backend-auth-req-obj
+                    'make-create-backend-auth-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-backend-auth-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-config)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
+(common-lisp:progn
  (common-lisp:defstruct (create-backend-auth-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -794,6 +1201,24 @@
                                                    'user-pool-name))))))
 (common-lisp:progn
  (common-lisp:defstruct
+     (create-backend-config-req-obj (:copier common-lisp:nil))
+   (backend-manager-app-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-backend-config-req-obj
+                    'make-create-backend-config-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-backend-config-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "BackendManagerAppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-manager-app-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
      (create-backend-config-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -817,6 +1242,45 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'backend-manager-app-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (create-backend-config-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-backend-config-resp-obj
+                    'make-create-backend-config-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-backend-config-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "JobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (create-backend-config-response (:copier common-lisp:nil))
@@ -856,6 +1320,51 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'status))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-backend-req-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (app-name-type (common-lisp:error ":app-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (resource-config-type common-lisp:nil :type
+    (common-lisp:or resource-config common-lisp:null))
+   (resource-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-backend-req-obj 'make-create-backend-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-backend-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "AppName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-config)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
 (common-lisp:progn
  (common-lisp:defstruct (create-backend-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
@@ -901,6 +1410,58 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'resource-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-backend-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (operation-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-backend-resp-obj 'make-create-backend-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-backend-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "JobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
 (common-lisp:progn
  (common-lisp:defstruct (create-backend-response (:copier common-lisp:nil))
    (app-id-type common-lisp:nil :type
@@ -968,6 +1529,43 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'app-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct (create-token-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (challenge-code-type (common-lisp:error ":challenge-code is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (session-id-type (common-lisp:error ":session-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (ttl-type (common-lisp:error ":ttl is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'create-token-resp-obj 'make-create-token-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          create-token-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChallengeCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'challenge-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "SessionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'session-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Ttl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ttl))))))
 (common-lisp:progn
  (common-lisp:defstruct (create-token-response (:copier common-lisp:nil))
    (app-id-type common-lisp:nil :type
@@ -1206,6 +1804,58 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'backend-environment-name))))))
 (common-lisp:progn
+ (common-lisp:defstruct (delete-backend-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (operation-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-backend-resp-obj 'make-delete-backend-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-backend-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "JobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
+(common-lisp:progn
  (common-lisp:defstruct (delete-backend-response (:copier common-lisp:nil))
    (app-id-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
@@ -1280,6 +1930,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'session-id))))))
 (common-lisp:progn
+ (common-lisp:defstruct (delete-token-resp-obj (:copier common-lisp:nil))
+   (is-success-type (common-lisp:error ":is-success is required") :type
+    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'delete-token-resp-obj 'make-delete-token-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          delete-token-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "IsSuccess"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'is-success))))))
+(common-lisp:progn
  (common-lisp:defstruct (delete-token-response (:copier common-lisp:nil))
    (is-success-type common-lisp:nil :type
     (common-lisp:or |__boolean| common-lisp:null)))
@@ -1316,6 +1982,23 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'email-subject))))))
+(common-lisp:progn
+ (common-lisp:defstruct (gateway-timeout-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'gateway-timeout-exception
+                    'make-gateway-timeout-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          gateway-timeout-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (generate-backend-apimodels-request (:copier common-lisp:nil))
@@ -1397,6 +2080,31 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (get-backend-apicodegen-resp-obj (:copier common-lisp:nil))
+   (models-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or status common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-backend-apicodegen-resp-obj
+                    'make-get-backend-apicodegen-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-backend-apicodegen-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Models"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'models)))
     (aws-sdk-cl/generator/shape::to-query-params "Status"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1499,6 +2207,51 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'resource-name))))))
 (common-lisp:progn
+ (common-lisp:defstruct (get-backend-apiresp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (resource-config-type common-lisp:nil :type
+    (common-lisp:or backend-apiresource-config common-lisp:null))
+   (resource-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-backend-apiresp-obj 'make-get-backend-apiresp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-backend-apiresp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-config)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
+(common-lisp:progn
  (common-lisp:defstruct (get-backend-apiresponse (:copier common-lisp:nil))
    (app-id-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
@@ -1543,6 +2296,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'resource-name))))))
 (common-lisp:progn
+ (common-lisp:defstruct (get-backend-auth-req-obj (:copier common-lisp:nil))
+   (resource-name-type (common-lisp:error ":resource-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-backend-auth-req-obj 'make-get-backend-auth-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-backend-auth-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
+(common-lisp:progn
  (common-lisp:defstruct (get-backend-auth-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -1568,6 +2337,52 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (get-backend-auth-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-name-type
+    (common-lisp:error ":backend-environment-name is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (resource-config-type common-lisp:nil :type
+    (common-lisp:or create-backend-auth-resource-config common-lisp:null))
+   (resource-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-backend-auth-resp-obj
+                    'make-get-backend-auth-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-backend-auth-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-config)))
     (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
@@ -1715,6 +2530,22 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'update-time))))))
 (common-lisp:progn
+ (common-lisp:defstruct (get-backend-req-obj (:copier common-lisp:nil))
+   (backend-environment-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-backend-req-obj 'make-get-backend-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-backend-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name))))))
+(common-lisp:progn
  (common-lisp:defstruct (get-backend-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -1737,6 +2568,57 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'backend-environment-name))))))
+(common-lisp:progn
+ (common-lisp:defstruct (get-backend-resp-obj (:copier common-lisp:nil))
+   (amplify-meta-config-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (app-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (backend-environment-list-type common-lisp:nil :type
+    (common-lisp:or list-of-string common-lisp:null))
+   (backend-environment-name-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-backend-resp-obj 'make-get-backend-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-backend-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AmplifyMetaConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'amplify-meta-config)))
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "AppName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentList"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-list)))
+    (aws-sdk-cl/generator/shape::to-query-params "BackendEnvironmentName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'backend-environment-name)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error))))))
 (common-lisp:progn
  (common-lisp:defstruct (get-backend-response (:copier common-lisp:nil))
    (amplify-meta-config-type common-lisp:nil :type
@@ -1810,6 +2692,43 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'session-id))))))
 (common-lisp:progn
+ (common-lisp:defstruct (get-token-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (challenge-code-type (common-lisp:error ":challenge-code is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (session-id-type (common-lisp:error ":session-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (ttl-type (common-lisp:error ":ttl is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'get-token-resp-obj 'make-get-token-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          get-token-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "ChallengeCode"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'challenge-code)))
+    (aws-sdk-cl/generator/shape::to-query-params "SessionId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'session-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Ttl"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'ttl))))))
+(common-lisp:progn
  (common-lisp:defstruct (get-token-response (:copier common-lisp:nil))
    (app-id-type common-lisp:nil :type
     (common-lisp:or |__string| common-lisp:null))
@@ -1846,6 +2765,114 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'ttl))))))
+(common-lisp:progn
+ (common-lisp:defstruct (internal-service-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-service-exception
+                    'make-internal-service-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-service-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil))
+   (limit-type-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "LimitType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'limit-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:progn
+ (common-lisp:defstruct (list-backend-job-req-obj (:copier common-lisp:nil))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (max-results-type common-lisp:nil :type
+    (common-lisp:or |__integerMin1Max25| common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (operation-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-backend-job-req-obj 'make-list-backend-job-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-backend-job-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "JobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "MaxResults"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'max-results)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
+(common-lisp:progn
+ (common-lisp:defstruct (list-backend-job-resp-obj (:copier common-lisp:nil))
+   (jobs-type common-lisp:nil :type
+    (common-lisp:or list-of-backend-job-resp-obj common-lisp:null))
+   (next-token-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'list-backend-job-resp-obj
+                    'make-list-backend-job-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          list-backend-job-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Jobs"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'jobs)))
+    (aws-sdk-cl/generator/shape::to-query-params "NextToken"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'next-token))))))
 (common-lisp:progn
  (common-lisp:defstruct (list-backend-jobs-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
@@ -1970,7 +2997,47 @@
                                                    'aws-user-pools-web-client-id))))))
 (common-lisp:deftype mfamode () 'common-lisp:string)
 (common-lisp:deftype mode () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (resource-type-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-type))))))
 (common-lisp:deftype oauth-grant-type () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (remove-all-backends-req-obj (:copier common-lisp:nil))
+   (clean-amplify-app-type common-lisp:nil :type
+    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'remove-all-backends-req-obj
+                    'make-remove-all-backends-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          remove-all-backends-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "CleanAmplifyApp"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'clean-amplify-app))))))
 (common-lisp:progn
  (common-lisp:defstruct (remove-all-backends-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
@@ -1995,6 +3062,52 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'clean-amplify-app))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (remove-all-backends-resp-obj (:copier common-lisp:nil))
+   (app-id-type (common-lisp:error ":app-id is required") :type
+    (common-lisp:or |__string| common-lisp:null))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (job-id-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (operation-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (status-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'remove-all-backends-resp-obj
+                    'make-remove-all-backends-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          remove-all-backends-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "AppId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'app-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error)))
+    (aws-sdk-cl/generator/shape::to-query-params "JobId"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'job-id)))
+    (aws-sdk-cl/generator/shape::to-query-params "Operation"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'operation)))
+    (aws-sdk-cl/generator/shape::to-query-params "Status"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'status))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (remove-all-backends-response (:copier common-lisp:nil))
@@ -2042,6 +3155,23 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'status))))))
 (common-lisp:progn
+ (common-lisp:defstruct (remove-backend-auth-req-obj (:copier common-lisp:nil))
+   (resource-name-type (common-lisp:error ":resource-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'remove-backend-auth-req-obj
+                    'make-remove-backend-auth-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          remove-backend-auth-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
+(common-lisp:progn
  (common-lisp:defstruct
      (remove-backend-config-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
@@ -2059,6 +3189,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'app-id))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (remove-backend-config-resp-obj (:copier common-lisp:nil))
+   (error-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'remove-backend-config-resp-obj
+                    'make-remove-backend-config-resp-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          remove-backend-config-resp-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Error"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'error))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (remove-backend-config-response (:copier common-lisp:nil))
@@ -2150,6 +3298,30 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'login-with-amazon))))))
 (common-lisp:deftype status () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (too-many-requests-exception (:copier common-lisp:nil))
+   (limit-type-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null))
+   (message-type common-lisp:nil :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-requests-exception
+                    'make-too-many-requests-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-requests-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "LimitType"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'limit-type)))
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (update-backend-apirequest (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
@@ -2395,6 +3567,31 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'minimum-length))))))
 (common-lisp:progn
+ (common-lisp:defstruct (update-backend-auth-req-obj (:copier common-lisp:nil))
+   (resource-config-type (common-lisp:error ":resource-config is required")
+    :type
+    (common-lisp:or update-backend-auth-resource-config common-lisp:null))
+   (resource-name-type (common-lisp:error ":resource-name is required") :type
+    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-backend-auth-req-obj
+                    'make-update-backend-auth-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-backend-auth-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-config)))
+    (aws-sdk-cl/generator/shape::to-query-params "ResourceName"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'resource-name))))))
+(common-lisp:progn
  (common-lisp:defstruct (update-backend-auth-request (:copier common-lisp:nil))
    (app-id-type (common-lisp:error ":app-id is required") :type
     (common-lisp:or |__string| common-lisp:null))
@@ -2568,6 +3765,24 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'password-policy))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (update-backend-config-req-obj (:copier common-lisp:nil))
+   (login-auth-config-type common-lisp:nil :type
+    (common-lisp:or login-auth-config-req-obj common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'update-backend-config-req-obj
+                    'make-update-backend-config-req-obj))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          update-backend-config-req-obj))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "LoginAuthConfig"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'login-auth-config))))))
 (common-lisp:progn
  (common-lisp:defstruct
      (update-backend-config-request (:copier common-lisp:nil))
@@ -2750,6 +3965,7 @@
 (common-lisp:deftype required-sign-up-attributes-element () 'common-lisp:string)
 (common-lisp:deftype |__boolean| () 'common-lisp:boolean)
 (common-lisp:deftype |__double| () 'common-lisp:double-float)
+(common-lisp:deftype |__integer| () 'common-lisp:integer)
 (common-lisp:deftype |__integerMin1Max25| () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:deftype list-of-backend-apiauth-type ()
@@ -2809,7 +4025,10 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list |__string|))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype |__long| () 'common-lisp:integer)
 (common-lisp:deftype |__string| () 'common-lisp:string)
+(common-lisp:deftype |__timestampIso8601| () 'common-lisp:string)
+(common-lisp:deftype |__timestampUnix| () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defun clone-backend
                     (

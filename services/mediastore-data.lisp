@@ -6,6 +6,24 @@
   (:import-from #:aws-sdk-cl/generator/operation)
   (:import-from #:aws-sdk-cl/api))
 (common-lisp:in-package #:aws-sdk-cl/services/mediastore-data)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (container-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'container-not-found-exception
+                    'make-container-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          container-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype content-range-pattern () 'common-lisp:string)
 (common-lisp:deftype content-type () 'common-lisp:string)
 (common-lisp:progn
@@ -93,6 +111,7 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'last-modified))))))
 (common-lisp:deftype etag () 'common-lisp:string)
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (get-object-request (:copier common-lisp:nil))
    (path-type (common-lisp:error ":path is required") :type
@@ -180,6 +199,22 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'status-code))))))
+(common-lisp:progn
+ (common-lisp:defstruct (internal-server-error (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-server-error 'make-internal-server-error))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-server-error))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defstruct (item (:copier common-lisp:nil))
    (name-type common-lisp:nil :type
@@ -292,6 +327,23 @@
 (common-lisp:deftype list-limit () 'common-lisp:integer)
 (common-lisp:deftype list-path-naming () 'common-lisp:string)
 (common-lisp:deftype non-negative-long () 'common-lisp:integer)
+(common-lisp:progn
+ (common-lisp:defstruct (object-not-found-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'object-not-found-exception
+                    'make-object-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          object-not-found-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype pagination-token () 'common-lisp:string)
 (common-lisp:deftype path-naming () 'common-lisp:string)
 (common-lisp:deftype payload-blob ()
@@ -377,6 +429,24 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'storage-class))))))
 (common-lisp:deftype range-pattern () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (requested-range-not-satisfiable-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'requested-range-not-satisfiable-exception
+                    'make-requested-range-not-satisfiable-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          requested-range-not-satisfiable-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype sha256hash () 'common-lisp:string)
 (common-lisp:deftype storage-class () 'common-lisp:string)
 (common-lisp:deftype string-primitive () 'common-lisp:string)

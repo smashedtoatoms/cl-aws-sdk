@@ -16,6 +16,7 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list additional-artifact))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:deftype billing-view-arn () 'common-lisp:string)
 (common-lisp:deftype compression-format () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -104,7 +105,42 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'next-token))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (duplicate-report-name-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'duplicate-report-name-exception
+                    'make-duplicate-report-name-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          duplicate-report-name-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
+(common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:deftype generic-string () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-error-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'internal-error-exception 'make-internal-error-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-error-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:defstruct
@@ -196,7 +232,9 @@
    (refresh-closed-reports-type common-lisp:nil :type
     (common-lisp:or refresh-closed-reports common-lisp:null))
    (report-versioning-type common-lisp:nil :type
-    (common-lisp:or report-versioning common-lisp:null)))
+    (common-lisp:or report-versioning common-lisp:null))
+   (billing-view-arn-type common-lisp:nil :type
+    (common-lisp:or billing-view-arn common-lisp:null)))
  (common-lisp:export
   (common-lisp:list 'report-definition 'make-report-definition))
  (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
@@ -256,7 +294,12 @@
                                                  (aws-sdk-cl/generator/shape:shape-to-params
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
-                                                   'report-versioning))))))
+                                                   'report-versioning)))
+    (aws-sdk-cl/generator/shape::to-query-params "BillingViewArn"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'billing-view-arn))))))
 (common-lisp:progn
  (common-lisp:deftype report-definition-list ()
    '(trivial-types:proper-list report-definition))
@@ -266,6 +309,24 @@
                            (trivial-types:proper-list report-definition))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype report-format () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (report-limit-reached-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'report-limit-reached-exception
+                    'make-report-limit-reached-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          report-limit-reached-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:deftype report-name () 'common-lisp:string)
 (common-lisp:deftype report-versioning () 'common-lisp:string)
 (common-lisp:deftype s3bucket () 'common-lisp:string)
@@ -280,6 +341,22 @@
                            (trivial-types:proper-list schema-element))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:deftype time-unit () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil))
+   (message-type common-lisp:nil :type
+    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append
+    (aws-sdk-cl/generator/shape::to-query-params "Message"
+                                                 (aws-sdk-cl/generator/shape:shape-to-params
+                                                  (common-lisp:slot-value
+                                                   aws-sdk-cl/generator/shape::shape
+                                                   'message))))))
 (common-lisp:progn
  (common-lisp:defun delete-report-definition
                     (

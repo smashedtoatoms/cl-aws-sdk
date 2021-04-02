@@ -54,6 +54,17 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'review-details))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (account-suspended-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'account-suspended-exception
+                    'make-account-suspended-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          account-suspended-exception))
+   (common-lisp:append)))
 (common-lisp:deftype additional-contact-email-address () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype additional-contact-email-addresses ()
@@ -64,8 +75,26 @@
                            (trivial-types:proper-list
                             additional-contact-email-address))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (already-exists-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'already-exists-exception 'make-already-exists-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          already-exists-exception))
+   (common-lisp:append)))
 (common-lisp:deftype amazon-resource-name () 'common-lisp:string)
 (common-lisp:deftype attributes-data () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (bad-request-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'bad-request-exception 'make-bad-request-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          bad-request-exception))
+   (common-lisp:append)))
 (common-lisp:deftype behavior-on-mx-failure () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype blacklist-entries ()
@@ -290,6 +319,17 @@
                            (trivial-types:proper-list
                             cloud-watch-dimension-configuration))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (concurrent-modification-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'concurrent-modification-exception
+                    'make-concurrent-modification-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          concurrent-modification-exception))
+   (common-lisp:append)))
 (common-lisp:deftype configuration-set-name () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype configuration-set-name-list ()
@@ -299,6 +339,15 @@
    (common-lisp:check-type aws-sdk-cl/generator/shape::members
                            (trivial-types:proper-list configuration-set-name))
    aws-sdk-cl/generator/shape::members))
+(common-lisp:progn
+ (common-lisp:defstruct (conflict-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'conflict-exception 'make-conflict-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          conflict-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (contact (:copier common-lisp:nil))
    (email-address-type common-lisp:nil :type
@@ -3287,6 +3336,17 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'tracked-isps))))))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (invalid-next-token-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'invalid-next-token-exception
+                    'make-invalid-next-token-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          invalid-next-token-exception))
+   (common-lisp:append)))
 (common-lisp:deftype ip () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:deftype ip-list () '(trivial-types:proper-list ip))
@@ -3360,6 +3420,15 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'delivery-stream-arn))))))
 (common-lisp:deftype last-fresh-start () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-configuration-sets-request (:copier common-lisp:nil))
@@ -4106,6 +4175,17 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'behavior-on-mx-failure))))))
 (common-lisp:deftype mail-from-domain-name () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (mail-from-domain-not-verified-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'mail-from-domain-not-verified-exception
+                    'make-mail-from-domain-not-verified-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          mail-from-domain-not-verified-exception))
+   (common-lisp:append)))
 (common-lisp:deftype mail-from-domain-status () 'common-lisp:string)
 (common-lisp:deftype mail-type () 'common-lisp:string)
 (common-lisp:deftype max24hour-send () 'common-lisp:double-float)
@@ -4133,6 +4213,13 @@
                                                    'body))))))
 (common-lisp:deftype message-content () 'common-lisp:string)
 (common-lisp:deftype message-data () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (message-rejected (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'message-rejected 'make-message-rejected))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        ((aws-sdk-cl/generator/shape::shape message-rejected))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (message-tag (:copier common-lisp:nil))
    (name-type (common-lisp:error ":name is required") :type
@@ -4164,6 +4251,15 @@
 (common-lisp:deftype message-tag-name () 'common-lisp:string)
 (common-lisp:deftype message-tag-value () 'common-lisp:string)
 (common-lisp:deftype next-token () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'not-found-exception 'make-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          not-found-exception))
+   (common-lisp:append)))
 (common-lisp:deftype outbound-message-id () 'common-lisp:string)
 (common-lisp:progn
  (common-lisp:defstruct (overall-volume (:copier common-lisp:nil))
@@ -5351,6 +5447,15 @@
                                                   (common-lisp:slot-value
                                                    aws-sdk-cl/generator/shape::shape
                                                    'sending-enabled))))))
+(common-lisp:progn
+ (common-lisp:defstruct (sending-paused-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'sending-paused-exception 'make-sending-paused-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          sending-paused-exception))
+   (common-lisp:append)))
 (common-lisp:deftype sending-pool-name () 'common-lisp:string)
 (common-lisp:deftype sent-last24hours () 'common-lisp:double-float)
 (common-lisp:progn
@@ -5674,6 +5779,17 @@
                                                    'rendered-template))))))
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:deftype tls-policy () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct
+     (too-many-requests-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'too-many-requests-exception
+                    'make-too-many-requests-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          too-many-requests-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (topic (:copier common-lisp:nil))
    (topic-name-type (common-lisp:error ":topic-name is required") :type

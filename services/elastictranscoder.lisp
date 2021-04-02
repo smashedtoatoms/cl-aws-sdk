@@ -16,6 +16,15 @@
                            (trivial-types:proper-list access-control))
    aws-sdk-cl/generator/shape::members))
 (common-lisp:progn
+ (common-lisp:defstruct (access-denied-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'access-denied-exception 'make-access-denied-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          access-denied-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (artwork (:copier common-lisp:nil))
    (input-key-type common-lisp:nil :type
     (common-lisp:or watermark-key common-lisp:null))
@@ -921,6 +930,17 @@
 (common-lisp:deftype horizontal-align () 'common-lisp:string)
 (common-lisp:deftype id () 'common-lisp:string)
 (common-lisp:progn
+ (common-lisp:defstruct
+     (incompatible-version-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'incompatible-version-exception
+                    'make-incompatible-version-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          incompatible-version-exception))
+   (common-lisp:append)))
+(common-lisp:progn
  (common-lisp:defstruct (input-captions (:copier common-lisp:nil))
    (merge-policy-type common-lisp:nil :type
     (common-lisp:or caption-merge-policy common-lisp:null))
@@ -941,6 +961,16 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'caption-sources))))))
 (common-lisp:deftype interlaced () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (internal-service-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'internal-service-exception
+                    'make-internal-service-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          internal-service-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct (job (:copier common-lisp:nil))
    (id-type common-lisp:nil :type (common-lisp:or id common-lisp:null))
@@ -1337,6 +1367,15 @@
 (common-lisp:deftype key-id-guid () 'common-lisp:string)
 (common-lisp:deftype key-storage-policy () 'common-lisp:string)
 (common-lisp:deftype keyframes-max-dist () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (limit-exceeded-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          limit-exceeded-exception))
+   (common-lisp:append)))
 (common-lisp:progn
  (common-lisp:defstruct
      (list-jobs-by-pipeline-request (:copier common-lisp:nil))
@@ -2114,6 +2153,27 @@
                                                    aws-sdk-cl/generator/shape::shape
                                                    'preset))))))
 (common-lisp:deftype resolution () 'common-lisp:string)
+(common-lisp:progn
+ (common-lisp:defstruct (resource-in-use-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-in-use-exception
+                    'make-resource-in-use-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-in-use-exception))
+   (common-lisp:append)))
+(common-lisp:progn
+ (common-lisp:defstruct
+     (resource-not-found-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'resource-not-found-exception
+                    'make-resource-not-found-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          resource-not-found-exception))
+   (common-lisp:append)))
 (common-lisp:deftype role () 'common-lisp:string)
 (common-lisp:deftype rotate () 'common-lisp:string)
 (common-lisp:deftype sizing-policy () 'common-lisp:string)
@@ -2478,6 +2538,15 @@
       (aws-sdk-cl/generator/shape::key aws-sdk-cl/generator/shape::value)))
   aws-sdk-cl/generator/shape::key
   aws-sdk-cl/generator/shape::value)
+(common-lisp:progn
+ (common-lisp:defstruct (validation-exception (:copier common-lisp:nil)))
+ (common-lisp:export
+  (common-lisp:list 'validation-exception 'make-validation-exception))
+ (common-lisp:defmethod aws-sdk-cl/generator/shape:shape-to-params
+                        (
+                         (aws-sdk-cl/generator/shape::shape
+                          validation-exception))
+   (common-lisp:append)))
 (common-lisp:deftype vertical-align () 'common-lisp:string)
 (common-lisp:deftype video-bit-rate () 'common-lisp:string)
 (common-lisp:deftype video-codec () 'common-lisp:string)
